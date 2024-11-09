@@ -28,6 +28,8 @@ label start:
 
     e "Once you add a story, pictures, and music, you can release it to the world!"
 
+    "Andrew added this text for initial commit in his branch."
+
     # This ends the game.
 
     return
