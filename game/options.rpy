@@ -195,6 +195,9 @@ init python:
     build.documentation('*.html')
     build.documentation('*.txt')
 
+## Customize the keymap
+init python:
+    config.keymap["hide_windows"].remove("mouseup_2")
 
 ## A Google Play license key is required to perform in-app purchases. It can be
 ## found in the Google Play developer console, under "Monetize" > "Monetization

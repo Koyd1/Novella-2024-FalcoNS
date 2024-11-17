@@ -213,14 +213,16 @@ screen choice(items):
             textbutton i.caption action i.action
 
 
-style choice_vbox is vbox
+style choice_vbox is hbox
 style choice_button is button
 style choice_button_text is button_text
 
 style choice_vbox:
     xalign 0.5
-    ypos 405
-    yanchor 0.5
+    # ypos 405
+    # yanchor 0.5
+    # yanchor 1.0
+    yalign 0.95
 
     spacing gui.choice_spacing
 
@@ -244,19 +246,28 @@ screen quick_menu():
     if quick_menu:
 
         hbox:
-            style_prefix "quick"
+            style_prefix "quick_left"
 
-            xalign 0.5
-            yalign 1.0
+            # xalign 0.5
+            # yalign 1.0
+            xalign 0.0
+            yalign 0.006
 
-            textbutton _("Back") action Rollback()
-            textbutton _("History") action ShowMenu('history')
-            textbutton _("Skip") action Skip() alternate Skip(fast=True, confirm=True)
-            textbutton _("Auto") action Preference("auto-forward", "toggle")
-            textbutton _("Save") action ShowMenu('save')
-            textbutton _("Q.Save") action QuickSave()
-            textbutton _("Q.Load") action QuickLoad()
-            textbutton _("Prefs") action ShowMenu('preferences')
+            # textbutton _("Back") action Rollback()
+            imagebutton idle "../gui/quickMenu/back.png" action Rollback()
+            imagebutton idle "../gui/quickMenu/stop.png" action Preference("auto-forward", "toggle")
+            imagebutton idle "../gui/quickMenu/forward.png" action RollForward()
+            imagebutton idle "../gui/quickMenu/skip.png" action Skip(fast=False, confirm=True)
+        
+        hbox:
+            style_prefix "quick_right"
+            
+            xalign 0.995
+            yalign 0.006
+
+            imagebutton idle "../gui/quickMenu/prefs.png" action ShowMenu("preferences")
+            # textbutton _("Prefs") action ShowMenu("preferences")
+
 
 
 ## This code ensures that the quick_menu screen is displayed in-game, whenever
@@ -1240,6 +1251,7 @@ style skip_text is gui_text
 style skip_triangle is skip_text
 
 style skip_frame:
+    xpos gui.skip_xpos
     ypos gui.skip_ypos
     background Frame("gui/skip.png", gui.skip_frame_borders, tile=gui.frame_tile)
     padding gui.skip_frame_borders.padding

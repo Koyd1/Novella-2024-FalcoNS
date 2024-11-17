@@ -30,6 +30,13 @@ label start:
 
     "Andrew added this text for initial commit in his branch."
 
+    menu:
+        "You have a choice!"
+        "Choice 1":
+            "Text for choice 1"
+        "Choice 2":
+            "Text for choice 2"
+
     # This ends the game.
 
     return

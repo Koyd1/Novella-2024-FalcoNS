@@ -50,7 +50,8 @@ define gui.muted_color = u'#6684a3'
 define gui.hover_muted_color = u'#99adc1'
 
 ## The colors used for dialogue and menu choice text.
-define gui.text_color = u'#404040'
+# define gui.text_color = u'#404040'
+define gui.text_color = u"#FFFFFF"
 define gui.interface_text_color = u'#404040'
 
 
@@ -204,14 +205,16 @@ define gui.quick_button_text_selected_color = gui.accent_color
 ##
 ## Choice buttons are used in the in-game menus.
 
-define gui.choice_button_width = 1185
+define gui.choice_button_width = 500
 define gui.choice_button_height = None
+define gui.choice_button_height = 100
 define gui.choice_button_tile = False
 define gui.choice_button_borders = Borders(150, 8, 150, 8)
 define gui.choice_button_text_font = gui.text_font
 define gui.choice_button_text_size = gui.text_size
 define gui.choice_button_text_xalign = 0.5
-define gui.choice_button_text_idle_color = u'#707070'
+define gui.choice_button_text_yalign = 0.5
+define gui.choice_button_text_idle_color = u'#ffffff'
 define gui.choice_button_text_hover_color = "#ffffff"
 define gui.choice_button_text_insensitive_color = u'#7070707f'
 
@@ -251,7 +254,9 @@ define gui.file_slot_rows = 2
 define gui.navigation_xpos = 60
 
 ## The vertical position of the skip indicator.
-define gui.skip_ypos = 15
+# define gui.skip_ypos = 15
+define gui.skip_xpos = 15
+define gui.skip_ypos = 90
 
 ## The vertical position of the notify screen.
 define gui.notify_ypos = 68
