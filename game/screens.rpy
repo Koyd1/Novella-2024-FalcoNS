@@ -296,19 +296,84 @@ style quick_button_text:
 ## This screen is included in the main and game menus, and provides navigation
 ## to other menus, and to start the game.
 
+screen StartButton(text="undefined", xpos = 150, ypos = -50 ):
+    vbox:
+        spacing 0
+        imagebutton idle "../gui/MainMenu/button.png" action Start():
+            at zoom
+        textbutton _(text) action Start():
+            # anchor(0.5, 0.5)
+            pos(xpos, ypos)
+
+screen ShowMenuButton(_menu, text="undefined", xpos = 150, ypos = -50):
+    vbox:
+        spacing 0
+        imagebutton idle "../gui/MainMenu/button.png" action ShowMenu(_menu):
+            at zoom
+        textbutton _(text) action ShowMenu(_menu):
+            # ypos(-50)
+            
+            pos(xpos, ypos)
+            # ypos(-0.5)
+            # xpos(0.5)
+            # xpos(150)
+
+screen QuitButton(text="undefined", xpos = 150, ypos = -50 ):
+    vbox:
+        spacing 0
+        imagebutton idle "../gui/MainMenu/button.png" action Quit(confirm = not main_menu):
+            at zoom
+        textbutton _(text) action Quit(confirm = not main_menu):
+            pos(xpos, ypos)
+
+screen Button(action, text="undefined", xpos = 150, ypos = -50):
+    vbox:
+        spacing 0
+        imagebutton idle "../gui/MainMenu/button.png" action action():
+            at zoom
+        textbutton _(text) action action():
+            pos(xpos, ypos)
+
+screen ReturnButton(text="undefined", xpos = 150, ypos = -50 ):
+    vbox:
+        xpos(30)
+        ypos(0.88)
+        spacing 0
+        imagebutton idle "../gui/MainMenu/button.png" action Return():
+            at zoom
+        textbutton _(text) action Return():
+            pos(xpos, ypos)
+
+
+init:
+    transform zoom:
+        zoom 0.5
+
 screen navigation():
+
+    if main_menu:
+        vbox:
+            style_prefix "game_title"
+            yalign 0.1
+            xpos gui.navigation_xpos + 40
+            text _("Детектив")
+            vbox:
+                ypos 20
+                xpos 0.4
+                anchor(0.5, 0.5)
+                style_prefix "under_title"
+                text _("Добро пожаловать")
 
     vbox:
         style_prefix "navigation"
 
-        xpos gui.navigation_xpos
+        xpos gui.navigation_xpos - 20
         yalign 0.5
-
-        spacing gui.navigation_spacing
-
+        # spacing gui.navigation_spacing
+        spacing 0
+        
         if main_menu:
-
-            textbutton _("Start") action Start()
+            use StartButton("Start")
 
         else:
 
@@ -316,9 +381,11 @@ screen navigation():
 
             textbutton _("Save") action ShowMenu("save")
 
-        textbutton _("Load") action ShowMenu("load")
+        # textbutton _("Load") action ShowMenu("load")
+        use ShowMenuButton("load", "Load")
 
-        textbutton _("Preferences") action ShowMenu("preferences")
+        # textbutton _("Preferences") action ShowMenu("preferences")
+        use ShowMenuButton("preferences", "Settings", xpos = 125)
 
         if _in_replay:
 
@@ -328,19 +395,29 @@ screen navigation():
 
             textbutton _("Main Menu") action MainMenu()
 
-        textbutton _("About") action ShowMenu("about")
+        # textbutton _("About") action ShowMenu("about")
 
         if renpy.variant("pc") or (renpy.variant("web") and not renpy.variant("mobile")):
-
+            pass
             ## Help isn't necessary or relevant to mobile devices.
-            textbutton _("Help") action ShowMenu("help")
+            # textbutton _("Help") action ShowMenu("help")
 
         if renpy.variant("pc"):
-
             ## The quit button is banned on iOS and unnecessary on Android and
             ## Web.
-            textbutton _("Quit") action Quit(confirm=not main_menu)
+            # textbutton _("Quit") action Quit(confirm=not main_menu)
+            use QuitButton("Quit")
+            
 
+style under_title_text:
+    italic(True)
+    size(34)
+    color("#FFFFFF")
+
+style game_title_text:
+    bold(True)
+    size(48)
+    color("#FFFFFF")
 
 style navigation_button is gui_button
 style navigation_button_text is gui_button_text
@@ -352,6 +429,35 @@ style navigation_button:
 style navigation_button_text:
     properties gui.text_properties("navigation_button")
 
+## Navigation for menus other from main #########################
+##
+## ----- 
+##
+
+screen navigation_alt():
+    vbox:
+        style_prefix "navigation"
+
+        xpos 30
+        yalign 0.5
+        # spacing gui.navigation_spacing
+        spacing 0
+        
+        if not main_menu:
+            use ShowMenuButton("save", "Save")
+    
+        # textbutton _("Load") action ShowMenu("load")
+        use ShowMenuButton("load", "Load")
+
+        use ShowMenuButton("history", "History")
+        # textbutton _("History") action ShowMenu("history")
+
+        if not main_menu:
+            use Button(MainMenu, "Main Menu")
+
+        # textbutton _("Save") action ShowMenu("save")
+        use ShowMenuButton("preferences", "Settings", xpos = 125)
+        
 
 ## Main Menu screen ############################################################
 ##
@@ -364,7 +470,8 @@ screen main_menu():
     ## This ensures that any other menu screen is replaced.
     tag menu
 
-    add gui.main_menu_background
+    # add gui.main_menu_background
+    add "gui/MainMenu/background.png"
 
     ## This empty frame darkens the main menu.
     frame:
@@ -379,11 +486,11 @@ screen main_menu():
         vbox:
             style "main_menu_vbox"
 
-            text "[config.name!t]":
-                style "main_menu_title"
+            # text "[config.name!t]":
+            #     style "main_menu_title"
 
-            text "[config.version]":
-                style "main_menu_version"
+            # text "[config.version]":
+            #     style "main_menu_version"
 
 
 style main_menu_frame is empty
@@ -393,10 +500,10 @@ style main_menu_title is main_menu_text
 style main_menu_version is main_menu_text
 
 style main_menu_frame:
-    xsize 420
+    xsize 700
     yfill True
-
-    background "gui/overlay/main_menu.png"
+    # color "#141414"
+    background "gui/MainMenu/frame.png"
 
 style main_menu_vbox:
     xalign 1.0
@@ -482,12 +589,14 @@ screen game_menu(title, scroll=None, yinitial=0.0, spacing=0):
 
                     transclude
 
-    use navigation
+    use navigation_alt
 
-    textbutton _("Return"):
-        style "return_button"
+    
+    # textbutton _("Return"):
+    #     style "return_button"
 
-        action Return()
+    #     action Return()
+    use ReturnButton("Return", xpos = 150, ypos = -50)
 
     label title
 
@@ -542,7 +651,7 @@ style game_menu_label_text:
     yalign 0.5
 
 style return_button:
-    xpos gui.navigation_xpos
+    xpos 1002
     yalign 1.0
     yoffset -45
 
@@ -743,78 +852,81 @@ screen preferences():
     use game_menu(_("Preferences"), scroll="viewport"):
 
         vbox:
-
-            hbox:
-                box_wrap True
-
-                if renpy.variant("pc") or renpy.variant("web"):
-
-                    vbox:
-                        style_prefix "radio"
-                        label _("Display")
-                        textbutton _("Window") action Preference("display", "window")
-                        textbutton _("Fullscreen") action Preference("display", "fullscreen")
-
+            frame:
+                style "preferences"
+                
                 vbox:
-                    style_prefix "check"
-                    label _("Skip")
-                    textbutton _("Unseen Text") action Preference("skip", "toggle")
-                    textbutton _("After Choices") action Preference("after choices", "toggle")
-                    textbutton _("Transitions") action InvertSelected(Preference("transitions", "toggle"))
+                    hbox:
+                        box_wrap True
 
-                ## Additional vboxes of type "radio_pref" or "check_pref" can be
-                ## added here, to add additional creator-defined preferences.
+                        if renpy.variant("pc") or renpy.variant("web"):
 
-            null height (4 * gui.pref_spacing)
+                            vbox:
+                                style_prefix "radio"
+                                label _("Display")
+                                textbutton _("Window") action Preference("display", "window")
+                                textbutton _("Fullscreen") action Preference("display", "fullscreen")
 
-            hbox:
-                style_prefix "slider"
-                box_wrap True
+                        vbox:
+                            style_prefix "check"
+                            label _("Skip")
+                            textbutton _("Unseen Text") action Preference("skip", "toggle")
+                            textbutton _("After Choices") action Preference("after choices", "toggle")
+                            textbutton _("Transitions") action InvertSelected(Preference("transitions", "toggle"))
 
-                vbox:
+                        ## Additional vboxes of type "radio_pref" or "check_pref" can be
+                        ## added here, to add additional creator-defined preferences.
 
-                    label _("Text Speed")
+                    null height (4 * gui.pref_spacing)
 
-                    bar value Preference("text speed")
+                    hbox:
+                        style_prefix "slider"
+                        # box_wrap True
 
-                    label _("Auto-Forward Time")
+                        vbox:
 
-                    bar value Preference("auto-forward time")
+                            label _("Text Speed")
 
-                vbox:
+                            bar value Preference("text speed")
 
-                    if config.has_music:
-                        label _("Music Volume")
+                            label _("Auto-Forward Time")
 
-                        hbox:
-                            bar value Preference("music volume")
+                            bar value Preference("auto-forward time")
 
-                    if config.has_sound:
+                        vbox:
 
-                        label _("Sound Volume")
+                            if config.has_music:
+                                label _("Music Volume")
 
-                        hbox:
-                            bar value Preference("sound volume")
+                                hbox:
+                                    bar value Preference("music volume")
 
-                            if config.sample_sound:
-                                textbutton _("Test") action Play("sound", config.sample_sound)
+                            if config.has_sound:
+
+                                label _("Sound Volume")
+
+                                hbox:
+                                    bar value Preference("sound volume")
+
+                                    if config.sample_sound:
+                                        textbutton _("Test") action Play("sound", config.sample_sound)
 
 
-                    if config.has_voice:
-                        label _("Voice Volume")
+                            if config.has_voice:
+                                label _("Voice Volume")
 
-                        hbox:
-                            bar value Preference("voice volume")
+                                hbox:
+                                    bar value Preference("voice volume")
 
-                            if config.sample_voice:
-                                textbutton _("Test") action Play("voice", config.sample_voice)
+                                    if config.sample_voice:
+                                        textbutton _("Test") action Play("voice", config.sample_voice)
 
-                    if config.has_music or config.has_sound or config.has_voice:
-                        null height gui.pref_spacing
+                            if config.has_music or config.has_sound or config.has_voice:
+                                null height gui.pref_spacing
 
-                        textbutton _("Mute All"):
-                            action Preference("all mute", "toggle")
-                            style "mute_all_button"
+                                textbutton _("Mute All"):
+                                    action Preference("all mute", "toggle")
+                                    style "mute_all_button"
 
 
 style pref_label is gui_label
@@ -842,6 +954,11 @@ style slider_pref_vbox is pref_vbox
 
 style mute_all_button is check_button
 style mute_all_button_text is check_button_text
+
+style preferences:
+    padding (20, 10)
+
+    background "gui/overlay/settings.png"
 
 style pref_label:
     top_margin gui.pref_spacing
@@ -878,8 +995,8 @@ style slider_slider:
 
 style slider_button:
     properties gui.button_properties("slider_button")
-    yalign 0.5
-    left_margin 15
+    # yalign 0.5
+    # left_margin 15
 
 style slider_button_text:
     properties gui.text_properties("slider_button")
@@ -1161,7 +1278,7 @@ screen confirm(message, yes_action, no_action):
 
     style_prefix "confirm"
 
-    add "gui/overlay/confirm.png"
+    add "gui/overlay/confirm_bg.png"
 
     frame:
 
@@ -1192,13 +1309,14 @@ style confirm_button is gui_medium_button
 style confirm_button_text is gui_medium_button_text
 
 style confirm_frame:
-    background Frame([ "gui/confirm_frame.png", "gui/frame.png"], gui.confirm_frame_borders, tile=gui.frame_tile)
+    background Frame([ "gui/confirm_frame.png", "gui/overlay/confirm.png"], gui.confirm_frame_borders, tile=gui.frame_tile)
     padding gui.confirm_frame_borders.padding
     xalign .5
     yalign .5
 
 style confirm_prompt_text:
     textalign 0.5
+    color "#FFFFFF"
     layout "subtitle"
 
 style confirm_button:

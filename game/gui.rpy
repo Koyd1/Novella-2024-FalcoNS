@@ -28,7 +28,8 @@ define config.check_conflicting_properties = True
 define gui.accent_color = u'#003366'
 
 ## The color used for a text button when it is neither selected nor hovered.
-define gui.idle_color = u'#707070'
+# define gui.idle_color = u'#707070'
+define gui.idle_color = u"#FFFFFF"
 
 ## The small color is used for small text, which needs to be brighter/darker to
 ## achieve the same effect.
@@ -251,7 +252,7 @@ define gui.file_slot_rows = 2
 
 ## The position of the left side of the navigation buttons, relative to the left
 ## side of the screen.
-define gui.navigation_xpos = 60
+define gui.navigation_xpos = 200
 
 ## The vertical position of the skip indicator.
 # define gui.skip_ypos = 15
