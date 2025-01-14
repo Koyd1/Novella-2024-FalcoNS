@@ -254,10 +254,10 @@ screen quick_menu():
             yalign 0.006
 
             # textbutton _("Back") action Rollback()
-            imagebutton idle "../gui/quickMenu/back.png" action Rollback()
-            imagebutton idle "../gui/quickMenu/stop.png" action Preference("auto-forward", "toggle")
-            imagebutton idle "../gui/quickMenu/forward.png" action RollForward()
-            imagebutton idle "../gui/quickMenu/skip.png" action Skip(fast=False, confirm=True)
+            imagebutton idle "gui/quickMenu/back.png" action Rollback()
+            imagebutton idle "gui/quickMenu/stop.png" action Preference("auto-forward", "toggle")
+            imagebutton idle "gui/quickMenu/forward.png" action RollForward()
+            imagebutton idle "gui/quickMenu/skip.png" action Skip(fast=False, confirm=True)
         
         hbox:
             style_prefix "quick_right"
@@ -265,7 +265,7 @@ screen quick_menu():
             xalign 0.995
             yalign 0.006
 
-            imagebutton idle "../gui/quickMenu/prefs.png" action ShowMenu("preferences")
+            imagebutton idle "gui/quickMenu/prefs.png" action ShowMenu("preferences")
             # textbutton _("Prefs") action ShowMenu("preferences")
 
 
@@ -299,7 +299,7 @@ style quick_button_text:
 screen StartButton(text="undefined", xpos = 150, ypos = -50 ):
     vbox:
         spacing 0
-        imagebutton idle "../gui/MainMenu/button.png" action Start():
+        imagebutton idle "gui/MainMenu/button.png" action Start():
             at zoom
         textbutton _(text) action Start():
             # anchor(0.5, 0.5)
@@ -308,7 +308,7 @@ screen StartButton(text="undefined", xpos = 150, ypos = -50 ):
 screen ShowMenuButton(_menu, text="undefined", xpos = 150, ypos = -50):
     vbox:
         spacing 0
-        imagebutton idle "../gui/MainMenu/button.png" action ShowMenu(_menu):
+        imagebutton idle "gui/MainMenu/button.png" action ShowMenu(_menu):
             at zoom
         textbutton _(text) action ShowMenu(_menu):
             # ypos(-50)
@@ -321,7 +321,7 @@ screen ShowMenuButton(_menu, text="undefined", xpos = 150, ypos = -50):
 screen QuitButton(text="undefined", xpos = 150, ypos = -50 ):
     vbox:
         spacing 0
-        imagebutton idle "../gui/MainMenu/button.png" action Quit(confirm = not main_menu):
+        imagebutton idle "gui/MainMenu/button.png" action Quit(confirm = not main_menu):
             at zoom
         textbutton _(text) action Quit(confirm = not main_menu):
             pos(xpos, ypos)
@@ -329,7 +329,7 @@ screen QuitButton(text="undefined", xpos = 150, ypos = -50 ):
 screen Button(action, text="undefined", xpos = 150, ypos = -50):
     vbox:
         spacing 0
-        imagebutton idle "../gui/MainMenu/button.png" action action():
+        imagebutton idle "gui/MainMenu/button.png" action action():
             at zoom
         textbutton _(text) action action():
             pos(xpos, ypos)
@@ -339,7 +339,7 @@ screen ReturnButton(text="undefined", xpos = 150, ypos = -50 ):
         xpos(30)
         ypos(0.88)
         spacing 0
-        imagebutton idle "../gui/MainMenu/button.png" action Return():
+        imagebutton idle "gui/MainMenu/button.png" action Return():
             at zoom
         textbutton _(text) action Return():
             pos(xpos, ypos)
