@@ -295,15 +295,91 @@ style quick_button_text:
 ##
 ## This screen is included in the main and game menus, and provides navigation
 ## to other menus, and to start the game.
+screen StartButton():
+    imagebutton:
+        idle "gui/menuButtons/start_game/idle.png"
+        hover "gui/menuButtons/start_game/hover.png"
+        action [Show("ContinueOrNewGame"), With(dissolve)]
+        # action Start()
+        
+        # action Start()
+    # vbox:
+    #     spacing 0
+    #     imagebutton idle "gui/MainMenu/button.png" action Start():
+    #         at zoom
+    #     textbutton _(text) action Start():
+    #         # anchor(0.5, 0.5)
+    #         pos(xpos, ypos)
 
-screen StartButton(text="undefined", xpos = 150, ypos = -50 ):
-    vbox:
-        spacing 0
-        imagebutton idle "gui/MainMenu/button.png" action Start():
-            at zoom
-        textbutton _(text) action Start():
-            # anchor(0.5, 0.5)
-            pos(xpos, ypos)
+screen ContinueButton():
+    imagebutton:
+        auto "gui/menuButtons/continue/%s.png"
+        action Continue(confirm=False)
+
+screen NewGameButton():
+    imagebutton:
+        auto "gui/menuButtons/new_game/%s.png"
+        action Start()
+
+screen ContinueOrNewGame():
+    frame:
+        xsize 992
+        ysize 315
+        # size(992, 315)
+        pos(0.45, 0.35)
+        background "gui/overlay/confirm.png"
+        vbox:
+            spacing 30
+            xalign(0.5)
+            imagebutton idle "gui/overlay/close.png":
+                xalign(1.0)
+                action [Hide("ContinueOrNewGame"), With(dissolve)]
+            text "Хотите продолжить историю?":
+                xanchor(0.5)
+                xpos(0.5)
+            hbox:
+                spacing 10
+                xanchor(0.5)
+                xpos(0.5)
+                use ContinueButton
+                use NewGameButton
+            
+screen LoadButton():
+    imagebutton:
+        auto "gui/menuButtons/save/%s.png"
+        action ShowMenu("load")
+
+screen SettingsButton():
+    imagebutton:
+        auto "gui/menuButtons/settings/%s.png"
+        action ShowMenu("preferences")
+
+screen ChaptersButton():
+    imagebutton:
+        auto "gui/menuButtons/chapters/%s.png"
+        action ShowMenu("chapters")
+    # vbox:
+    #     spacing 0
+    #     imagebutton idle "gui/MainMenu/button.png" action ToggleScreen("chapters"):
+    #         at zoom
+    #     textbutton _(text) action Return():
+    #         pos(xpos, ypos)
+
+screen AchievementsButton():
+    imagebutton:
+        auto "gui/menuButtons/achievements/%s.png"
+        action ShowMenu("achievements")
+
+screen QuitButton():
+    imagebutton:
+        auto "gui/menuButtons/quit/%s.png"
+        action Quit(confirm=True)
+    # vbox:
+    #     spacing 0
+    #     imagebutton idle "gui/MainMenu/button.png" action Quit(confirm = not main_menu):
+    #         at zoom
+    #     textbutton _(text) action Quit(confirm = not main_menu):
+    #         pos(xpos, ypos)
 
 screen ShowMenuButton(_menu, text="undefined", xpos = 150, ypos = -50):
     vbox:
@@ -317,14 +393,6 @@ screen ShowMenuButton(_menu, text="undefined", xpos = 150, ypos = -50):
             # ypos(-0.5)
             # xpos(0.5)
             # xpos(150)
-
-screen QuitButton(text="undefined", xpos = 150, ypos = -50 ):
-    vbox:
-        spacing 0
-        imagebutton idle "gui/MainMenu/button.png" action Quit(confirm = not main_menu):
-            at zoom
-        textbutton _(text) action Quit(confirm = not main_menu):
-            pos(xpos, ypos)
 
 screen Button(action, text="undefined", xpos = 150, ypos = -50):
     vbox:
@@ -345,6 +413,7 @@ screen ReturnButton(text="undefined", xpos = 150, ypos = -50 ):
             pos(xpos, ypos)
 
 
+### Navigation screen used in game menus (main and in-game)
 init:
     transform zoom:
         zoom 0.5
@@ -354,26 +423,32 @@ screen navigation():
     if main_menu:
         vbox:
             style_prefix "game_title"
+            spacing 10
             yalign 0.1
-            xpos gui.navigation_xpos + 40
-            text _("Детектив")
-            vbox:
-                ypos 20
-                xpos 0.4
-                anchor(0.5, 0.5)
-                style_prefix "under_title"
-                text _("Добро пожаловать")
+            xanchor(0.5)
+            xpos gui.navigation_xpos + 200
+            # xpos gui.navigation_xpos + 40
+            image "gui/MainMenu/title_main.png"
+            image "gui/MainMenu/subtitle_main.png":
+                xpos 50
+            # text _("Детектив")
+            # vbox:
+            #     ypos 20
+            #     xpos 0.4
+            #     anchor(0.5, 0.5)
+            #     style_prefix "under_title"
+            #     text _("Добро пожаловать")
 
     vbox:
         style_prefix "navigation"
 
         xpos gui.navigation_xpos - 20
-        yalign 0.5
+        yalign 0.6
         # spacing gui.navigation_spacing
-        spacing 0
+        spacing 10
         
         if main_menu:
-            use StartButton("Start")
+            use StartButton
 
         else:
 
@@ -381,11 +456,17 @@ screen navigation():
 
             textbutton _("Save") action ShowMenu("save")
 
+        use LoadButton
+        use SettingsButton
+        use ChaptersButton
+        use AchievementsButton
         # textbutton _("Load") action ShowMenu("load")
-        use ShowMenuButton("load", "Load")
+        # use ShowMenuButton("load", "Load")
 
         # textbutton _("Preferences") action ShowMenu("preferences")
-        use ShowMenuButton("preferences", "Settings", xpos = 125)
+        # use ShowMenuButton("preferences", "Settings", xpos = 125)
+
+        # use ChaptersButton("Chapters")
 
         if _in_replay:
 
@@ -405,8 +486,9 @@ screen navigation():
         if renpy.variant("pc"):
             ## The quit button is banned on iOS and unnecessary on Android and
             ## Web.
+            use QuitButton
             # textbutton _("Quit") action Quit(confirm=not main_menu)
-            use QuitButton("Quit")
+            # use QuitButton("Quit")
             
 
 style under_title_text:
@@ -457,7 +539,45 @@ screen navigation_alt():
 
         # textbutton _("Save") action ShowMenu("save")
         use ShowMenuButton("preferences", "Settings", xpos = 125)
-        
+
+
+### Start game screen ##############################################
+init python:
+    DissolveRight = ComposeTransition(Dissolve(0.7), PushMove(0.7, "pushright"))
+
+screen press_to_start_game():
+    zorder 100
+    add "gui/MainMenu/background.png"
+
+    use press_to_start_game_overlay
+
+    use press_to_start_button
+
+    image "gui/MainMenu/title_start.png":
+        anchor(0.5, 0.5)
+        pos(0.5, 0.2)
+
+    image "gui/MainMenu/subtitle_start.png":
+        anchor(0.5, 0.5)
+        pos(0.5, 0.35)
+
+    button:
+        xysize(config.screen_width, config.screen_height)
+        # action MainMenu(confirm=False, save=False)
+        action [ Hide("press_to_start_game") ,ToggleScreen("main_menu"), With(DissolveRight)]
+        # action [Hide("press_to_start_game") ,Show("main_menu")]
+        # action ShowMenu("main_menu")
+        # action Show("main_menu", transition="dissolve")
+
+screen press_to_start_button():
+
+    imagebutton idle "gui/MainMenu/press_to_start_button.png" action NullAction():
+        anchor(0.5, 0.5)
+        pos(0.5, 0.85)
+
+screen press_to_start_game_overlay():
+    zorder 60
+    add "gui/MainMenu/start_screen_overlay.png"
 
 ## Main Menu screen ############################################################
 ##
@@ -481,16 +601,16 @@ screen main_menu():
     ## contents of the main menu are in the navigation screen.
     use navigation
 
-    if gui.show_name:
+    # if gui.show_name:
 
-        vbox:
-            style "main_menu_vbox"
+    #     vbox:
+    #         style "main_menu_vbox"
 
-            # text "[config.name!t]":
-            #     style "main_menu_title"
+    #         # text "[config.name!t]":
+    #         #     style "main_menu_title"
 
-            # text "[config.version]":
-            #     style "main_menu_version"
+    #         # text "[config.version]":
+    #         #     style "main_menu_version"
 
 
 style main_menu_frame is empty
@@ -654,6 +774,28 @@ style return_button:
     xpos 1002
     yalign 1.0
     yoffset -45
+
+## Chapters Screen #############################################################
+##
+##
+
+screen chapters():
+    tag menu
+
+    add "gui/overlay/game_menu.png"
+
+    use navigation_alt
+
+## Achievements Screen #############################################################
+##
+##
+
+screen achievements():
+    tag menu
+
+    add "gui/overlay/game_menu.png"
+
+    use navigation_alt
 
 
 ## About screen ################################################################

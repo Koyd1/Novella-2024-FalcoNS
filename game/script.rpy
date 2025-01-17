@@ -1,10 +1,47 @@
-﻿# The script of the game goes in this file.
+﻿### Splash screen and start screen
+
+image black = "#000"
+image white = "#ffffff"
+image logo = "gui/MainMenu/splash.png"
+
+transform transform_logo:
+    on show:
+        alpha 0 xalign 0.5 yalign 0.5
+        linear 2.0 alpha 1
+    on hide:
+        linear 2.0 alpha 0
+        
+transform transform_white:
+    on show:
+        alpha 0 
+        linear 2.0 alpha 1
+    on hide:
+        linear 2.0 alpha 0
+                
+# label splashscreen:
+#     scene black 
+#     $ renpy.pause(1, hard=True) 
+    
+#     show logo at transform_logo
+#     $ renpy.pause(4, hard=True) 
+    
+#     hide logo 
+#     $ renpy.pause(2, hard=True)
+    
+#     return
+
+label before_main_menu:
+
+    call screen press_to_start_game with dissolve
+
+
+
+# The script of the game goes in this file.
 
 # Declare characters used by this game. The color argument colorizes the
 # name of the character.
 
 define e = Character("Eileen")
-
 
 # The game starts here.
 
