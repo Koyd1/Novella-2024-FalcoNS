@@ -311,9 +311,9 @@ screen StartButton():
     #         # anchor(0.5, 0.5)
     #         pos(xpos, ypos)
 
-screen ContinueButton():
+screen ContinueStoryButton():
     imagebutton:
-        auto "gui/menuButtons/continue/%s.png"
+        auto "gui/menuButtons/continue_story/%s.png"
         action Continue(confirm=False)
 
 screen NewGameButton():
@@ -341,13 +341,23 @@ screen ContinueOrNewGame():
                 spacing 10
                 xanchor(0.5)
                 xpos(0.5)
-                use ContinueButton
+                use ContinueStoryButton
                 use NewGameButton
-            
+
+screen ContinueGameButton():
+    imagebutton:
+        auto "gui/menuButtons/continue_game/%s.png"
+        action Return()
+
 screen LoadButton():
     imagebutton:
-        auto "gui/menuButtons/save/%s.png"
+        auto "gui/menuButtons/load/%s.png"
         action ShowMenu("load")
+
+screen SaveButton():
+    imagebutton:
+        auto "gui/menuButtons/save/%s.png"
+        action ShowMenu("save")
 
 screen SettingsButton():
     imagebutton:
@@ -368,7 +378,12 @@ screen ChaptersButton():
 screen AchievementsButton():
     imagebutton:
         auto "gui/menuButtons/achievements/%s.png"
-        action ShowMenu("achievements")
+        action ShowMenu("achievements_types")
+
+screen MainMenuButton():
+    imagebutton:
+        auto "gui/menuButtons/quit/%s.png"
+        action MainMenu()
 
 screen QuitButton():
     imagebutton:
@@ -380,6 +395,11 @@ screen QuitButton():
     #         at zoom
     #     textbutton _(text) action Quit(confirm = not main_menu):
     #         pos(xpos, ypos)
+
+screen ReturnButton():
+    imagebutton:
+        auto "gui/menuButtons/return/%s.png"
+        action Return()
 
 screen ShowMenuButton(_menu, text="undefined", xpos = 150, ypos = -50):
     vbox:
@@ -402,15 +422,15 @@ screen Button(action, text="undefined", xpos = 150, ypos = -50):
         textbutton _(text) action action():
             pos(xpos, ypos)
 
-screen ReturnButton(text="undefined", xpos = 150, ypos = -50 ):
-    vbox:
-        xpos(30)
-        ypos(0.88)
-        spacing 0
-        imagebutton idle "gui/MainMenu/button.png" action Return():
-            at zoom
-        textbutton _(text) action Return():
-            pos(xpos, ypos)
+# screen ReturnButton(text="undefined", xpos = 150, ypos = -50 ):
+#     vbox:
+#         xpos(30)
+#         ypos(0.88)
+#         spacing 0
+#         imagebutton idle "gui/MainMenu/button.png" action Return():
+#             at zoom
+#         textbutton _(text) action Return():
+#             pos(xpos, ypos)
 
 
 ### Navigation screen used in game menus (main and in-game)
@@ -418,44 +438,35 @@ init:
     transform zoom:
         zoom 0.5
 
-screen navigation():
+screen navigation_main_menu():
 
-    if main_menu:
-        vbox:
-            style_prefix "game_title"
-            spacing 10
-            yalign 0.1
-            xanchor(0.5)
-            xpos gui.navigation_xpos + 200
-            # xpos gui.navigation_xpos + 40
-            image "gui/MainMenu/title_main.png"
-            image "gui/MainMenu/subtitle_main.png":
-                xpos 50
-            # text _("Детектив")
-            # vbox:
-            #     ypos 20
-            #     xpos 0.4
-            #     anchor(0.5, 0.5)
-            #     style_prefix "under_title"
-            #     text _("Добро пожаловать")
+    vbox:
+        style_prefix "game_title"
+        spacing 15
+        yalign 0.1
+        xanchor(0.5)
+        xpos gui.navigation_xpos + 180
+        # xpos gui.navigation_xpos + 40
+        image "gui/MainMenu/title_main.png"
+        image "gui/MainMenu/subtitle_main.png":
+            xpos 50
+        # text _("Детектив")
+        # vbox:
+        #     ypos 20
+        #     xpos 0.4
+        #     anchor(0.5, 0.5)
+        #     style_prefix "under_title"
+        #     text _("Добро пожаловать")
 
     vbox:
         style_prefix "navigation"
 
-        xpos gui.navigation_xpos - 20
-        yalign 0.6
+        xpos gui.navigation_xpos - 40
+        yalign 0.8
         # spacing gui.navigation_spacing
-        spacing 10
+        spacing 25
         
-        if main_menu:
-            use StartButton
-
-        else:
-
-            textbutton _("History") action ShowMenu("history")
-
-            textbutton _("Save") action ShowMenu("save")
-
+        use StartButton
         use LoadButton
         use SettingsButton
         use ChaptersButton
@@ -511,34 +522,87 @@ style navigation_button:
 style navigation_button_text:
     properties gui.text_properties("navigation_button")
 
+
+### Navigation in menus (not main)
+#
+# This is used in game menu, outside the main game, but not in the main menu
+#
+screen navigation_menu():
+    vbox:
+        style_prefix "navigation"
+
+        spacing 30
+        xpos 40
+        yalign 0.5
+
+        use LoadButton
+        use SettingsButton
+        use ChaptersButton
+        use AchievementsButton
+
+        use ReturnButton
+        # xpos 30
+        # yalign 0.5
+        # # spacing gui.navigation_spacing
+        # spacing 0
+        
+        # if not main_menu:
+        #     use ShowMenuButton("save", "Save")
+    
+        # # textbutton _("Load") action ShowMenu("load")
+        # use ShowMenuButton("load", "Load")
+
+        # use ShowMenuButton("history", "History")
+        # # textbutton _("History") action ShowMenu("history")
+
+        # if not main_menu:
+        #     use Button(MainMenu, "Main Menu")
+
+        # # textbutton _("Save") action ShowMenu("save")
+        # use ShowMenuButton("preferences", "Settings", xpos = 125)
+
+
+
 ## Navigation for menus other from main #########################
 ##
 ## ----- 
 ##
 
-screen navigation_alt():
+screen navigation_game():
     vbox:
-        style_prefix "navigation"
-
-        xpos 30
+        spacing 30
+        xpos 40
         yalign 0.5
-        # spacing gui.navigation_spacing
-        spacing 0
+
+        use ContinueGameButton
+        use SaveButton
+        use LoadButton
+        use SettingsButton
+        use ChaptersButton
+        use AchievementsButton
+        use MainMenuButton
+    # vbox:
+    #     style_prefix "navigation"
+
+    #     xpos 30
+    #     yalign 0.5
+    #     # spacing gui.navigation_spacing
+    #     spacing 0
         
-        if not main_menu:
-            use ShowMenuButton("save", "Save")
+    #     if not main_menu:
+    #         use ShowMenuButton("save", "Save")
     
-        # textbutton _("Load") action ShowMenu("load")
-        use ShowMenuButton("load", "Load")
+    #     # textbutton _("Load") action ShowMenu("load")
+    #     use ShowMenuButton("load", "Load")
 
-        use ShowMenuButton("history", "History")
-        # textbutton _("History") action ShowMenu("history")
+    #     use ShowMenuButton("history", "History")
+    #     # textbutton _("History") action ShowMenu("history")
 
-        if not main_menu:
-            use Button(MainMenu, "Main Menu")
+    #     if not main_menu:
+    #         use Button(MainMenu, "Main Menu")
 
-        # textbutton _("Save") action ShowMenu("save")
-        use ShowMenuButton("preferences", "Settings", xpos = 125)
+    #     # textbutton _("Save") action ShowMenu("save")
+    #     use ShowMenuButton("preferences", "Settings", xpos = 125)
 
 
 ### Start game screen ##############################################
@@ -599,7 +663,7 @@ screen main_menu():
 
     ## The use statement includes another screen inside this one. The actual
     ## contents of the main menu are in the navigation screen.
-    use navigation
+    use navigation_main_menu
 
     # if gui.show_name:
 
@@ -709,14 +773,17 @@ screen game_menu(title, scroll=None, yinitial=0.0, spacing=0):
 
                     transclude
 
-    use navigation_alt
+    if main_menu:
+        use navigation_menu
+    else:
+        use navigation_game
 
     
     # textbutton _("Return"):
     #     style "return_button"
 
     #     action Return()
-    use ReturnButton("Return", xpos = 150, ypos = -50)
+    # use ReturnButton("Return", xpos = 150, ypos = -50)
 
     label title
 
@@ -741,7 +808,7 @@ style game_menu_outer_frame:
     bottom_padding 45
     top_padding 180
 
-    background "gui/overlay/game_menu.png"
+    background "gui/menu_background.png"
 
 style game_menu_navigation_frame:
     xsize 420
@@ -778,24 +845,221 @@ style return_button:
 ## Chapters Screen #############################################################
 ##
 ##
+define n_chapters = 4
+define chapters = ["Chapter 1", "Chapter 2", "Chapter 3", "Chapter 4"]
+define chapters_description = ["Some description", "Some description", "Some description", "Description of chapter 4"]
+define chapters_image = ["chapter_1.png", "chapter_2.png", "chapter_2.png", "chapter_2.png"]
+define chapter_label = ["chapter_1", "chapter_2", "chapter_3", "chapter_4"]
+
+screen chapter(title, description, image_path, chapter_label):
+    frame:
+        button:
+            xsize 475
+            ysize 813
+            action Start(chapter_label)
+        ypos 50
+        xsize 475
+        ysize 813
+        # size(475, 813)
+        background "gui/chaptersScreen/chapter_frame.png"
+        vbox:
+            image "images/chapters/" + image_path:
+                pos(15, 20)
+            text _(title):
+                pos(15, 30)
+                bold(True)
+                size(48)
+            text _(description):
+                pos(15, 60)
+
+screen chapters_holder():
+
+    frame:
+        background "gui/chaptersScreen/chapter_holder.png"
+        xalign 0.9
+        yalign 0.5
+        xsize 1346
+        ysize 990
+        has viewport id "MyScroller":
+            draggable True
+            scrollbars "horizontal"
+
+        hbox:
+            null width 0
+            spacing 50
+            # yalign 0.5
+            # xalign 1.0
+            for i in range(n_chapters):
+                use chapter(chapters[i], chapters_description[i], chapters_image[i], chapter_label[i])
+            null width 0
+    # hbar value XScrollValue
 
 screen chapters():
     tag menu
 
-    add "gui/overlay/game_menu.png"
+    add "gui/menu_background.png"
+    # add "gui/overlay/game_menu.png"
 
-    use navigation_alt
+    if main_menu:
+        use navigation_menu
+    else:
+        use navigation_game
+
+    use chapters_holder
 
 ## Achievements Screen #############################################################
 ##
 ##
+default curr_ach = 0
+define total_ach = 52
 
-screen achievements():
+define ach_grid_cols = 3
+define ach_grid_rows = 3
+
+define ach_pages = 3
+
+screen folders_grid():
+    grid ach_grid_cols ach_grid_rows:
+        xalign 0.5
+        yalign 0.5
+        spacing 30
+        for i in range(ach_grid_cols * ach_grid_rows):
+            imagebutton:
+                idle "gui/achievementsScreen/folder.png"
+                action ShowMenu("achievements_" + str(i+1))
+                # action NullAction()
+
+screen page_dot(page):
+    imagebutton:
+        idle "gui/achievementsScreen/dot_idle.png"
+        hover "gui/achievementsScreen/dot_active.png"
+        action NullAction()
+
+screen page_dots():
+    hbox:
+        yalign 0.95
+        xalign 0.5
+        spacing 20
+        for i in range(ach_pages):
+            use page_dot(i)
+
+
+screen achievements_types():
     tag menu
 
-    add "gui/overlay/game_menu.png"
+    add "gui/menu_background.png"
 
-    use navigation_alt
+    if main_menu:
+        use navigation_menu
+    else:
+        use navigation_game
+
+    frame:
+        xsize 1346
+        ysize 990
+        yalign 0.5
+        xalign 0.9
+        background "gui/achievementsScreen/achievements_frame.png"
+
+        text "Всего Достижений " + str(curr_ach) + "/" + str(total_ach):
+            size(48)
+            bold(True)
+            xalign 0.5
+            ypos 25
+        
+        use folders_grid
+
+        use page_dots
+
+### Screens for achievements
+define achs_1_num = 4
+define achs_1_name = ["Ach 1", "Ach 2", "Ach3", "Ach4"]
+define achs_1_desc = ["Desc for ach1", "Desc for ach2", "Desc for ach3", "Desc for ach4"]
+define achs_1_image = ["ach1.png", "ach2.png", "ach2.png", "ach2.png"]
+define achs_1_rarity = ["standard", "rare", "standard", "standard"]
+
+screen achievement(name, desc, ach_image_path, ach_type):
+    frame:
+        xsize 1171
+        ysize 309
+        xpos 80
+        background "gui/achievementsScreen/ach_standard.png"
+
+        hbox:
+            image "images/achievements/" + str(ach_image_path):
+                pos(25, 25)
+            vbox:
+                pos(25, 25)
+                text _(name):
+                    xpos 30
+                    size(48)
+                    bold(True)
+                text _(desc):
+                    xpos 30
+                    ypos 30
+
+# screen achievement_filter()
+
+screen standard_button:
+    imagebutton:
+        idle "gui/achievementsScreen/standard.png"
+        action NullAction()
+
+screen rare_button:
+    imagebutton:
+        idle "gui/achievementsScreen/rare.png"
+        action NullAction()
+
+screen legend_button:
+    imagebutton:
+        idle "gui/achievementsScreen/legend.png"
+        action NullAction()
+
+screen filter_frame:
+    frame:
+        xsize 1171
+        ysize 67
+        # xalign 0.5
+        xpos 80
+        background "gui/achievementsScreen/filter_frame.png"
+
+        hbox:
+            xpos 20
+            spacing 10
+            yalign 0.5
+            use standard_button
+            use rare_button
+            use legend_button
+
+screen achievements_1():
+    tag menu
+
+    add "gui/menu_background.png"
+
+    if main_menu:
+        use navigation_menu
+    else:
+        use navigation_game
+
+    frame:
+        xsize 1346
+        ysize 990
+        yalign 0.5
+        xalign 0.9
+        background "gui/achievementsScreen/achievements_holder.png"
+
+        has viewport:
+            draggable True
+            scrollbars "vertical"
+
+        vbox:
+            spacing 20
+
+            use filter_frame
+
+            for i in range(achs_1_num):
+                use achievement(achs_1_name[i], achs_1_desc[i], achs_1_image[i], achs_1_rarity[i])
+
 
 
 ## About screen ################################################################

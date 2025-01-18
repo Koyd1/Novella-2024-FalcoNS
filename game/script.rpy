@@ -77,3 +77,23 @@ label start:
     # This ends the game.
 
     return
+
+label chapter_1:
+    "This is chapter 1"
+    "Congrats."
+    return 
+
+label chapter_2:
+    "This is chapter 2"
+    "Congrats."
+    return 
+
+label chapter_3:
+    "This is chapter 3"
+    "Congrats."
+    return 
+
+label chapter_4:
+    "This is chapter 4"
+    "Congrats."
+    return 
