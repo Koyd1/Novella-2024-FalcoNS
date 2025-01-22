@@ -106,9 +106,16 @@ screen say(who, what):
             window:
                 id "namebox"
                 style "namebox"
-                text who id "who"
+                text who:
+                    id "who"
+                    color "FFFFFF"
+                    yalign 0.5
+                    xalign 0.5
 
-        text what id "what"
+        text what id "what":
+            xsize 0.8
+            xpos 250
+            yalign 0.1
 
 
     ## If there's a side image, display it above the text. Do not display on the
@@ -139,14 +146,12 @@ style window:
     background Image("gui/textbox.png", xalign=0.5, yalign=1.0)
 
 style namebox:
-    xpos gui.name_xpos
-    xanchor gui.name_xalign
-    xsize gui.namebox_width
-    ypos gui.name_ypos
-    ysize gui.namebox_height
-
+    xpos 40
+    ypos -86
+    xsize 324
+    ysize 54
     background Frame("gui/namebox.png", gui.namebox_borders, tile=gui.namebox_tile, xalign=gui.name_xalign)
-    padding gui.namebox_borders.padding
+    # padding gui.namebox_borders.padding
 
 style say_label:
     properties gui.text_properties("name", accent=True)
@@ -248,25 +253,21 @@ screen quick_menu():
         hbox:
             style_prefix "quick_left"
 
-            # xalign 0.5
-            # yalign 1.0
-            xalign 0.0
+            xpos 5
             yalign 0.006
 
-            # textbutton _("Back") action Rollback()
+            imagebutton idle "gui/quickMenu/settings.png" action ShowMenu("preferences")
+        
+        hbox:
+            style_prefix "quick_right"
+            spacing 7
+            ypos 10
+            xalign 0.995
+
             imagebutton idle "gui/quickMenu/back.png" action Rollback()
             imagebutton idle "gui/quickMenu/stop.png" action Preference("auto-forward", "toggle")
             imagebutton idle "gui/quickMenu/forward.png" action RollForward()
             imagebutton idle "gui/quickMenu/skip.png" action Skip(fast=False, confirm=True)
-        
-        hbox:
-            style_prefix "quick_right"
-            
-            xalign 0.995
-            yalign 0.006
-
-            imagebutton idle "gui/quickMenu/prefs.png" action ShowMenu("preferences")
-            # textbutton _("Prefs") action ShowMenu("preferences")
 
 
 
@@ -1109,138 +1110,154 @@ style about_label_text:
 ## www.renpy.org/doc/html/screen_special.html#load
 
 screen save():
-
     tag menu
+    add "gui/menu_background.png"
+
+    text _("Save")
 
     use file_slots(_("Save"))
 
 
 screen load():
-
     tag menu
+    add "gui/menu_background.png"
+
+    text _("Load")
 
     use file_slots(_("Load"))
-
 
 screen file_slots(title):
 
     default page_name_value = FilePageNameInputValue(pattern=_("Page {}"), auto=_("Automatic saves"), quick=_("Quick saves"))
 
-    use game_menu(title):
+    # use game_menu(title):
 
-        fixed:
+    #     fixed:
+    #         order_reverse True
+    #         button:
+    #             style "page_label"
 
-            ## This ensures the input will get the enter event before any of the
-            ## buttons do.
-            order_reverse True
+    #             key_events True
+    #             xalign 0
+    #             action page_name_value.Toggle()
 
-            ## The page name, which can be edited by clicking on a button.
-            button:
-                style "page_label"
+    if main_menu:
+        use navigation_menu
+    else:
+        use navigation_game
 
-                key_events True
-                xalign 0.5
-                action page_name_value.Toggle()
+    frame:
+        style "window_background"
 
-                input:
-                    style "page_label_text"
-                    value page_name_value
+        hbox:
+            spacing 0
 
-            ## The grid of file slots.
-            grid gui.file_slot_cols gui.file_slot_rows:
-                style_prefix "slot"
-
-                xalign 0.5
-                yalign 0.5
-
-                spacing gui.slot_spacing
-
-                for i in range(gui.file_slot_cols * gui.file_slot_rows):
-
-                    $ slot = i + 1
-
-                    button:
-                        action FileAction(slot)
-
-                        has vbox
-
-                        add FileScreenshot(slot) xalign 0.5
-
-                        text FileTime(slot, format=_("{#file_time}%A, %B %d %Y, %H:%M"), empty=_("empty slot")):
-                            style "slot_time_text"
-
-                        text FileSaveName(slot):
-                            style "slot_name_text"
-
-                        key "save_delete" action FileDelete(slot)
-
-            ## Buttons to access other pages.
-            vbox:
-                style_prefix "page"
-
-                xalign 0.5
-                yalign 1.0
-
-                hbox:
-                    xalign 0.5
-
-                    spacing gui.page_spacing
-
-                    textbutton _("<") action FilePagePrevious()
-
-                    if config.has_autosave:
-                        textbutton _("{#auto_page}A") action FilePage("auto")
-
-                    if config.has_quicksave:
-                        textbutton _("{#quick_page}Q") action FilePage("quick")
-
-                    ## range(1, 10) gives the numbers from 1 to 9.
-                    for page in range(1, 10):
-                        textbutton "[page]" action FilePage(page)
-
-                    textbutton _(">") action FilePageNext()
-
-                if config.has_sync:
-                    if CurrentScreenName() == "save":
-                        textbutton _("Upload Sync"):
-                            action UploadSync()
+            frame:
+                style "slot_frame"
+                yfill True
+                has viewport:
+                    draggable True
+                    mousewheel True
+                    scrollbars "vertical"
+                    vbox:
+                        frame:
                             xalign 0.5
-                    else:
-                        textbutton _("Download Sync"):
-                            action DownloadSync()
-                            xalign 0.5
+                            style "page_name_frame"
+                            text "ВСЕГО СОХРАНЕНИЙ {}".format(gui.file_slot_cols * gui.file_slot_rows) xalign 0.5:
+                                style "page_name_text"
+                        spacing 56
+                        for i in range(gui.file_slot_cols * gui.file_slot_rows):
+                            $ slot = i + 1
+                            button:
+                                style "slot_capsule_button"
+                                action FileAction(slot)
+                                has hbox
+
+                                # Скриншот сохранения
+                                add FileScreenshot(slot) xsize 326 ysize 195 xalign 0.0
+                                # frame:
+                                #     background "gui/mask/mask_image.png"
+                                #     add FileScreenshot(slot) xsize 326 ysize 195
+
+                                # Информация о сохранении
+                                frame:
+                                    style "save_info_box"
+                                    vbox:
+                                        spacing 5
+                                        hbox:
+                                            text FileTime(slot, format=_("{#file_time}%d/%m/%Y    %H:%M:%S"), empty=_("empty slot")):
+                                                style "slot_time_text"
+                                            text FileSaveName(slot):
+                                                style "slot_time_text"
+                                        
+
+                                key "save_delete" action FileDelete(slot)
+
+# Стили
+style window_background:
+    xalign 0.9
+    yalign 0.5
+    top_padding 21
+    bottom_padding 26
+    xsize 1334
+    ysize 1000
+    background "gui/saveLoadMenu/save_holder.png"
+    # background "gui/slot_capsule/window_background.png"
+    # right_padding 30
 
 
-style page_label is gui_label
-style page_label_text is gui_label_text
-style page_button is gui_button
-style page_button_text is gui_button_text
+style slot_capsule_button:
+    xsize 1171
+    ysize 237
+    top_padding 21  
+    bottom_padding 21
+    left_padding 18
+    left_margin 63
+    right_margin 57
+    background "gui/saveLoadMenu/capsule_frame.png"
+    # background "gui/slot_capsule/slot_capsule_background.png"
 
-style slot_button is gui_button
-style slot_button_text is gui_button_text
-style slot_time_text is slot_button_text
-style slot_name_text is slot_button_text
 
-style page_label:
-    xpadding 75
-    ypadding 5
-
-style page_label_text:
+style slot_capsule_button_text:
     textalign 0.5
-    layout "subtitle"
-    hover_color gui.hover_color
 
-style page_button:
-    properties gui.button_properties("page_button")
+style slot_time_text:
+    # font "gui/Philosopher-Regular.ttf"
+    size 40
+    color "#D9D9D9"
 
-style page_button_text:
-    properties gui.text_properties("page_button")
+style page_name_text:
+    # font "gui/Philosopher-Bold.ttf"
+    size 60
+    color "#D9D9D9"
+    xalign 0.5
 
-style slot_button:
-    properties gui.button_properties("slot_button")
 
-style slot_button_text:
-    properties gui.text_properties("slot_button")
+style page_name_frame:
+    left_margin 100
+    xsize 897
+    ysize 71
+    xalign 0.5
+    background "gui/saveLoadMenu/page_name_frame.png"
+    # background "gui/slot_capsule/slot_page_name_back.png"
+
+style slot_chapter_text:
+    font gui.text_font
+    size 40
+    color "#D9D9D9"
+
+style slot_frame:
+    background None
+
+style save_info_box:
+    xsize 734
+    ysize 189
+    left_padding 57
+    top_padding 73
+
+
+style vscrollbar:
+    xsize 13
 
 
 ## Preferences screen ##########################################################

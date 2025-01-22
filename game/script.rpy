@@ -1,15 +1,15 @@
 ﻿### Config to change brightness (might be moved in different file)
-init python:
-    def show(*args, **kwargs):
-        renpy.show(*args, **kwargs)
+# init python:
+#     def show(*args, **kwargs):
+#         renpy.show(*args, **kwargs)
 
-    def ShowWithBrightness(*args, **kwargs):
-        if not "at" in kwargs:
-            kwargs["at_list"] = []
-        kwargs["at_list"].append(bright)
-        renpy.show(*args, **kwargs)
+#     def ShowWithBrightness(*args, **kwargs):
+#         if not "at" in kwargs:
+#             kwargs["at_list"] = []
+#         kwargs["at_list"].append(bright)
+#         renpy.show(*args, **kwargs)
 
-    config.show = ShowWithBrightness
+#     config.show = ShowWithBrightness
     # def func():
     #     renpy.retain_after_load()
 
@@ -50,19 +50,6 @@ label before_main_menu:
     call screen press_to_start_game with dissolve
 
 
-
-# label after_load:
-
-#     "This is after load"
-#     "The value of brightness is: [persistent.bright_value]"
-
-#     python:
-#         active_elems = list(renpy.get_showing_tags(layer="master"))
-        
-#     return
-
-# The script of the game goes in this file.
-
 # Declare characters used by this game. The color argument colorizes the
 # name of the character.
 
@@ -89,6 +76,8 @@ label start:
     e "You've created a new Ren'Py game."
 
     e "Once you add a story, pictures, and music, you can release it to the world!"
+
+    e "Я заметила, что Х ведет себя странно, он уже два дня не разговаривает со мной. Сегодня он оставил свой бумажник на столе, при том что обычно не забывает свои вещи... Может у него что-то случилось и он боится сказать?"
 
     "Andrew added this text for initial commit in his branch."
 
