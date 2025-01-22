@@ -1,5 +1,21 @@
-﻿### Splash screen and start screen
+﻿### Config to change brightness (might be moved in different file)
+init python:
+    def show(*args, **kwargs):
+        renpy.show(*args, **kwargs)
 
+    def ShowWithBrightness(*args, **kwargs):
+        if not "at" in kwargs:
+            kwargs["at_list"] = []
+        kwargs["at_list"].append(bright)
+        renpy.show(*args, **kwargs)
+
+    config.show = ShowWithBrightness
+    # def func():
+    #     renpy.retain_after_load()
+
+    # config.after_load_callbacks.append(func)
+
+### Splash screen and start screen
 image black = "#000"
 image white = "#ffffff"
 image logo = "gui/MainMenu/splash.png"
@@ -10,15 +26,11 @@ transform transform_logo:
         linear 2.0 alpha 1
     on hide:
         linear 2.0 alpha 0
-        
-transform transform_white:
-    on show:
-        alpha 0 
-        linear 2.0 alpha 1
-    on hide:
-        linear 2.0 alpha 0
-                
+
 # label splashscreen:
+#     python:
+#         config.show = show
+
 #     scene black 
 #     $ renpy.pause(1, hard=True) 
     
@@ -28,6 +40,9 @@ transform transform_white:
 #     hide logo 
 #     $ renpy.pause(2, hard=True)
     
+#     python:
+#         config.show = ShowWithBrightness
+
 #     return
 
 label before_main_menu:
@@ -35,6 +50,16 @@ label before_main_menu:
     call screen press_to_start_game with dissolve
 
 
+
+# label after_load:
+
+#     "This is after load"
+#     "The value of brightness is: [persistent.bright_value]"
+
+#     python:
+#         active_elems = list(renpy.get_showing_tags(layer="master"))
+        
+#     return
 
 # The script of the game goes in this file.
 
@@ -75,6 +100,14 @@ label start:
             "Text for choice 2"
 
     # This ends the game.
+
+    "Test the brightness"
+    scene bg room
+    "Again test the brightness"
+    show eileen happy:
+        xalign 0.5
+    scene bg room
+    "Done"
 
     return
 

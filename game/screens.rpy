@@ -366,6 +366,8 @@ screen SettingsButton():
 
 screen ChaptersButton():
     imagebutton:
+        selected_idle "gui/menuButtons/chapters/selected.png"
+        selected_hover "gui/menuButtons/chapters/selected.png"
         auto "gui/menuButtons/chapters/%s.png"
         action ShowMenu("chapters")
     # vbox:
@@ -468,9 +470,9 @@ screen navigation_main_menu():
         
         use StartButton
         use LoadButton
-        use SettingsButton
         use ChaptersButton
         use AchievementsButton
+        use SettingsButton
         # textbutton _("Load") action ShowMenu("load")
         # use ShowMenuButton("load", "Load")
 
@@ -536,9 +538,9 @@ screen navigation_menu():
         yalign 0.5
 
         use LoadButton
-        use SettingsButton
         use ChaptersButton
         use AchievementsButton
+        use SettingsButton
 
         use ReturnButton
         # xpos 30
@@ -577,9 +579,9 @@ screen navigation_game():
         use ContinueGameButton
         use SaveButton
         use LoadButton
-        use SettingsButton
         use ChaptersButton
         use AchievementsButton
+        use SettingsButton
         use MainMenuButton
     # vbox:
     #     style_prefix "navigation"
@@ -606,9 +608,6 @@ screen navigation_game():
 
 
 ### Start game screen ##############################################
-init python:
-    DissolveRight = ComposeTransition(Dissolve(0.7), PushMove(0.7, "pushright"))
-
 screen press_to_start_game():
     zorder 100
     add "gui/MainMenu/background.png"
@@ -628,7 +627,7 @@ screen press_to_start_game():
     button:
         xysize(config.screen_width, config.screen_height)
         # action MainMenu(confirm=False, save=False)
-        action [ Hide("press_to_start_game") ,ToggleScreen("main_menu"), With(DissolveRight)]
+        action [ Hide("press_to_start_game") ,ToggleScreen("main_menu"), With(Dissolve(0.5))]
         # action [Hide("press_to_start_game") ,Show("main_menu")]
         # action ShowMenu("main_menu")
         # action Show("main_menu", transition="dissolve")
@@ -1251,12 +1250,366 @@ style slot_button_text:
 ##
 ## https://www.renpy.org/doc/html/screen_special.html#preferences
 
-screen preferences():
+default persistent.bright_value = 0.0
 
-    tag menu
+init:
+    transform bright:
+        pass
+        # matrixcolor BrightnessMatrix(persistent.bright_value)
 
+screen bar(pref_value):
+
+    bar value pref_value:
+        # ysize 13
+        # thumb_offset 36
+        # left_bar Frame("gui/slider/left_bar.png", 100, 10)
+        # right_bar Frame("gui/slider/right_bar.png", bottom=100)
+        left_bar Frame("gui/slider/left_bar.png")
+        right_bar Frame("gui/slider/right_bar.png")
+        thumb "gui/slider/thumb.png"
+        yalign 0.5
+
+screen sound_bars():
+    vbox:
+        # xsize 1346
+        xalign 0.5
+        spacing 20
+
+        # label _("Music Volume")
+
+        hbox:
+            xsize 1043
+            spacing 10
+            
+            image "gui/preferencesMenu/sound.png"
+            use bar(Preference("music volume"))
+            # bar value Preference("music volume"):
+            #     yalign 0.5
+
+        # label _("Sound Volume")
+
+        hbox:
+            xsize 1043
+            spacing 10
+
+            image "gui/preferencesMenu/sound.png"
+            use bar(Preference("sound volume"))
+            # bar value Preference("sound volume"):
+            #     yalign 0.5
+
+        hbox:
+            xsize 1043
+            spacing 10
+
+            image "gui/preferencesMenu/brightness.png"
+            use bar(FieldValue(persistent, "bright_value", range=0.8, offset=-0.5, style="slider"))
+            # bar value FieldValue(persistent, "bright_value", range=0.8, offset=-0.5, style="slider")
+
+        # if config.has_music or config.has_sound or config.has_voice:
+        #     null height gui.pref_spacing
+
+            # textbutton _("Mute All"):
+            #     action Preference("all mute", "toggle")
+
+screen auto_text():
+    frame:
+        xsize 1257
+        ysize 88
+        xpos 30
+        
+        background "gui/preferencesMenu/auto_text_frame.png"
+
+        hbox:
+            spacing 20
+
+            text _("Скорость проигрывания текста"):
+                size(40)
+                bold(True)
+                xpos 20
+                ypos 13
+        
+            null width 20
+
+        hbox:
+            ypos 13
+            spacing 20
+            xalign 0.95
+
+            imagebutton:
+                idle "gui/preferencesMenu/auto_1x.png"
+                hover "gui/preferencesMenu/auto_1x_selected.png"
+                selected_idle "gui/preferencesMenu/auto_1x_selected.png"
+                selected_hover "gui/preferencesMenu/auto_1x_selected.png" 
+                action Preference("text speed", value=15)
+                # action NullAction()
+            imagebutton:
+                idle "gui/preferencesMenu/auto_1.5x.png"
+                hover "gui/preferencesMenu/auto_1.5x_selected.png"
+                selected_idle "gui/preferencesMenu/auto_1.5x_selected.png"
+                selected_hover "gui/preferencesMenu/auto_1.5x_selected.png"
+                action Preference("text speed", value=25)
+                # action NullAction()
+            imagebutton:
+                idle "gui/preferencesMenu/auto_2x.png"
+                hover "gui/preferencesMenu/auto_2x_selected.png"
+                selected_idle "gui/preferencesMenu/auto_2x_selected.png"
+                selected_hover "gui/preferencesMenu/auto_2x_selected.png"
+                action Preference("text speed", value=35)
+                # action NullAction()
+            # text _("1X")
+            # text _("1.5X")
+            # text _("2X")
+
+screen display_options():
+    frame:
+        xsize 1257
+        ysize 88
+        xpos 30
+
+        background "gui/preferencesMenu/auto_text_frame.png"
+
+        hbox:
+            spacing 20
+
+            text _("Отображение игры"):
+                size(40)
+                bold(True)
+                xpos 20
+                ypos 13            
+
+            null width 20
+
+        hbox:
+            ypos 5
+            spacing 20
+            xalign 0.95
+
+            imagebutton:
+                idle "gui/preferencesMenu/fullscreen.png"
+                hover "gui/preferencesMenu/fullscreen_selected.png"
+                selected_idle "gui/preferencesMenu/fullscreen_selected.png"
+                selected_hover "gui/preferencesMenu/fullscreen_selected.png"
+                action Preference("display", "fullscreen")
+                # action NullAction()
+            imagebutton:
+                idle "gui/preferencesMenu/windowed.png"
+                hover "gui/preferencesMenu/windowed_selected.png"
+                selected_idle "gui/preferencesMenu/windowed_selected.png"
+                selected_hover "gui/preferencesMenu/windowed_selected.png"
+                action Preference("display", "window")
+            # image "gui/preferencesMenu/display.png"
+
+
+define languages = ["Русский", "English"]
+default curr_lang = 0
+
+screen language_options():
+    frame:
+        xsize 1257
+        ysize 88
+        xpos 30
+
+        background "gui/preferencesMenu/auto_text_frame.png"
+
+        hbox:
+            spacing 20
+
+            text _("Язык"):
+                size(40)
+                bold(True)
+                xpos 20
+                ypos 13
+            
+            null width 20
+
+            hbox:
+                ypos 10
+                spacing 20
+                
+                imagebutton:
+                    idle "gui/preferencesMenu/arrow_back.png"
+                    action Language(None)
+                    # action Language("none")
+                
+                frame:
+                    ypos 5
+                    xsize 865
+                    ysize 45
+                    background "gui/preferencesMenu/language_name_holder.png"
+
+                    text _("Русский"):
+                        xalign 0.5
+
+                imagebutton:
+                    idle "gui/preferencesMenu/arrow_forward.png"
+                    action Language("english")
+
+screen skip_options():
+    frame:
+        xsize 1257
+        ysize 88
+        xpos 30
+
+        background "gui/preferencesMenu/auto_text_frame.png"
+
+        hbox:
+            spacing 20
+
+            text _("Настройки пропуска"):
+                size(40)
+                bold(True)
+                xpos 20
+                ypos 13
+
+            null width 20
+
+            hbox:
+                ypos 10
+                spacing 20
+
+                text _("Не увиденный текст")
+                text _("После выбора")
+                text _("Переходы")
+
+screen skip_time_options():
+    frame:
+        xsize 1257
+        ysize 88
+        xpos 30
+        
+        background "gui/preferencesMenu/auto_text_frame.png"
+
+        hbox:
+            spacing 20
+
+            text _("Скорость пропуска текста"):
+                size(40)
+                bold(True)
+                xpos 20
+                ypos 13
+        
+            null width 20
+
+        hbox:
+            ypos 13
+            spacing 20
+            xalign 0.95
+
+            imagebutton:
+                idle "gui/preferencesMenu/auto_1x.png"
+                hover "gui/preferencesMenu/auto_1x_selected.png"
+                selected_idle "gui/preferencesMenu/auto_1x_selected.png"
+                selected_hover "gui/preferencesMenu/auto_1x_selected.png"
+                action Preference("auto-forward time", value = 1)
+                # action NullAction()
+            imagebutton:
+                idle "gui/preferencesMenu/auto_1.5x.png"
+                hover "gui/preferencesMenu/auto_1.5x_selected.png"
+                selected_idle "gui/preferencesMenu/auto_1.5x_selected.png"
+                selected_hover "gui/preferencesMenu/auto_1.5x_selected.png"
+                action Preference("auto-forward time", value = 120)
+            imagebutton:
+                idle "gui/preferencesMenu/auto_2x.png"
+                hover "gui/preferencesMenu/auto_2x_selected.png"
+                selected_idle "gui/preferencesMenu/auto_2x_selected.png"
+                selected_hover "gui/preferencesMenu/auto_2x_selected.png"
+                action Preference("auto-forward time", value = 800)
+            # text _("1X")
+
+screen hotkey_button(text):
+    button:
+        frame:
+            xsize 254
+            ysize 67
+            background "gui/preferencesMenu/hotkey_button.png"
+
+            text _(text):
+                size(30)
+                bold(True)
+                xalign 0.5
+                yalign 0.5
+
+        action NullAction()
+
+screen hotkey_row(text, text_desc):
+    hbox:
+        spacing 20
+        
+        use hotkey_button(text)
+
+        text _(text_desc):
+            ypos 15
+
+
+screen hotkeys():
+    frame:
+        xsize 1257
+        ysize 772
+        xpos 30
+
+        background "gui/preferencesMenu/hotkeys_frame.png"
+
+        text _("Горячие клавиши игрового процесса"):
+            size(40)
+            bold(True)
+            xalign 0.5
+               
+        vbox:
+            yalign 0.2
+            xpos 20
+            spacing 10
+
+            use hotkey_row("ESC", "Выход в меню")
+            use hotkey_row("E", "Какая-то фигня")
+
+
+screen preferences_holder():
+    frame:
+        xsize 1346
+        ysize 990
+        yalign 0.5
+        xalign 0.9
+        background "gui/preferencesMenu/preferences_holder.png"
+
+        has viewport:
+            draggable True
+            scrollbars "vertical"
+
+        vbox:
+            spacing 20
+
+            use sound_bars
+            null height 20
+
+            use auto_text
+            null height 20
+
+            use skip_time_options
+            null height 20
+            
+            # use skip_options
+            # null height 20
+
+            use display_options
+            null height 20
+
+            use language_options
+            null height 20
+
+            use hotkeys
+            null height 20
+
+
+        # vbox:
+        #     xpos 80
+        #     spacing 20
+        #     frame:
+        #         text _("Hello"):
+        #             xalign 0.5
+        #     text _("Bye")
+
+screen vanilla_preferences:
     use game_menu(_("Preferences"), scroll="viewport"):
-
         vbox:
             frame:
                 style "preferences"
@@ -1292,12 +1645,18 @@ screen preferences():
                         vbox:
 
                             label _("Text Speed")
-
-                            bar value Preference("text speed")
+                            bar:
+                                value Preference("text speed")
+                                left_bar "gui/slider/left_bar.png"
+                                right_bar "gui/slider/right_bar.png"
+                                thumb "gui/slider/thumb.png"
 
                             label _("Auto-Forward Time")
-
                             bar value Preference("auto-forward time")
+
+                            label _("Brightness")
+                            bar value FieldValue(persistent, "bright_value", range=0.8, offset=-0.5, style="slider")
+                            text _("Will apply after the scene will change..")
 
                         vbox:
 
@@ -1333,6 +1692,22 @@ screen preferences():
                                 textbutton _("Mute All"):
                                     action Preference("all mute", "toggle")
                                     style "mute_all_button"
+
+screen preferences():
+    tag menu
+    
+    add "gui/menu_background.png"
+
+    if main_menu:
+        use navigation_menu
+    else:
+        use navigation_game
+
+    use preferences_holder
+
+    # use vanilla_preferences
+
+        
 
 
 style pref_label is gui_label
