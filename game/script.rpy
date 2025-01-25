@@ -15,6 +15,21 @@
 
     # config.after_load_callbacks.append(func)
 
+### Config to store variable info in savefiles
+init python:
+
+    chapter = "Chapter Zero"
+    location = "1st Location"
+
+    def save_add_info(data):
+        data["chapter"] = chapter
+        data["location"] = location
+    
+    config.save_json_callbacks = [save_add_info]
+
+
+define persistent.chapters = []
+
 ### Splash screen and start screen
 image black = "#000"
 image white = "#ffffff"
@@ -28,8 +43,8 @@ transform transform_logo:
         linear 2.0 alpha 0
 
 # label splashscreen:
-#     python:
-#         config.show = show
+#     # python:
+#     #     config.show = show
 
 #     scene black 
 #     $ renpy.pause(1, hard=True) 
@@ -40,8 +55,8 @@ transform transform_logo:
 #     hide logo 
 #     $ renpy.pause(2, hard=True)
     
-#     python:
-#         config.show = ShowWithBrightness
+#     # python:
+#     #     config.show = ShowWithBrightness
 
 #     return
 
@@ -59,19 +74,10 @@ define e = Character("Eileen")
 
 label start:
 
-    # Show a background. This uses a placeholder by default, but you can
-    # add a file (named either "bg room.png" or "bg room.jpg") to the
-    # images directory to show it.
-
     scene bg room
 
-    # This shows a character sprite. A placeholder is used, but you can
-    # replace it by adding a file named "eileen happy.png" to the images
-    # directory.
 
     show eileen happy
-
-    # These display lines of dialogue.
 
     e "You've created a new Ren'Py game."
 
@@ -88,7 +94,7 @@ label start:
         "Choice 2":
             "Text for choice 2"
 
-    # This ends the game.
+
 
     "Test the brightness"
     scene bg room
@@ -98,9 +104,13 @@ label start:
     scene bg room
     "Done"
 
-    return
+    jump chapter_1
 
 label chapter_1:
+    $ chapter = "Chapter One"
+    $ location = "2nd Location"
+    if "Chapter 1" not in persistent.chapters:
+        $ persistent.chapters.append("Chapter 1")
     "This is chapter 1"
     "Congrats."
     return 

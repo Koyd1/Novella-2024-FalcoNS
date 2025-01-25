@@ -146,7 +146,7 @@ style window:
     background Image("gui/textbox.png", xalign=0.5, yalign=1.0)
 
 style namebox:
-    xpos 40
+    # xpos 40
     ypos -86
     xsize 324
     ysize 54
@@ -323,6 +323,9 @@ screen NewGameButton():
         action Start()
 
 screen ContinueOrNewGame():
+    
+    modal True
+
     frame:
         xsize 992
         ysize 315
@@ -846,17 +849,45 @@ style return_button:
 ##
 ##
 define n_chapters = 4
-define chapters = ["Chapter 1", "Chapter 2", "Chapter 3", "Chapter 4"]
-define chapters_description = ["Some description", "Some description", "Some description", "Description of chapter 4"]
-define chapters_image = ["chapter_1.png", "chapter_2.png", "chapter_2.png", "chapter_2.png"]
-define chapter_label = ["chapter_1", "chapter_2", "chapter_3", "chapter_4"]
+define chapters = [
+    {
+        "name" : "Chapter 1",
+        "description" : "Some Description",
+        "image_path" : "chapter_1.png",
+        "jump_label" : "chapter_1"
+    },
+    {
+        "name" : "Chapter 2",
+        "description" : "Some Description",
+        "image_path" : "chapter_2.png",
+        "jump_label" : "chapter_2"
+    },
+    {
+        "name" : "Chapter 3",
+        "description" : "Some Description",
+        "image_path" : "chapter_2.png",
+        "jump_label" : "chapter_3"
+    },
+    {
+        "name" : "Chapter 4",
+        "description" : "Some Description",
+        "image_path" : "chapter_2.png",
+        "jump_label" : "chapter_4"
+    },
+]
 
-screen chapter(title, description, image_path, chapter_label):
+# define chapters = ["Chapter 1", "Chapter 2", "Chapter 3", "Chapter 4"]
+# define chapters_description = ["Some description", "Some description", "Some description", "Description of chapter 4"]
+# define chapters_image = ["chapter_1.png", "chapter_2.png", "chapter_2.png", "chapter_2.png"]
+# define chapter_label = ["chapter_1", "chapter_2", "chapter_3", "chapter_4"]
+
+screen chapter(title, description, image_path, chapter_label, do_jump):
     frame:
-        button:
-            xsize 475
-            ysize 813
-            action Start(chapter_label)
+        if do_jump: # Jump to chapter label if chapter is unlocked by the player, else do not add button
+            button:
+                xsize 475
+                ysize 813
+                action Start(chapter_label)
         ypos 50
         xsize 475
         ysize 813
@@ -889,9 +920,22 @@ screen chapters_holder():
             spacing 50
             # yalign 0.5
             # xalign 1.0
-            for i in range(n_chapters):
-                use chapter(chapters[i], chapters_description[i], chapters_image[i], chapter_label[i])
+            $ j = 0
+            for i, _ in enumerate(persistent.chapters):
+                use chapter(chapters[i]["name"], chapters[i]["description"], chapters[i]["image_path"], chapters[i]["jump_label"], do_jump = True)
+                # use chapter(chapters[i], chapters_description[i], chapters_image[i], chapter_label[i], do_jump = True)
+                $ j += 1
+            for i in range(j, n_chapters):
+                use chapter("???", "You have not unlocked that chapter yet.", "None", "", do_jump = False)
             null width 0
+
+            #     for i in range(n_chapters):
+            #         use chapter(chapters[i], chapters_description[i], chapters_image[i], chapter_label[i])
+            #     null width 0
+            # else:
+            #     for i in range(n_chapters):
+            #         use chapter("???", "You have not unlocked that chapter yet.", "None", "")
+            #     null width 0
     # hbar value XScrollValue
 
 screen chapters():
@@ -1174,22 +1218,34 @@ screen file_slots(title):
                                 has hbox
 
                                 # Скриншот сохранения
-                                add FileScreenshot(slot) xsize 326 ysize 195 xalign 0.0
+                                add FileScreenshot(slot, empty="Empty") xsize 326 ysize 195 xalign 0.0 # Empty.png !!!!
+                                ## Here should be None.png
+
                                 # frame:
                                 #     background "gui/mask/mask_image.png"
                                 #     add FileScreenshot(slot) xsize 326 ysize 195
 
                                 # Информация о сохранении
-                                frame:
-                                    style "save_info_box"
-                                    vbox:
-                                        spacing 5
-                                        hbox:
-                                            text FileTime(slot, format=_("{#file_time}%d/%m/%Y    %H:%M:%S"), empty=_("empty slot")):
-                                                style "slot_time_text"
-                                            text FileSaveName(slot):
-                                                style "slot_time_text"
-                                        
+                                # frame:
+                                    # style "save_info_box"
+                                vbox:
+                                    xpos 20
+                                    spacing 5
+                                    hbox:
+                                        text FileTime(slot, format=_("{#file_time}%d/%m/%Y    %H:%M:%S"), empty=_("Empty slot")):
+                                            style "slot_time_text"
+                                        text FileSaveName(slot):
+                                            style "slot_time_text"
+                                    
+                                    null height 20
+
+                                    hbox:
+                                        text str(FileJson(slot, key="chapter", missing = "Unknown chapter", empty = "")):
+                                            style "slot_time_text"
+                                    hbox:
+                                        text str(FileJson(slot, key="location", missing = "Unkown location", empty = "")):
+                                            style "slot_time_text"
+                                    
 
                                 key "save_delete" action FileDelete(slot)
 
@@ -1249,11 +1305,11 @@ style slot_chapter_text:
 style slot_frame:
     background None
 
-style save_info_box:
-    xsize 734
-    ysize 189
-    left_padding 57
-    top_padding 73
+# style save_info_box:
+#     xsize 734
+#     ysize 189
+#     left_padding 57
+#     top_padding 73
 
 
 style vscrollbar:
@@ -1314,12 +1370,12 @@ screen sound_bars():
             # bar value Preference("sound volume"):
             #     yalign 0.5
 
-        hbox:
-            xsize 1043
-            spacing 10
+        # hbox:
+        #     xsize 1043
+        #     spacing 10
 
-            image "gui/preferencesMenu/brightness.png"
-            use bar(FieldValue(persistent, "bright_value", range=0.8, offset=-0.5, style="slider"))
+        #     image "gui/preferencesMenu/brightness.png"
+        #     use bar(FieldValue(persistent, "bright_value", range=0.8, offset=-0.5, style="slider"))
             # bar value FieldValue(persistent, "bright_value", range=0.8, offset=-0.5, style="slider")
 
         # if config.has_music or config.has_sound or config.has_voice:
@@ -1486,52 +1542,79 @@ screen skip_options():
 
                 text _("Не увиденный текст")
                 text _("После выбора")
-                text _("Переходы")
+                # text _("Переходы")
 
-screen skip_time_options():
+screen printer_toggle:
     frame:
         xsize 1257
         ysize 88
         xpos 30
-        
+
         background "gui/preferencesMenu/auto_text_frame.png"
 
         hbox:
             spacing 20
 
-            text _("Скорость пропуска текста"):
-                size(40)
-                bold(True)
-                xpos 20
-                ypos 13
-        
-            null width 20
+            text _("Эффект печатной машинки")
 
+            null width 20
+        
         hbox:
             ypos 13
-            spacing 20
-            xalign 0.95
+            xalign 0.9
 
             imagebutton:
-                idle "gui/preferencesMenu/auto_1x.png"
-                hover "gui/preferencesMenu/auto_1x_selected.png"
-                selected_idle "gui/preferencesMenu/auto_1x_selected.png"
-                selected_hover "gui/preferencesMenu/auto_1x_selected.png"
-                action Preference("auto-forward time", value = 1)
-                # action NullAction()
-            imagebutton:
-                idle "gui/preferencesMenu/auto_1.5x.png"
-                hover "gui/preferencesMenu/auto_1.5x_selected.png"
-                selected_idle "gui/preferencesMenu/auto_1.5x_selected.png"
-                selected_hover "gui/preferencesMenu/auto_1.5x_selected.png"
-                action Preference("auto-forward time", value = 120)
-            imagebutton:
-                idle "gui/preferencesMenu/auto_2x.png"
-                hover "gui/preferencesMenu/auto_2x_selected.png"
-                selected_idle "gui/preferencesMenu/auto_2x_selected.png"
-                selected_hover "gui/preferencesMenu/auto_2x_selected.png"
-                action Preference("auto-forward time", value = 800)
-            # text _("1X")
+                idle "gui/preferencesMenu/ToggleOn.png"
+                selected_idle "gui/preferencesMenu/ToggleOff.png"
+                selected_hover "gui/preferencesMenu/ToggleOff.png"
+                action Preference("text speed", value=0)
+
+        
+
+# screen skip_time_options():
+#     frame:
+#         xsize 1257
+#         ysize 88
+#         xpos 30
+        
+#         background "gui/preferencesMenu/auto_text_frame.png"
+
+#         hbox:
+#             spacing 20
+
+#             text _("Скорость пропуска текста"):
+#                 size(40)
+#                 bold(True)
+#                 xpos 20
+#                 ypos 13
+        
+#             null width 20
+
+#         hbox:
+#             ypos 13
+#             spacing 20
+#             xalign 0.95
+
+#             imagebutton:
+#                 idle "gui/preferencesMenu/auto_1x.png"
+#                 hover "gui/preferencesMenu/auto_1x_selected.png"
+#                 selected_idle "gui/preferencesMenu/auto_1x_selected.png"
+#                 selected_hover "gui/preferencesMenu/auto_1x_selected.png"
+#                 action Preference("auto-forward time", value = 1)
+#                 # action NullAction()
+#             imagebutton:
+#                 idle "gui/preferencesMenu/auto_1.5x.png"
+#                 hover "gui/preferencesMenu/auto_1.5x_selected.png"
+#                 selected_idle "gui/preferencesMenu/auto_1.5x_selected.png"
+#                 selected_hover "gui/preferencesMenu/auto_1.5x_selected.png"
+#                 action Preference("auto-forward time", value = 120)
+#             imagebutton:
+#                 idle "gui/preferencesMenu/auto_2x.png"
+#                 hover "gui/preferencesMenu/auto_2x_selected.png"
+#                 selected_idle "gui/preferencesMenu/auto_2x_selected.png"
+#                 selected_hover "gui/preferencesMenu/auto_2x_selected.png"
+#                 action Preference("auto-forward time", value = 800)
+#             # text _("1X")
 
 screen hotkey_button(text):
     button:
@@ -1577,7 +1660,7 @@ screen hotkeys():
             spacing 10
 
             use hotkey_row("ESC", "Выход в меню")
-            use hotkey_row("E", "Какая-то фигня")
+            use hotkey_row("E", "Что-то там")
 
 
 screen preferences_holder():
@@ -1594,6 +1677,7 @@ screen preferences_holder():
 
         vbox:
             spacing 20
+            null height 10
 
             use sound_bars
             null height 20
@@ -1601,11 +1685,14 @@ screen preferences_holder():
             use auto_text
             null height 20
 
-            use skip_time_options
+            use printer_toggle
             null height 20
-            
-            # use skip_options
+
+            # use skip_time_options
             # null height 20
+            
+            use skip_options
+            null height 20
 
             use display_options
             null height 20
