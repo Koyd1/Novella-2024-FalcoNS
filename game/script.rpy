@@ -94,16 +94,6 @@ label start:
         "Choice 2":
             "Text for choice 2"
 
-
-
-    "Test the brightness"
-    scene bg room
-    "Again test the brightness"
-    show eileen happy:
-        xalign 0.5
-    scene bg room
-    "Done"
-
     jump chapter_1
 
 label chapter_1:
@@ -113,9 +103,14 @@ label chapter_1:
         $ persistent.chapters.append("Chapter 1")
     "This is chapter 1"
     "Congrats."
-    return 
+    
+    jump chapter_2
 
 label chapter_2:
+    $ chapter = "Chapter Two"
+    $ location = "3rd Location"
+    if "Chapter 2" not in persistent.chapters:
+        $ persistent.chapters.append("Chapter 2")
     "This is chapter 2"
     "Congrats."
     return 

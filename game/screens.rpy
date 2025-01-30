@@ -52,13 +52,17 @@ style vbar:
 
 style scrollbar:
     ysize gui.scrollbar_size
-    base_bar Frame("gui/scrollbar/horizontal_[prefix_]bar.png", gui.scrollbar_borders, tile=gui.scrollbar_tile)
-    thumb Frame("gui/scrollbar/horizontal_[prefix_]thumb.png", gui.scrollbar_borders, tile=gui.scrollbar_tile)
+    base_bar Frame("gui/scrollbar/horizontal_idle_bar.png", gui.scrollbar_borders, tile=gui.scrollbar_tile)
+    thumb Frame("gui/scrollbar/horizontal_idle_thumb.png", gui.scrollbar_borders, tile=gui.scrollbar_tile)
+    # base_bar Frame("gui/scrollbar/horizontal_[prefix_]bar.png", gui.scrollbar_borders, tile=gui.scrollbar_tile)
+    # thumb Frame("gui/scrollbar/horizontal_[prefix_]thumb.png", gui.scrollbar_borders, tile=gui.scrollbar_tile)
 
 style vscrollbar:
     xsize gui.scrollbar_size
-    base_bar Frame("gui/scrollbar/vertical_[prefix_]bar.png", gui.vscrollbar_borders, tile=gui.scrollbar_tile)
-    thumb Frame("gui/scrollbar/vertical_[prefix_]thumb.png", gui.vscrollbar_borders, tile=gui.scrollbar_tile)
+    base_bar Frame("gui/scrollbar/vertical_idle_bar.png", gui.vscrollbar_borders, tile=gui.scrollbar_tile)
+    thumb Frame("gui/scrollbar/vertical_idle_thumb.png", gui.vscrollbar_borders, tile=gui.scrollbar_tile)
+    # base_bar Frame("gui/scrollbar/vertical_[prefix_]bar.png", gui.vscrollbar_borders, tile=gui.scrollbar_tile)
+    # thumb Frame("gui/scrollbar/vertical_[prefix_]thumb.png", gui.vscrollbar_borders, tile=gui.scrollbar_tile)
 
 style slider:
     ysize gui.slider_size
@@ -298,6 +302,8 @@ style quick_button_text:
 ## to other menus, and to start the game.
 screen StartButton():
     imagebutton:
+        selected_idle "gui/menuButtons/start_game/selected.png"
+        selected_hover "gui/menuButtons/start_game/selected.png"
         idle "gui/menuButtons/start_game/idle.png"
         hover "gui/menuButtons/start_game/hover.png"
         action [Show("ContinueOrNewGame"), With(dissolve)]
@@ -322,32 +328,6 @@ screen NewGameButton():
         auto "gui/menuButtons/new_game/%s.png"
         action Start()
 
-screen ContinueOrNewGame():
-    
-    modal True
-
-    frame:
-        xsize 992
-        ysize 315
-        # size(992, 315)
-        pos(0.45, 0.35)
-        background "gui/overlay/confirm.png"
-        vbox:
-            spacing 30
-            xalign(0.5)
-            imagebutton idle "gui/overlay/close.png":
-                xalign(1.0)
-                action [Hide("ContinueOrNewGame"), With(dissolve)]
-            text "Хотите продолжить историю?":
-                xanchor(0.5)
-                xpos(0.5)
-            hbox:
-                spacing 10
-                xanchor(0.5)
-                xpos(0.5)
-                use ContinueStoryButton
-                use NewGameButton
-
 screen ContinueGameButton():
     imagebutton:
         auto "gui/menuButtons/continue_game/%s.png"
@@ -355,6 +335,8 @@ screen ContinueGameButton():
 
 screen LoadButton():
     imagebutton:
+        selected_idle "gui/menuButtons/load/selected.png"
+        selected_hover "gui/menuButtons/load/selected.png"
         auto "gui/menuButtons/load/%s.png"
         action ShowMenu("load")
 
@@ -365,6 +347,8 @@ screen SaveButton():
 
 screen SettingsButton():
     imagebutton:
+        selected_idle "gui/menuButtons/settings/selected.png"
+        selected_hover "gui/menuButtons/settings/selected.png"
         auto "gui/menuButtons/settings/%s.png"
         action ShowMenu("preferences")
 
@@ -374,70 +358,261 @@ screen ChaptersButton():
         selected_hover "gui/menuButtons/chapters/selected.png"
         auto "gui/menuButtons/chapters/%s.png"
         action ShowMenu("chapters")
-    # vbox:
-    #     spacing 0
-    #     imagebutton idle "gui/MainMenu/button.png" action ToggleScreen("chapters"):
-    #         at zoom
-    #     textbutton _(text) action Return():
-    #         pos(xpos, ypos)
 
 screen AchievementsButton():
     imagebutton:
+        selected_idle "gui/menuButtons/achievements/selected.png"
+        selected_hover "gui/menuButtons/achievements/selected.png"
         auto "gui/menuButtons/achievements/%s.png"
         action ShowMenu("achievements_types")
 
 screen MainMenuButton():
     imagebutton:
         auto "gui/menuButtons/quit/%s.png"
-        action MainMenu()
+        action [Show("ToMainScreenConfirm"), With(dissolve)]
+        # action MainMenu()
 
 screen QuitButton():
     imagebutton:
+        selected_idle "gui/menuButtons/quit/selected.png"
+        selected_hover "gui/menuButtons/quit/selected.png"
         auto "gui/menuButtons/quit/%s.png"
-        action Quit(confirm=True)
-    # vbox:
-    #     spacing 0
-    #     imagebutton idle "gui/MainMenu/button.png" action Quit(confirm = not main_menu):
-    #         at zoom
-    #     textbutton _(text) action Quit(confirm = not main_menu):
-    #         pos(xpos, ypos)
+        action [Show("QuitConfirm"), With(dissolve)]
+        # action Quit(confirm=True)
 
 screen ReturnButton():
     imagebutton:
         auto "gui/menuButtons/return/%s.png"
         action Return()
 
-screen ShowMenuButton(_menu, text="undefined", xpos = 150, ypos = -50):
-    vbox:
-        spacing 0
-        imagebutton idle "gui/MainMenu/button.png" action ShowMenu(_menu):
-            at zoom
-        textbutton _(text) action ShowMenu(_menu):
-            # ypos(-50)
+
+screen ContinueOrNewGame():    
+    modal True
+
+    frame:
+        xsize 992
+        ysize 315
+        xalign 0.8
+        yalign 0.5
+        # # size(992, 315)
+        # pos(0.45, 0.35)
+        background "gui/overlay/confirm.png"
+
+        vbox:
+            xsize 992
+            spacing 30
+            imagebutton:
+                ypos 10
+                xalign 0.95
+                idle "gui/overlay/close.png"
+                action [Hide("ContinueOrNewGame"), With(dissolve)]
             
-            pos(xpos, ypos)
-            # ypos(-0.5)
-            # xpos(0.5)
-            # xpos(150)
+            text "Хотите продолжить историю?":
+                xalign 0.5
+        
+        hbox:
+            yalign 0.85
+            xalign 0.5
+            spacing 10
+            
+            use ContinueStoryButton
+            use NewGameButton
 
-screen Button(action, text="undefined", xpos = 150, ypos = -50):
-    vbox:
-        spacing 0
-        imagebutton idle "gui/MainMenu/button.png" action action():
-            at zoom
-        textbutton _(text) action action():
-            pos(xpos, ypos)
+screen QuitConfirm():
+    modal True
 
-# screen ReturnButton(text="undefined", xpos = 150, ypos = -50 ):
-#     vbox:
-#         xpos(30)
-#         ypos(0.88)
-#         spacing 0
-#         imagebutton idle "gui/MainMenu/button.png" action Return():
-#             at zoom
-#         textbutton _(text) action Return():
-#             pos(xpos, ypos)
+    frame:
+        xsize 992
+        ysize 315
+        xalign 0.8
+        yalign 0.5
+        background "gui/overlay/confirm.png"
+        
+        vbox:
+            xsize 992
+            spacing 30
+            imagebutton:
+                ypos 10
+                xalign 0.95
+                idle "gui/overlay/close.png"
+                action [Hide("QuitConfirm"), With(dissolve)]
 
+            text "Вы действительно хотите выйти?":
+                xalign 0.5
+
+        hbox:
+            yalign 0.85
+            spacing 10
+            xalign 0.5
+            
+            imagebutton:
+                auto "gui/menuButtons/quit_confirm_return/%s.png"
+                action [Hide("QuitConfirm"), With(dissolve)]
+
+            imagebutton:
+                auto "gui/menuButtons/quit_confirm_quit/%s.png"
+                action Quit()
+
+screen StartChapterConfirm(chapter_label, cur_sel_chapter):
+    # cur_sel_chapter variable needed for the chapter button to be selected
+    modal True
+
+    frame:
+        xsize 992
+        ysize 315
+        xalign 0.8
+        yalign 0.5
+        background "gui/overlay/confirm.png"
+        
+        vbox:
+            xsize 992
+            spacing 30
+            imagebutton:
+                ypos 10
+                xalign 0.95
+                idle "gui/overlay/close.png"
+                action [SetVariable("cur_sel_chapter", ""), Hide("StartChapterConfirm"), With(dissolve)]
+
+            text _("Хотите пройти заново данную главу?"):
+                xalign 0.5
+            
+        hbox:
+            yalign 0.85
+            spacing 10
+            xalign 0.5
+            
+            imagebutton:
+                auto "gui/menuButtons/quit_confirm_return/%s.png"
+                action [SetVariable("cur_sel_chapter", ""), Hide("StartChapterConfirm"), With(dissolve)]
+
+            imagebutton:
+                auto "gui/menuButtons/replay_chapter/%s.png"
+                action [SetVariable("cur_sel_chapter", ""), Start(label=str(chapter_label))]
+
+screen LoadSaveConfirm(slot, time, cur_sel_save, do_load):
+    modal True
+
+    frame:
+        xsize 992
+        ysize 315
+        xalign 0.8
+        yalign 0.5
+        background "gui/overlay/confirm.png"
+        
+        vbox:
+            xsize 992
+            spacing 30
+            imagebutton:
+                ypos 10
+                xalign 0.95
+                idle "gui/overlay/close.png"
+                action [SetVariable("cur_sel_save", ""), Hide("LoadSaveConfirm"), With(dissolve)]
+
+            if do_load:
+                text _("Хотите загрузить сохранение от " + str(time) + "?"):
+                    xalign 0.5
+            else:
+                if FileLoadable(slot):
+                    text _("Хотите перезаписать данное сохранение?"):
+                        xalign 0.5
+                else:
+                    text _("Хотите сделать новое сохранение?"):
+                        xalign 0.5
+            
+        hbox:
+            yalign 0.85
+            spacing 10
+            xalign 0.5
+            
+            imagebutton:
+                auto "gui/menuButtons/quit_confirm_return/%s.png"
+                action [SetVariable("cur_sel_save", ""), Hide("LoadSaveConfirm"), With(dissolve)]
+
+            if do_load:
+                imagebutton:
+                    auto "gui/menuButtons/load_confirm/%s.png"
+                    action FileLoad(slot, confirm=False)
+            else:
+                imagebutton:
+                    auto "gui/menuButtons/save/%s.png"
+                    action [FileSave(slot, confirm=False), SetVariable("cur_sel_save", ""), Hide("LoadSaveConfirm"), With(dissolve)]
+
+screen DeleteSaveConfirm(slot, cur_sel_save):
+    # cur_sel_chapter variable needed for the chapter button to be selected
+    modal True
+
+    frame:
+        xsize 992
+        ysize 315
+        xalign 0.8
+        yalign 0.5
+        background "gui/overlay/confirm.png"
+        
+        vbox:
+            xsize 992
+            spacing 30
+            imagebutton:
+                ypos 10
+                xalign 0.95
+                idle "gui/overlay/close.png"
+                action [SetVariable("cur_sel_save", ""), Hide("DeleteSaveConfirm"), With(dissolve)]
+
+            text _("Хотите удалить данное сохранение?"):
+                xalign 0.5
+            
+        hbox:
+            yalign 0.85
+            spacing 10
+            xalign 0.5
+            
+            imagebutton:
+                auto "gui/menuButtons/quit_confirm_return/%s.png"
+                action [SetVariable("cur_sel_save", ""), Hide("DeleteSaveConfirm"), With(dissolve)]
+
+            imagebutton:
+                auto "gui/menuButtons/replay_chapter/%s.png"
+                action [FileDelete(slot, confirm=False), SetVariable("cur_sel_save", ""), Hide("DeleteSaveConfirm"), With(dissolve)]
+
+screen ToMainScreenConfirm():
+    modal True
+
+    frame:
+        xsize 992
+        ysize 315
+        xalign 0.8
+        yalign 0.5
+        background "gui/overlay/confirm.png"
+        
+        vbox:
+            xsize 992
+            spacing 30
+            imagebutton:
+                ypos 10
+                xalign 0.95
+                idle "gui/overlay/close.png"
+                action [Hide("ToMainScreenConfirm"), With(dissolve)]
+
+            vbox:
+                xalign 0.5
+                spacing 5
+
+                text _("Вы действительно хотите выйти в главное меню?"):
+                    xalign 0.5
+                text _("Весь несохраненный прогресс будет потерян."):
+                    xalign 0.5
+
+        hbox:
+            yalign 0.85
+            spacing 10
+            xalign 0.5
+            
+            imagebutton:
+                auto "gui/menuButtons/quit_confirm_return/%s.png"
+                action [Hide("ToMainScreenConfirm"), With(dissolve)]
+
+            imagebutton:
+                auto "gui/menuButtons/quit_confirm_quit/%s.png"
+                action MainMenu(confirm=False, save=False)
 
 ### Navigation screen used in game menus (main and in-game)
 init:
@@ -450,8 +625,8 @@ screen navigation_main_menu():
         style_prefix "game_title"
         spacing 15
         yalign 0.1
-        xanchor(0.5)
-        xpos gui.navigation_xpos + 180
+        # xanchor(0.5)
+        xpos 80
         # xpos gui.navigation_xpos + 40
         image "gui/MainMenu/title_main.png"
         image "gui/MainMenu/subtitle_main.png":
@@ -466,10 +641,9 @@ screen navigation_main_menu():
 
     vbox:
         style_prefix "navigation"
-
-        xpos gui.navigation_xpos - 40
+        # xpos gui.navigation_xpos - 40
+        xpos 90
         yalign 0.8
-        # spacing gui.navigation_spacing
         spacing 25
         
         use StartButton
@@ -687,7 +861,7 @@ style main_menu_title is main_menu_text
 style main_menu_version is main_menu_text
 
 style main_menu_frame:
-    xsize 700
+    xsize 662
     yfill True
     # color "#141414"
     background "gui/MainMenu/frame.png"
@@ -881,21 +1055,34 @@ define chapters = [
 # define chapters_image = ["chapter_1.png", "chapter_2.png", "chapter_2.png", "chapter_2.png"]
 # define chapter_label = ["chapter_1", "chapter_2", "chapter_3", "chapter_4"]
 
+default cur_sel_chapter = "asdasdas"
+
 screen chapter(title, description, image_path, chapter_label, do_jump):
+
     frame:
-        if do_jump: # Jump to chapter label if chapter is unlocked by the player, else do not add button
-            button:
-                xsize 475
-                ysize 813
-                action Start(chapter_label)
         ypos 50
         xsize 475
         ysize 813
-        # size(475, 813)
-        background "gui/chaptersScreen/chapter_frame.png"
+        background "gui/chaptersScreen/transparent.png"
+        
+        button:
+            xsize 475
+            ysize 813
+            idle_background "gui/chaptersScreen/chapter_frame.png"
+            hover_background "gui/chaptersScreen/chapter_frame_selected.png"
+            if cur_sel_chapter == title:
+                selected_background "gui/chaptersScreen/chapter_frame_selected.png"
+            if do_jump: # Jump to chapter label if chapter is unlocked by the player, else do not add button
+                action [SetVariable("cur_sel_chapter", title), Show("StartChapterConfirm", chapter_label=chapter_label, cur_sel_chapter=cur_sel_chapter), With(dissolve)]
+                # action Confirm("Желаете повторить данную главу?", yes = Start(chapter_label))
+                # action Start(chapter_label)
+            else:
+                hover_background "gui/chaptersScreen/chapter_frame.png"
+                action NullAction()
+
         vbox:
             image "images/chapters/" + image_path:
-                pos(15, 20)
+                pos(20, 20)
             text _(title):
                 pos(15, 30)
                 bold(True)
@@ -906,7 +1093,7 @@ screen chapter(title, description, image_path, chapter_label, do_jump):
 screen chapters_holder():
 
     frame:
-        background "gui/chaptersScreen/chapter_holder.png"
+        background "gui/chaptersScreen/transparent.png"
         xalign 0.9
         yalign 0.5
         xsize 1346
@@ -926,8 +1113,12 @@ screen chapters_holder():
                 # use chapter(chapters[i], chapters_description[i], chapters_image[i], chapter_label[i], do_jump = True)
                 $ j += 1
             for i in range(j, n_chapters):
-                use chapter("???", "You have not unlocked that chapter yet.", "None", "", do_jump = False)
+                use chapter("???", "You have not unlocked that chapter yet.", "locked.png", "", do_jump = False)
             null width 0
+
+            # use chapter(chapters[0]["name"], chapters[0]["description"], chapters[0]["image_path"], chapters[0]["jump_label"], do_jump = True)
+            # use chapter(chapters[1]["name"], chapters[1]["description"], chapters[1]["image_path"], chapters[1]["jump_label"], do_jump = True)
+
 
             #     for i in range(n_chapters):
             #         use chapter(chapters[i], chapters_description[i], chapters_image[i], chapter_label[i])
@@ -1159,7 +1350,7 @@ screen save():
 
     text _("Save")
 
-    use file_slots(_("Save"))
+    use file_slots(_("Save"), do_load=False)
 
 
 screen load():
@@ -1168,9 +1359,72 @@ screen load():
 
     text _("Load")
 
-    use file_slots(_("Load"))
+    use file_slots(_("Load"), do_load=True)
 
-screen file_slots(title):
+screen file_slot(slot, do_load):
+    button:
+        style "slot_capsule_button"
+        idle_background "gui/saveLoadMenu/capsule_frame.png"
+        hover_background "gui/saveLoadMenu/capsule_frame_selected.png"
+        if cur_sel_save == slot:
+            selected_background "gui/saveLoadMenu/capsule_frame_selected.png"
+        
+        if do_load:
+            if FileLoadable(slot):
+                action [
+                    SetVariable("cur_sel_save", slot), 
+                    Show("LoadSaveConfirm", slot=slot, time=FileTime(slot, format=_("{#file_time}%d/%m/%Y %H:%M:%S"), empty=_("Empty slot")), cur_sel_save=cur_sel_save, do_load=do_load), 
+                    With(dissolve)
+                ]
+            else:
+                hover_background "gui/saveLoadMenu/capsule_frame.png"
+                action NullAction()
+        
+        else:  
+            action [
+                SetVariable("cur_sel_save", slot),
+                Show("LoadSaveConfirm", slot=slot, time=FileTime(slot, format=_("{#file_time}%d/%m/%Y %H:%M:%S"), empty=_("Empty slot")), cur_sel_save=cur_sel_save, do_load=do_load), 
+                With(dissolve)
+            ]
+
+        # action Confirm("Хотите загрузить данное сохранение?", yes = FileAction(slot))
+        has hbox
+
+        # Скриншот сохранения
+        add FileScreenshot(slot, empty="Empty") xsize 326 ysize 195 xalign 0.0 # Empty.png !!!!
+        ## Here should be None.png
+
+        # frame:
+        #     background "gui/mask/mask_image.png"
+        #     add FileScreenshot(slot) xsize 326 ysize 195
+
+        # Информация о сохранении
+        vbox:
+            xpos 20
+            spacing 5
+            hbox:
+                text FileTime(slot, format=_("{#file_time}%d/%m/%Y    %H:%M:%S"), empty=_("Empty slot")):
+                    style "slot_time_text"
+                text FileSaveName(slot):
+                    style "slot_time_text"
+            
+            null height 20
+
+            hbox:
+                text str(FileJson(slot, key="chapter", missing = "Unknown chapter", empty = "")):
+                    style "slot_time_text"
+            hbox:
+                text str(FileJson(slot, key="location", missing = "Unkown location", empty = "")):
+                    style "slot_time_text"
+
+        if FileLoadable(slot):    
+            key "save_delete" action [SetVariable("cur_sel_save", slot) ,Show("DeleteSaveConfirm", slot=slot, cur_sel_save=cur_sel_save), With(dissolve)]
+        
+        # key "save_delete" action FileDelete(slot)
+
+default cur_sel_save = "asasd;adm"
+
+screen file_slots(title, do_load):
 
     default page_name_value = FilePageNameInputValue(pattern=_("Page {}"), auto=_("Automatic saves"), quick=_("Quick saves"))
 
@@ -1203,51 +1457,31 @@ screen file_slots(title):
                     draggable True
                     mousewheel True
                     scrollbars "vertical"
-                    vbox:
-                        frame:
-                            xalign 0.5
-                            style "page_name_frame"
-                            text "ВСЕГО СОХРАНЕНИЙ {}".format(gui.file_slot_cols * gui.file_slot_rows) xalign 0.5:
-                                style "page_name_text"
-                        spacing 56
-                        for i in range(gui.file_slot_cols * gui.file_slot_rows):
-                            $ slot = i + 1
-                            button:
-                                style "slot_capsule_button"
-                                action FileAction(slot)
-                                has hbox
 
-                                # Скриншот сохранения
-                                add FileScreenshot(slot, empty="Empty") xsize 326 ysize 195 xalign 0.0 # Empty.png !!!!
-                                ## Here should be None.png
+                vbox:
+                    xsize 1300
+                    spacing 56
 
-                                # frame:
-                                #     background "gui/mask/mask_image.png"
-                                #     add FileScreenshot(slot) xsize 326 ysize 195
+                    # Count current savefiles
+                    $ cur_saves = 0
+                    for i in range(gui.file_slot_cols * gui.file_slot_rows):
+                        $ slot = i + 1
+                        if FileLoadable(slot):
+                                $ cur_saves += 1
 
-                                # Информация о сохранении
-                                # frame:
-                                    # style "save_info_box"
-                                vbox:
-                                    xpos 20
-                                    spacing 5
-                                    hbox:
-                                        text FileTime(slot, format=_("{#file_time}%d/%m/%Y    %H:%M:%S"), empty=_("Empty slot")):
-                                            style "slot_time_text"
-                                        text FileSaveName(slot):
-                                            style "slot_time_text"
-                                    
-                                    null height 20
+                    text "ВСЕГО СОХРАНЕНИЙ {}/{}".format(cur_saves, gui.file_slot_cols * gui.file_slot_rows):
+                            style "page_name_text"
+                    
+                    for i in range(gui.file_slot_cols * gui.file_slot_rows):
+                        $ slot = i + 1
 
-                                    hbox:
-                                        text str(FileJson(slot, key="chapter", missing = "Unknown chapter", empty = "")):
-                                            style "slot_time_text"
-                                    hbox:
-                                        text str(FileJson(slot, key="location", missing = "Unkown location", empty = "")):
-                                            style "slot_time_text"
-                                    
-
-                                key "save_delete" action FileDelete(slot)
+                        if do_load:
+                            use file_slot(slot, do_load)
+                        else:
+                            use file_slot(slot, do_load=False)
+                    
+                    null height 10
+                        
 
 # Стили
 style window_background:
@@ -1257,7 +1491,8 @@ style window_background:
     bottom_padding 26
     xsize 1334
     ysize 1000
-    background "gui/saveLoadMenu/save_holder.png"
+    background "gui/chaptersScreen/transparent.png"
+    # background "gui/saveLoadMenu/save_holder.png"
     # background "gui/slot_capsule/window_background.png"
     # right_padding 30
 
@@ -1270,7 +1505,6 @@ style slot_capsule_button:
     left_padding 18
     left_margin 63
     right_margin 57
-    background "gui/saveLoadMenu/capsule_frame.png"
     # background "gui/slot_capsule/slot_capsule_background.png"
 
 
@@ -1294,7 +1528,7 @@ style page_name_frame:
     xsize 897
     ysize 71
     xalign 0.5
-    background "gui/saveLoadMenu/page_name_frame.png"
+    # background "gui/saveLoadMenu/page_name_frame.png"
     # background "gui/slot_capsule/slot_page_name_back.png"
 
 style slot_chapter_text:
@@ -1304,13 +1538,6 @@ style slot_chapter_text:
 
 style slot_frame:
     background None
-
-# style save_info_box:
-#     xsize 734
-#     ysize 189
-#     left_padding 57
-#     top_padding 73
-
 
 style vscrollbar:
     xsize 13
@@ -1354,7 +1581,7 @@ screen sound_bars():
             xsize 1043
             spacing 10
             
-            image "gui/preferencesMenu/sound.png"
+            image "gui/preferencesMenu/music.png"
             use bar(Preference("music volume"))
             # bar value Preference("music volume"):
             #     yalign 0.5
@@ -1386,7 +1613,7 @@ screen sound_bars():
 
 screen auto_text():
     frame:
-        xsize 1257
+        xsize 1205
         ysize 88
         xpos 30
         
@@ -1396,7 +1623,7 @@ screen auto_text():
             spacing 20
 
             text _("Скорость проигрывания текста"):
-                size(40)
+                size(36)
                 bold(True)
                 xpos 20
                 ypos 13
@@ -1435,7 +1662,7 @@ screen auto_text():
 
 screen display_options():
     frame:
-        xsize 1257
+        xsize 1205
         ysize 88
         xpos 30
 
@@ -1445,7 +1672,7 @@ screen display_options():
             spacing 20
 
             text _("Отображение игры"):
-                size(40)
+                size(36)
                 bold(True)
                 xpos 20
                 ypos 13            
@@ -1472,13 +1699,76 @@ screen display_options():
                 action Preference("display", "window")
             # image "gui/preferencesMenu/display.png"
 
+screen printer_toggle:
+    frame:
+        xsize 1205
+        ysize 88
+        xpos 30
+        background "gui/preferencesMenu/auto_text_frame.png"
+
+        hbox:
+            spacing 20
+
+            text _("Эффект печатной машинки"):
+                xpos 20
+                ypos 13
+                size(36)
+                bold(True)
+
+            null width 20
+        
+        hbox:
+            ypos 13
+            xalign 0.9
+
+            imagebutton:
+                # idle "gui/preferencesMenu/ToggleOn.png"
+                # selected_idle "gui/preferencesMenu/ToggleOff.png"
+                # selected_hover "gui/preferencesMenu/ToggleOff.png"
+                idle "gui/preferencesMenu/ToggleOnBig.png"
+                selected_idle "gui/preferencesMenu/ToggleOffBig.png"
+                selected_hover "gui/preferencesMenu/ToggleOffBig.png"
+                action Preference("text speed", value=0)
+
+screen skip_options(skip_option):
+    frame:
+        xsize 1205
+        ysize 88
+        xpos 30
+        background "gui/preferencesMenu/auto_text_frame.png"
+
+        hbox:
+            spacing 20
+            
+            if skip_option == "skip":
+                $ txt = "Пропускать неувиденный текст"
+            elif skip_option == "after choices":
+                $ txt = "Пропускать после выбора"
+
+            text _(txt):
+                xpos 20
+                ypos 13
+                size(36)
+                bold(True)
+            
+            null width 20
+
+        hbox:
+            ypos 13
+            xalign 0.9
+
+            imagebutton:
+                idle "gui/preferencesMenu/ToggleOffBig.png"
+                selected_idle "gui/preferencesMenu/ToggleOnBig.png"
+                selected_hover "gui/preferencesMenu/ToggleOnBig.png"
+                action Preference(skip_option, "toggle")
 
 define languages = ["Русский", "English"]
 default curr_lang = 0
 
 screen language_options():
     frame:
-        xsize 1257
+        xsize 1205
         ysize 88
         xpos 30
 
@@ -1495,81 +1785,57 @@ screen language_options():
             
             null width 20
 
-            hbox:
-                ypos 10
-                spacing 20
-                
-                imagebutton:
-                    idle "gui/preferencesMenu/arrow_back.png"
-                    action Language(None)
-                    # action Language("none")
-                
-                frame:
-                    ypos 5
-                    xsize 865
-                    ysize 45
-                    background "gui/preferencesMenu/language_name_holder.png"
-
-                    text _("Русский"):
-                        xalign 0.5
-
-                imagebutton:
-                    idle "gui/preferencesMenu/arrow_forward.png"
-                    action Language("english")
-
-screen skip_options():
-    frame:
-        xsize 1257
-        ysize 88
-        xpos 30
-
-        background "gui/preferencesMenu/auto_text_frame.png"
-
         hbox:
-            spacing 20
-
-            text _("Настройки пропуска"):
-                size(40)
-                bold(True)
-                xpos 20
-                ypos 13
-
-            null width 20
-
-            hbox:
-                ypos 10
-                spacing 20
-
-                text _("Не увиденный текст")
-                text _("После выбора")
-                # text _("Переходы")
-
-screen printer_toggle:
-    frame:
-        xsize 1257
-        ysize 88
-        xpos 30
-
-        background "gui/preferencesMenu/auto_text_frame.png"
-
-        hbox:
-            spacing 20
-
-            text _("Эффект печатной машинки")
-
-            null width 20
-        
-        hbox:
-            ypos 13
+            ypos 10
             xalign 0.9
+            spacing 20
+            
+            imagebutton:
+                idle "gui/preferencesMenu/arrow_back.png"
+                action Language(None)
+            
+            frame:
+                ypos 5
+                xsize 832
+                ysize 45
+                background "gui/preferencesMenu/language_name_holder.png"
+
+                text _("Русский"):
+                    color "#372620"
+                    xalign 0.5
 
             imagebutton:
-                idle "gui/preferencesMenu/ToggleOn.png"
-                selected_idle "gui/preferencesMenu/ToggleOff.png"
-                selected_hover "gui/preferencesMenu/ToggleOff.png"
-                action Preference("text speed", value=0)
+                idle "gui/preferencesMenu/arrow_forward.png"
+                action Language("english")
 
-        
+# screen skip_options():
+#     frame:
+#         xsize 1205
+#         ysize 88
+#         xpos 30
+
+#         background "gui/preferencesMenu/auto_text_frame.png"
+
+#         hbox:
+#             spacing 20
+
+#             text _("Настройки пропуска"):
+#                 size(40)
+#                 bold(True)
+#                 xpos 20
+#                 ypos 13
+
+#             null width 20
+
+#             hbox:
+#                 ypos 10
+#                 spacing 20
+
+#                 text _("Не увиденный текст")
+#                 text _("После выбора")
+#                 # text _("Переходы")
+
+
 
 # screen skip_time_options():
 #     frame:
@@ -1619,11 +1885,12 @@ screen printer_toggle:
 screen hotkey_button(text):
     button:
         frame:
-            xsize 254
+            xsize 251
             ysize 67
             background "gui/preferencesMenu/hotkey_button.png"
 
             text _(text):
+                color "#372620"
                 size(30)
                 bold(True)
                 xalign 0.5
@@ -1643,7 +1910,7 @@ screen hotkey_row(text, text_desc):
 
 screen hotkeys():
     frame:
-        xsize 1257
+        xsize 1205
         ysize 772
         xpos 30
 
@@ -1655,12 +1922,19 @@ screen hotkeys():
             xalign 0.5
                
         vbox:
-            yalign 0.2
+            yalign 0.5
             xpos 20
             spacing 10
 
             use hotkey_row("ESC", "Выход в меню")
-            use hotkey_row("E", "Что-то там")
+            use hotkey_row("Пробел", "Продвижение по игре, не активирует выборы")
+            use hotkey_row("CTRL", "Пропуск текста пока кнопка нажата")
+            use hotkey_row("TAB", "Запустить/выключить пропуск текста")
+            use hotkey_row("F", "Переключить полноэкранный режим")
+            use hotkey_row("S", "Сделать скриншот")
+            use hotkey_row("Delete", "Удалить выбранное сохранение")
+            # use hotkey_row("PageUp", "Предыдущая фраза")
+            # use hotkey_row("PageDown", "Следующая фраза")
 
 
 screen preferences_holder():
@@ -1669,14 +1943,15 @@ screen preferences_holder():
         ysize 990
         yalign 0.5
         xalign 0.9
-        background "gui/preferencesMenu/preferences_holder.png"
+        background "gui/chaptersScreen/transparent.png"
+        # background "gui/preferencesMenu/preferences_holder.png"
 
         has viewport:
             draggable True
             scrollbars "vertical"
 
         vbox:
-            spacing 20
+            spacing 15
             null height 10
 
             use sound_bars
@@ -1688,10 +1963,10 @@ screen preferences_holder():
             use printer_toggle
             null height 20
 
-            # use skip_time_options
-            # null height 20
-            
-            use skip_options
+            use skip_options("skip")
+            null height 20
+
+            use skip_options("after choices")
             null height 20
 
             use display_options
@@ -1702,15 +1977,6 @@ screen preferences_holder():
 
             use hotkeys
             null height 20
-
-
-        # vbox:
-        #     xpos 80
-        #     spacing 20
-        #     frame:
-        #         text _("Hello"):
-        #             xalign 0.5
-        #     text _("Bye")
 
 screen vanilla_preferences:
     use game_menu(_("Preferences"), scroll="viewport"):
