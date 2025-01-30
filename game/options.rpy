@@ -4,6 +4,12 @@
 ## them. Lines beginning with a single '#' mark are commented-out code, and you
 ## may want to uncomment them when appropriate.
 
+define config.has_autosave = False
+define config.has_quicksave = False
+define config.autosave_on_quit = False
+define config.autosave_on_choice = False
+
+define config.quit_action = Quit(confirm=False)
 
 ## Basics ######################################################################
 

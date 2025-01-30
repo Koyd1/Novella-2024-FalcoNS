@@ -51,6 +51,7 @@ style vbar:
     bottom_bar Frame("gui/bar/bottom.png", gui.vbar_borders, tile=gui.bar_tile)
 
 style scrollbar:
+    unscrollable "hide"
     ysize gui.scrollbar_size
     base_bar Frame("gui/scrollbar/horizontal_idle_bar.png", gui.scrollbar_borders, tile=gui.scrollbar_tile)
     thumb Frame("gui/scrollbar/horizontal_idle_thumb.png", gui.scrollbar_borders, tile=gui.scrollbar_tile)
@@ -58,6 +59,7 @@ style scrollbar:
     # thumb Frame("gui/scrollbar/horizontal_[prefix_]thumb.png", gui.scrollbar_borders, tile=gui.scrollbar_tile)
 
 style vscrollbar:
+    unscrollable "hide"
     xsize gui.scrollbar_size
     base_bar Frame("gui/scrollbar/vertical_idle_bar.png", gui.vscrollbar_borders, tile=gui.scrollbar_tile)
     thumb Frame("gui/scrollbar/vertical_idle_thumb.png", gui.vscrollbar_borders, tile=gui.scrollbar_tile)
@@ -79,7 +81,8 @@ style frame:
     padding gui.frame_borders.padding
     background Frame("gui/frame.png", gui.frame_borders, tile=gui.frame_tile)
 
-
+style text:
+    color "#D9D9D9"
 
 ################################################################################
 ## In-game screens
@@ -112,14 +115,16 @@ screen say(who, what):
                 style "namebox"
                 text who:
                     id "who"
-                    color "FFFFFF"
+                    color "#D9D9D9"
                     yalign 0.5
                     xalign 0.5
 
         text what id "what":
-            xsize 0.8
-            xpos 250
+            xsize 0.85
+            xpos 150
             yalign 0.1
+            size(40)
+            color "#D9D9D9"
 
 
     ## If there's a side image, display it above the text. Do not display on the
@@ -217,23 +222,44 @@ style input:
 screen choice(items):
     style_prefix "choice"
 
-    vbox:
-        for i in items:
-            textbutton i.caption action i.action
+    if len(items) == 3:
+        vbox:
+            hbox:
+                textbutton items[0].caption action items[0].action
+                textbutton items[1].caption action items[1].action
+            hbox:
+                textbutton items[2].caption action items[2].action
+        
+    elif len(items) == 4:
+        vbox:
+            hbox:
+                textbutton items[0].caption action items[0].action
+                textbutton items[1].caption action items[1].action
+            hbox:
+                textbutton items[2].caption action items[2].action
+                textbutton items[3].caption action items[3].action
 
-
-style choice_vbox is hbox
-style choice_button is button
-style choice_button_text is button_text
+    else: # 2 options (or more but 4 or more will get out of the screen)
+        hbox:
+            yalign 0.9
+            spacing gui.choice_spacing + 30
+            for i in items:
+                textbutton i.caption action i.action
 
 style choice_vbox:
     xalign 0.5
-    # ypos 405
-    # yanchor 0.5
-    # yanchor 1.0
     yalign 0.95
+    spacing 15
 
+style choice_hbox:
+    xalign 0.5
+    yalign 0.95
     spacing gui.choice_spacing
+
+# style choice_vbox is hbox
+style choice_button is button
+style choice_button_text is button_text
+
 
 style choice_button is default:
     properties gui.button_properties("choice_button")
@@ -260,7 +286,8 @@ screen quick_menu():
             xpos 5
             yalign 0.006
 
-            imagebutton idle "gui/quickMenu/settings.png" action ShowMenu("preferences")
+            imagebutton:
+                auto "gui/quickMenu/settings_%s.png" action ShowMenu("preferences")
         
         hbox:
             style_prefix "quick_right"
@@ -268,11 +295,17 @@ screen quick_menu():
             ypos 10
             xalign 0.995
 
-            imagebutton idle "gui/quickMenu/back.png" action Rollback()
-            imagebutton idle "gui/quickMenu/stop.png" action Preference("auto-forward", "toggle")
-            imagebutton idle "gui/quickMenu/forward.png" action RollForward()
-            imagebutton idle "gui/quickMenu/skip.png" action Skip(fast=False, confirm=True)
-
+            imagebutton:
+                auto "gui/quickMenu/back_%s.png" action Rollback()
+            imagebutton:
+                ypos -2
+                selected_idle "gui/quickMenu/stop_hover.png"
+                selected_hover "gui/quickMenu/stop_hover.png"
+                auto "gui/quickMenu/stop_%s.png" action Preference("auto-forward", "toggle")
+            imagebutton:
+                auto "gui/quickMenu/forward_%s.png" action RollForward()
+            imagebutton:
+                auto "gui/quickMenu/skip_%s.png" action Skip(fast=False, confirm=False)
 
 
 ## This code ensures that the quick_menu screen is displayed in-game, whenever
@@ -300,13 +333,16 @@ style quick_button_text:
 ##
 ## This screen is included in the main and game menus, and provides navigation
 ## to other menus, and to start the game.
-screen StartButton():
+screen StartButton(cur_saves):
     imagebutton:
         selected_idle "gui/menuButtons/start_game/selected.png"
         selected_hover "gui/menuButtons/start_game/selected.png"
         idle "gui/menuButtons/start_game/idle.png"
         hover "gui/menuButtons/start_game/hover.png"
-        action [Show("ContinueOrNewGame"), With(dissolve)]
+        if cur_saves:
+            action [Show("ContinueOrNewGame"), With(dissolve)]
+        else:
+            action Start()
         # action Start()
         
         # action Start()
@@ -342,6 +378,8 @@ screen LoadButton():
 
 screen SaveButton():
     imagebutton:
+        selected_idle "gui/menuButtons/save/selected.png"
+        selected_hover "gui/menuButtons/save/selected.png"
         auto "gui/menuButtons/save/%s.png"
         action ShowMenu("save")
 
@@ -404,10 +442,13 @@ screen ContinueOrNewGame():
             imagebutton:
                 ypos 10
                 xalign 0.95
-                idle "gui/overlay/close.png"
+                idle "gui/overlay/close_idle.png"
+                hover "gui/overlay/close_hover.png"
                 action [Hide("ContinueOrNewGame"), With(dissolve)]
-            
-            text "Хотите продолжить историю?":
+        
+            text _("Хотите продолжить историю?"):
+                color "#D9D9D9"
+                size(45)
                 xalign 0.5
         
         hbox:
@@ -417,6 +458,7 @@ screen ContinueOrNewGame():
             
             use ContinueStoryButton
             use NewGameButton
+
 
 screen QuitConfirm():
     modal True
@@ -434,10 +476,13 @@ screen QuitConfirm():
             imagebutton:
                 ypos 10
                 xalign 0.95
-                idle "gui/overlay/close.png"
+                idle "gui/overlay/close_idle.png"
+                hover "gui/overlay/close_hover.png"
                 action [Hide("QuitConfirm"), With(dissolve)]
 
-            text "Вы действительно хотите выйти?":
+            text _("Вы действительно хотите выйти?"):
+                size(45)
+                color "#D9D9D9"
                 xalign 0.5
 
         hbox:
@@ -470,10 +515,13 @@ screen StartChapterConfirm(chapter_label, cur_sel_chapter):
             imagebutton:
                 ypos 10
                 xalign 0.95
-                idle "gui/overlay/close.png"
+                idle "gui/overlay/close_idle.png"
+                hover "gui/overlay/close_hover.png"
                 action [SetVariable("cur_sel_chapter", ""), Hide("StartChapterConfirm"), With(dissolve)]
 
             text _("Хотите пройти заново данную главу?"):
+                size(45)
+                color "#D9D9D9"
                 xalign 0.5
             
         hbox:
@@ -489,7 +537,7 @@ screen StartChapterConfirm(chapter_label, cur_sel_chapter):
                 auto "gui/menuButtons/replay_chapter/%s.png"
                 action [SetVariable("cur_sel_chapter", ""), Start(label=str(chapter_label))]
 
-screen LoadSaveConfirm(slot, time, cur_sel_save, do_load):
+screen LoadSaveConfirm(slot, chapter, location, cur_sel_save, do_load):
     modal True
 
     frame:
@@ -505,18 +553,33 @@ screen LoadSaveConfirm(slot, time, cur_sel_save, do_load):
             imagebutton:
                 ypos 10
                 xalign 0.95
-                idle "gui/overlay/close.png"
+                idle "gui/overlay/close_idle.png"
+                hover "gui/overlay/close_hover.png"
                 action [SetVariable("cur_sel_save", ""), Hide("LoadSaveConfirm"), With(dissolve)]
 
             if do_load:
-                text _("Хотите загрузить сохранение от " + str(time) + "?"):
+                vbox:
+                    ypos -15
                     xalign 0.5
+                    spacing 5
+                    text _("Хотите загрузить сохранение"):
+                        color "#D9D9D9"
+                        size(45)
+                        xalign 0.5
+                    text _(str(chapter) + " - " + str(location)):
+                        color "#D9D9D9"
+                        size(45)
+                        xalign 0.5
             else:
                 if FileLoadable(slot):
                     text _("Хотите перезаписать данное сохранение?"):
+                        color "#D9D9D9"
+                        size(45)
                         xalign 0.5
                 else:
                     text _("Хотите сделать новое сохранение?"):
+                        color "#D9D9D9"
+                        size(45)
                         xalign 0.5
             
         hbox:
@@ -534,7 +597,7 @@ screen LoadSaveConfirm(slot, time, cur_sel_save, do_load):
                     action FileLoad(slot, confirm=False)
             else:
                 imagebutton:
-                    auto "gui/menuButtons/save/%s.png"
+                    auto "gui/menuButtons/save_confirm_save/%s.png"
                     action [FileSave(slot, confirm=False), SetVariable("cur_sel_save", ""), Hide("LoadSaveConfirm"), With(dissolve)]
 
 screen DeleteSaveConfirm(slot, cur_sel_save):
@@ -554,10 +617,13 @@ screen DeleteSaveConfirm(slot, cur_sel_save):
             imagebutton:
                 ypos 10
                 xalign 0.95
-                idle "gui/overlay/close.png"
+                idle "gui/overlay/close_idle.png"
+                hover "gui/overlay/close_hover.png"
                 action [SetVariable("cur_sel_save", ""), Hide("DeleteSaveConfirm"), With(dissolve)]
 
             text _("Хотите удалить данное сохранение?"):
+                color "#D9D9D9"
+                size(45)
                 xalign 0.5
             
         hbox:
@@ -570,7 +636,7 @@ screen DeleteSaveConfirm(slot, cur_sel_save):
                 action [SetVariable("cur_sel_save", ""), Hide("DeleteSaveConfirm"), With(dissolve)]
 
             imagebutton:
-                auto "gui/menuButtons/replay_chapter/%s.png"
+                auto "gui/menuButtons/delete_save/%s.png"
                 action [FileDelete(slot, confirm=False), SetVariable("cur_sel_save", ""), Hide("DeleteSaveConfirm"), With(dissolve)]
 
 screen ToMainScreenConfirm():
@@ -589,17 +655,25 @@ screen ToMainScreenConfirm():
             imagebutton:
                 ypos 10
                 xalign 0.95
-                idle "gui/overlay/close.png"
+                idle "gui/overlay/close_idle.png"
+                hover "gui/overlay/close_hover.png"
                 action [Hide("ToMainScreenConfirm"), With(dissolve)]
 
             vbox:
+                ypos -15
                 xalign 0.5
                 spacing 5
 
-                text _("Вы действительно хотите выйти в главное меню?"):
+                text _("Хотите выйти в главное меню?"):
+                    color "#D9D9D9"
+                    size(45)
                     xalign 0.5
                 text _("Весь несохраненный прогресс будет потерян."):
+                    color "#D9D9D9"
+                    size(45)
                     xalign 0.5
+                
+                null height 10
 
         hbox:
             yalign 0.85
@@ -619,7 +693,7 @@ init:
     transform zoom:
         zoom 0.5
 
-screen navigation_main_menu():
+screen navigation_main_menu(cur_saves):
 
     vbox:
         style_prefix "game_title"
@@ -646,7 +720,7 @@ screen navigation_main_menu():
         yalign 0.8
         spacing 25
         
-        use StartButton
+        use StartButton(cur_saves)
         use LoadButton
         use ChaptersButton
         use AchievementsButton
@@ -831,6 +905,13 @@ screen main_menu():
     ## This ensures that any other menu screen is replaced.
     tag menu
 
+    # Count current savefiles
+    $ cur_saves = 0
+    for i in range(gui.file_slot_cols * gui.file_slot_rows):
+        $ slot = i + 1
+        if FileLoadable(slot):
+                $ cur_saves += 1
+
     # add gui.main_menu_background
     add "gui/MainMenu/background.png"
 
@@ -840,7 +921,7 @@ screen main_menu():
 
     ## The use statement includes another screen inside this one. The actual
     ## contents of the main menu are in the navigation screen.
-    use navigation_main_menu
+    use navigation_main_menu(cur_saves)
 
     # if gui.show_name:
 
@@ -1022,11 +1103,10 @@ style return_button:
 ## Chapters Screen #############################################################
 ##
 ##
-define n_chapters = 4
 define chapters = [
     {
-        "name" : "Chapter 1",
-        "description" : "Some Description",
+        "name" : "Глава 1",
+        "description" : "На безмолвном берегу реки обнаружено тело молодой девушки. Новость потрясшая тихий городок.",
         "image_path" : "chapter_1.png",
         "jump_label" : "chapter_1"
     },
@@ -1049,6 +1129,7 @@ define chapters = [
         "jump_label" : "chapter_4"
     },
 ]
+define n_chapters = len(chapters)
 
 # define chapters = ["Chapter 1", "Chapter 2", "Chapter 3", "Chapter 4"]
 # define chapters_description = ["Some description", "Some description", "Some description", "Description of chapter 4"]
@@ -1084,11 +1165,13 @@ screen chapter(title, description, image_path, chapter_label, do_jump):
             image "images/chapters/" + image_path:
                 pos(20, 20)
             text _(title):
-                pos(15, 30)
-                bold(True)
-                size(48)
+                pos(15, 20)
+                # bold(True)
+                color "#D9D9D9"
+                size(60)
             text _(description):
-                pos(15, 60)
+                color "#D9D9D9"
+                pos(16, 20)
 
 screen chapters_holder():
 
@@ -1113,7 +1196,7 @@ screen chapters_holder():
                 # use chapter(chapters[i], chapters_description[i], chapters_image[i], chapter_label[i], do_jump = True)
                 $ j += 1
             for i in range(j, n_chapters):
-                use chapter("???", "You have not unlocked that chapter yet.", "locked.png", "", do_jump = False)
+                use chapter("???", "Вы еще не открыли данную главу.", "locked.png", "", do_jump = False)
             null width 0
 
             # use chapter(chapters[0]["name"], chapters[0]["description"], chapters[0]["image_path"], chapters[0]["jump_label"], do_jump = True)
@@ -1145,39 +1228,121 @@ screen chapters():
 ## Achievements Screen #############################################################
 ##
 ##
-default curr_ach = 0
-define total_ach = 52
+
+screen notifyAchieve(message, title, currentImage):
+
+    zorder 100
+    style_prefix "notify"
+
+    frame at notify_achieve_appear:
+        background Frame("#756762")
+        text "{size=+10}[title]{/size}\n[message!tq]\n{image=[currentImage]}"
+
+    timer 3.25 action Hide('notifyAchieve')
+
+
+transform notify_achieve_appear:
+    on show:
+        xalign 0.5
+        yalign -0.5
+        alpha 1
+        linear .5 yalign 0
+    on hide:
+        linear .5 yalign -0.5
+
+default persistent.allAchivments = {
+    "acquaintances": [
+        {"id": "1.1","name": "Achievement 1.1", "image": "images/achievements/ach1.png", "type": "standard", "obtained": False, "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit.asdasdasdasdasdasd"},
+        {"id": "1.2","name": "Achievement 1.2", "image": "images/achievements/ach1.png", "type": "rare", "obtained": False, "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit."},
+        {"id": "1.3","name": "Achievement 1.3", "image": "images/achievements/ach1.png", "type": "legend", "obtained": False, "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit."},
+    ],
+    "objects": [
+        {"id": "2.1","name": "Achievement 2.1", "image": "images/achievements/ach2_1.png", "type": "standard", "obtained": False, "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit."},
+        {"id": "2.2","name": "Achievement 2.2", "image": "images/achievements/ach2_2.png", "type": "rare", "obtained": False, "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit."},
+        {"id": "2.3","name": "Achievement 2.3", "image": "images/achievements/ach2_3.png", "type": "standard", "obtained": False, "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit."},
+    ],
+    "locations": [
+        {"id": "3.1","name": "Achievement 3.1", "image": "images/achievements/ach3_1.png", "type": "legend", "obtained": False, "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit."},
+        {"id": "3.2","name": "Achievement 3.2", "image": "images/achievements/ach3_2.png", "type": "rare", "obtained": False, "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit."},
+        {"id": "3.3","name": "Achievement 3.3", "image": "images/achievements/ach3_3.png", "type": "standard", "obtained": False, "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. "},
+    ],
+    "Case": [
+    ],
+    "Category 5": [
+    ]
+    # "Category 6": [
+    # ],
+    # "Category 7": [ 
+    # ],
+    # "Category 8": [
+    # ],
+    # "Category 9": [
+    # ],
+}
+
+init python:
+    def unlock_achievement(category, ach_id, message):
+        for ach in persistent.allAchivments[category]:
+            if ach["id"] == ach_id:
+                if ach["obtained"] == False:
+                    ach["obtained"] = True
+                    renpy.show_screen("notifyAchieve", message, ach["name"], ach["image"])
+    
+    def get_achievements_by_category(category, filter_type=None, all=False):
+        if category not in persistent.allAchivments:
+            return []
+
+        newachievements = persistent.allAchivments[category]
+
+        if filter_type:
+            newachievements = [ach for ach in newachievements if ach["type"] == filter_type]
+
+        if all:
+            return [ach for ach in newachievements]
+        else:    
+            return [ach for ach in newachievements if ach["obtained"]]
+
+
 
 define ach_grid_cols = 3
 define ach_grid_rows = 3
 
-define ach_pages = 3
-
 screen folders_grid():
-    grid ach_grid_cols ach_grid_rows:
-        xalign 0.5
-        yalign 0.5
-        spacing 30
-        for i in range(ach_grid_cols * ach_grid_rows):
-            imagebutton:
-                idle "gui/achievementsScreen/folder.png"
-                action ShowMenu("achievements_" + str(i+1))
-                # action NullAction()
+    vbox:
+        xsize 1346
+        spacing 90
+        # ysize 990
 
-screen page_dot(page):
-    imagebutton:
-        idle "gui/achievementsScreen/dot_idle.png"
-        hover "gui/achievementsScreen/dot_active.png"
-        action NullAction()
+        text "Всего Достижений " + str(sum(1 for category in persistent.allAchivments.values() for ach in category if ach["obtained"])) + "/" + str(sum(len(category) for category in persistent.allAchivments.values())):
+            size(48)
+            xalign 0.5
+            ypos 25
+    
+        grid ach_grid_cols ach_grid_rows:
+            xalign 0.5
+            # yalign 0.5
+            spacing 30
+            for i, category in enumerate(list(persistent.allAchivments.keys())[:5]):
+                frame:
+                    style "folder_style"
+                    
+                    imagebutton:
+                        idle "gui/achievementsScreen/ach_folders/folder_" + str(i+1) + ".png"
+                        action ShowMenu("achievements", category=category)
 
-screen page_dots():
-    hbox:
-        yalign 0.95
-        xalign 0.5
-        spacing 20
-        for i in range(ach_pages):
-            use page_dot(i)
+                    text str(sum(1 for ach in persistent.allAchivments[category] if ach["obtained"])) + "/" + str(len(persistent.allAchivments[category])):
+                        size 24
+                        color "#D9D9D9"
+                        # outline (1, "#000000")
+                        xpos 0.9
+                        ypos 0.9
 
+style folder_style:
+    xsize 343
+    ysize 191
+    right_padding 22
+    bottom_padding 10
+    background None
 
 screen achievements_types():
     tag menu
@@ -1194,67 +1359,66 @@ screen achievements_types():
         ysize 990
         yalign 0.5
         xalign 0.9
-        background "gui/achievementsScreen/achievements_frame.png"
+        background None
 
-        text "Всего Достижений " + str(curr_ach) + "/" + str(total_ach):
-            size(48)
-            bold(True)
-            xalign 0.5
-            ypos 25
+        # text "Всего Достижений " + str(sum(1 for category in persistent.allAchivments.values() for ach in category if ach["obtained"])) + "/" + str(sum(len(category) for category in persistent.allAchivments.values())):
+        #     size(48)
+        #     xalign 0.5
+        #     ypos 25
         
         use folders_grid
 
-        use page_dots
 
 ### Screens for achievements
-define achs_1_num = 4
-define achs_1_name = ["Ach 1", "Ach 2", "Ach3", "Ach4"]
-define achs_1_desc = ["Desc for ach1", "Desc for ach2", "Desc for ach3", "Desc for ach4"]
-define achs_1_image = ["ach1.png", "ach2.png", "ach2.png", "ach2.png"]
-define achs_1_rarity = ["standard", "rare", "standard", "standard"]
 
-screen achievement(name, desc, ach_image_path, ach_type):
+screen achievement(name, ach_image_path, ach_type, desc):
     frame:
         xsize 1171
         ysize 309
         xpos 80
-        background "gui/achievementsScreen/ach_standard.png"
+        if ach_type == "standard":
+            background "gui/achievementsScreen/ach_rarity_frame/ach_standard.png"
+        elif ach_type == "rare":
+            background "gui/achievementsScreen/ach_rarity_frame/ach_rare.png"
+        else:
+            background "gui/achievementsScreen/ach_rarity_frame/ach_legend.png"
 
         hbox:
-            image "images/achievements/" + str(ach_image_path):
+            image str(ach_image_path):
+            # image "images/achievements/" + str(ach_image_path):
                 pos(25, 25)
             vbox:
                 pos(25, 25)
                 text _(name):
                     xpos 30
                     size(48)
-                    bold(True)
                 text _(desc):
                     xpos 30
                     ypos 30
 
 # screen achievement_filter()
 
-screen standard_button:
-    imagebutton:
-        idle "gui/achievementsScreen/standard.png"
-        action NullAction()
+# screen standard_button:
+#     imagebutton:
+#         idle "gui/achievementsScreen/standard.png"
+#         action NullAction()
 
-screen rare_button:
-    imagebutton:
-        idle "gui/achievementsScreen/rare.png"
-        action NullAction()
+# screen rare_button:
+#     imagebutton:
+#         idle "gui/achievementsScreen/rare.png"
+#         action NullAction()
 
-screen legend_button:
-    imagebutton:
-        idle "gui/achievementsScreen/legend.png"
-        action NullAction()
+# screen legend_button:
+#     imagebutton:
+#         idle "gui/achievementsScreen/legend.png"
+#         action NullAction()
 
-screen filter_frame:
+default cur_sel_ach_type = "all"
+
+screen filter_frame(category):
     frame:
         xsize 1171
         ysize 67
-        # xalign 0.5
         xpos 80
         background "gui/achievementsScreen/filter_frame.png"
 
@@ -1262,11 +1426,42 @@ screen filter_frame:
             xpos 20
             spacing 10
             yalign 0.5
-            use standard_button
-            use rare_button
-            use legend_button
 
-screen achievements_1():
+            imagebutton:
+                # selected If(category == "standard")
+                idle "gui/achievementsScreen/standard.png"
+                hover "gui/achievementsScreen/standard_selected.png"
+                if cur_sel_ach_type == "standard":
+                    selected_idle "gui/achievementsScreen/standard_selected.png"
+                    # selected_hover "gui/achievementsScreen/standard.png"
+                    action [SetVariable("cur_sel_ach_type", "all"), ShowMenu("achievements", category=category)]
+                else:
+                    action [SetVariable("cur_sel_ach_type", "standard"), ShowMenu("achievements", category=category, filter_type="standard")]
+                       
+            imagebutton:
+                # selected If(category == "rare")
+                idle "gui/achievementsScreen/rare.png"
+                hover "gui/achievementsScreen/rare_selected.png"
+                if cur_sel_ach_type == "rare":
+                    selected_idle "gui/achievementsScreen/rare_selected.png"
+                    # selected_hover "gui/achievementsScreen/rare.png"
+                    action [SetVariable("cur_sel_ach_type", "all"), ShowMenu("achievements", category=category)]
+                else:
+                    action [SetVariable("cur_sel_ach_type", "rare"), ShowMenu("achievements", category=category, filter_type="rare")]
+                
+            imagebutton:
+                # selected If(category == "legend")
+                idle "gui/achievementsScreen/legend.png"
+                hover "gui/achievementsScreen/legend_selected.png"
+                if cur_sel_ach_type == "legend":
+                    selected_idle "gui/achievementsScreen/legend_selected.png"
+                    # selected_hover "gui/achievementsScreen/legend.png"
+                    action [SetVariable("cur_sel_ach_type", "all"), ShowMenu("achievements", category=category)]
+                else:
+                    action [SetVariable("cur_sel_ach_type", "legend"), ShowMenu("achievements", category=category, filter_type="legend")]
+
+
+screen achievements(category, filter_type = None):
     tag menu
 
     add "gui/menu_background.png"
@@ -1281,19 +1476,69 @@ screen achievements_1():
         ysize 990
         yalign 0.5
         xalign 0.9
-        background "gui/achievementsScreen/achievements_holder.png"
+        background None
 
         has viewport:
             draggable True
             scrollbars "vertical"
-
+            
+            
         vbox:
+            xsize 1300
             spacing 20
 
-            use filter_frame
+            text _(str(category)):
+                size(48)
+                xalign 0.5
 
-            for i in range(achs_1_num):
-                use achievement(achs_1_name[i], achs_1_desc[i], achs_1_image[i], achs_1_rarity[i])
+            use filter_frame(category)
+
+            $ achievements_obtained = get_achievements_by_category(category, filter_type=filter_type, all=False)
+            $ achievements_all = get_achievements_by_category(category, filter_type=filter_type, all=True)
+            $ n_achievements = len(achievements_all)
+
+            $ n_ach_obtained = len(achievements_obtained)
+
+            for i, ach in enumerate(achievements_all):
+                if i < n_ach_obtained and achievements_obtained[i]["id"] == ach["id"]:
+                    use achievement(ach["name"], ach["image"], ach["type"], ach["description"])
+                else:
+                    if ach["type"] == "rare":
+                        use achievement(ach["name"], "gui/achievementsScreen/locked_rare.png", ach["type"], "Вы еще не октрыли данное достижение")
+                    elif ach["type"] == "legend":
+                        use achievement(ach["name"], "gui/achievementsScreen/locked_legend.png", ach["type"], "Вы еще не октрыли данное достижение")
+                    else: # standard
+                        use achievement(ach["name"], "gui/achievementsScreen/locked_standard.png", ach["type"], "Вы еще не октрыли данное достижение")
+
+                    
+# screen achievements_1():
+#     tag menu
+
+#     add "gui/menu_background.png"
+
+#     if main_menu:
+#         use navigation_menu
+#     else:
+#         use navigation_game
+
+#     frame:
+#         xsize 1346
+#         ysize 990
+#         yalign 0.5
+#         xalign 0.9
+#         background "gui/achievementsScreen/achievements_holder.png"
+
+#         has viewport:
+#             draggable True
+#             scrollbars "vertical"
+
+#         vbox:
+#             spacing 20
+
+#             use filter_frame
+
+#             for i in range(achs_1_num):
+#                 use achievement(achs_1_name[i], achs_1_desc[i], achs_1_image[i], achs_1_rarity[i])
 
 
 
@@ -1348,16 +1593,12 @@ screen save():
     tag menu
     add "gui/menu_background.png"
 
-    text _("Save")
-
     use file_slots(_("Save"), do_load=False)
 
 
 screen load():
     tag menu
     add "gui/menu_background.png"
-
-    text _("Load")
 
     use file_slots(_("Load"), do_load=True)
 
@@ -1373,25 +1614,25 @@ screen file_slot(slot, do_load):
             if FileLoadable(slot):
                 action [
                     SetVariable("cur_sel_save", slot), 
-                    Show("LoadSaveConfirm", slot=slot, time=FileTime(slot, format=_("{#file_time}%d/%m/%Y %H:%M:%S"), empty=_("Empty slot")), cur_sel_save=cur_sel_save, do_load=do_load), 
+                    Show("LoadSaveConfirm", slot=slot, chapter=FileJson(slot, key="chapter", missing = "Unknown Chapter", empty=""), location=FileJson(slot, key="location", missing="Unknown Location", empty=""), cur_sel_save=cur_sel_save, do_load=do_load), 
                     With(dissolve)
                 ]
             else:
                 hover_background "gui/saveLoadMenu/capsule_frame.png"
                 action NullAction()
-        
         else:  
             action [
                 SetVariable("cur_sel_save", slot),
-                Show("LoadSaveConfirm", slot=slot, time=FileTime(slot, format=_("{#file_time}%d/%m/%Y %H:%M:%S"), empty=_("Empty slot")), cur_sel_save=cur_sel_save, do_load=do_load), 
+                Show("LoadSaveConfirm", slot=slot, chapter=FileJson(slot, key="chapter", missing = "Unknown Chapter", empty=""), location=FileJson(slot, key="location", missing="Unknown Location", empty=""), cur_sel_save=cur_sel_save, do_load=do_load), 
+                # Show("LoadSaveConfirm", slot=slot, time=FileTime(slot, format=_("{#file_time}%d/%m/%Y %H:%M:%S"), empty=_("Empty slot")), cur_sel_save=cur_sel_save, do_load=do_load), 
                 With(dissolve)
             ]
-
         # action Confirm("Хотите загрузить данное сохранение?", yes = FileAction(slot))
+
         has hbox
 
         # Скриншот сохранения
-        add FileScreenshot(slot, empty="Empty") xsize 326 ysize 195 xalign 0.0 # Empty.png !!!!
+        add FileScreenshot(slot, empty="gui/saveLoadMenu/empty_save.png") xsize 326 ysize 195 xalign 0.0 # Empty.png !!!!
         ## Here should be None.png
 
         # frame:
@@ -1399,26 +1640,43 @@ screen file_slot(slot, do_load):
         #     add FileScreenshot(slot) xsize 326 ysize 195
 
         # Информация о сохранении
-        vbox:
-            xpos 20
-            spacing 5
-            hbox:
-                text FileTime(slot, format=_("{#file_time}%d/%m/%Y    %H:%M:%S"), empty=_("Empty slot")):
-                    style "slot_time_text"
-                text FileSaveName(slot):
-                    style "slot_time_text"
+        hbox:
+            xsize 1171
+
+            vbox:
+                xpos 20
+                spacing 5
+                hbox:
+                    text FileTime(slot, format=_("{#file_time}%d/%m/%Y    %H:%M:%S"), empty=_("Empty slot")):
+                        style "slot_time_text"
+                    text FileSaveName(slot):
+                        style "slot_time_text"
+                
+                null height 20
+
+                hbox:
+                    text str(FileJson(slot, key="chapter", missing = "Unknown chapter", empty = "")):
+                        style "slot_time_text"
+                        size(48)
+                hbox:
+                    text str(FileJson(slot, key="location", missing = "Unkown location", empty = "")):
+                        style "slot_time_text"
             
-            null height 20
+            # Delete save button
+            if FileLoadable(slot):
+                imagebutton:
+                    # ypos 10
+                    xpos 10
+                    # xalign 0.95
+                    idle "gui/overlay/close_idle.png"
+                    hover "gui/overlay/close_hover.png"
+                    hovered SetVariable("cur_sel_save", slot)
+                    unhovered SetVariable("cur_sel_save", "")
+                    action [SetVariable("cur_sel_save", slot), Show("DeleteSaveConfirm", slot=slot, cur_sel_save=cur_sel_save), With(dissolve)]
+                    # action NullAction()
 
-            hbox:
-                text str(FileJson(slot, key="chapter", missing = "Unknown chapter", empty = "")):
-                    style "slot_time_text"
-            hbox:
-                text str(FileJson(slot, key="location", missing = "Unkown location", empty = "")):
-                    style "slot_time_text"
-
-        if FileLoadable(slot):    
-            key "save_delete" action [SetVariable("cur_sel_save", slot) ,Show("DeleteSaveConfirm", slot=slot, cur_sel_save=cur_sel_save), With(dissolve)]
+        if FileLoadable(slot):
+            key "save_delete" action [SetVariable("cur_sel_save", slot), Show("DeleteSaveConfirm", slot=slot, cur_sel_save=cur_sel_save), With(dissolve)]
         
         # key "save_delete" action FileDelete(slot)
 
@@ -1623,8 +1881,8 @@ screen auto_text():
             spacing 20
 
             text _("Скорость проигрывания текста"):
-                size(36)
-                bold(True)
+                size(40)
+                # bold(True)
                 xpos 20
                 ypos 13
         
@@ -1672,8 +1930,8 @@ screen display_options():
             spacing 20
 
             text _("Отображение игры"):
-                size(36)
-                bold(True)
+                size(40)
+                # bold(True)
                 xpos 20
                 ypos 13            
 
@@ -1712,8 +1970,8 @@ screen printer_toggle:
             text _("Эффект печатной машинки"):
                 xpos 20
                 ypos 13
-                size(36)
-                bold(True)
+                size(40)
+                # bold(True)
 
             null width 20
         
@@ -1748,8 +2006,8 @@ screen skip_options(skip_option):
             text _(txt):
                 xpos 20
                 ypos 13
-                size(36)
-                bold(True)
+                size(40)
+                # bold(True)
             
             null width 20
 
@@ -1779,7 +2037,7 @@ screen language_options():
 
             text _("Язык"):
                 size(40)
-                bold(True)
+                # bold(True)
                 xpos 20
                 ypos 13
             
@@ -1803,10 +2061,13 @@ screen language_options():
                 text _("Русский"):
                     color "#372620"
                     xalign 0.5
+                    yalign 0.5
+                    size(40)
 
             imagebutton:
                 idle "gui/preferencesMenu/arrow_forward.png"
-                action Language("english")
+                action NullAction()
+                # action Language("english")
 
 # screen skip_options():
 #     frame:
@@ -1918,7 +2179,7 @@ screen hotkeys():
 
         text _("Горячие клавиши игрового процесса"):
             size(40)
-            bold(True)
+            # bold(True)
             xalign 0.5
                
         vbox:
@@ -2805,7 +3066,7 @@ screen quick_menu():
             yalign 1.0
 
             textbutton _("Back") action Rollback()
-            textbutton _("Skip") action Skip() alternate Skip(fast=True, confirm=True)
+            textbutton _("Skip") action Skip(confirm=False) alternate Skip(fast=True, confirm=True)
             textbutton _("Auto") action Preference("auto-forward", "toggle")
             textbutton _("Menu") action ShowMenu()
 

@@ -74,8 +74,9 @@ define e = Character("Eileen")
 
 label start:
 
-    scene bg room
+    $ unlock_achievement( "acquaintances", "1.1", "Вы получили досижение!")
 
+    scene bg room
 
     show eileen happy
 
@@ -94,6 +95,27 @@ label start:
         "Choice 2":
             "Text for choice 2"
 
+    menu:
+        "Choice with 3 options!"
+        "Choice 1":
+            "Text for choice 1"
+        "Choice 2":
+            "Text for choice 2"
+        "Choice 3":
+            "Text for choice 3"
+
+    menu:
+        "Choice with 4 options here!"
+        "Choice 1":
+            "Text for choice 1"
+        "Choice 2":
+            "Text for choice 2"
+        "Choice 3":
+            "Text for choice 3"
+        "Choice 4":
+            "Text for choice 4"
+
+
     jump chapter_1
 
 label chapter_1:
@@ -104,7 +126,7 @@ label chapter_1:
     "This is chapter 1"
     "Congrats."
     
-    jump chapter_2
+    return
 
 label chapter_2:
     $ chapter = "Chapter Two"
