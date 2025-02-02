@@ -1162,16 +1162,20 @@ screen chapter(title, description, image_path, chapter_label, do_jump):
                 action NullAction()
 
         vbox:
+            xsize 475
             image "images/chapters/" + image_path:
                 pos(20, 20)
             text _(title):
-                pos(15, 20)
+                # pos(15, 20)
+                ypos 20
+                xalign 0.5
                 # bold(True)
                 color "#D9D9D9"
                 size(60)
             text _(description):
+                size(30)
                 color "#D9D9D9"
-                pos(16, 20)
+                pos(19, 20)
 
 screen chapters_holder():
 
@@ -1196,7 +1200,7 @@ screen chapters_holder():
                 # use chapter(chapters[i], chapters_description[i], chapters_image[i], chapter_label[i], do_jump = True)
                 $ j += 1
             for i in range(j, n_chapters):
-                use chapter("???", "Вы еще не открыли данную главу.", "locked.png", "", do_jump = False)
+                use chapter("???", "Глава еще недоступна.", "locked.png", "", do_jump = False)
             null width 0
 
             # use chapter(chapters[0]["name"], chapters[0]["description"], chapters[0]["image_path"], chapters[0]["jump_label"], do_jump = True)
@@ -1891,7 +1895,7 @@ screen auto_text():
         hbox:
             ypos 13
             spacing 20
-            xalign 0.95
+            xalign 0.93
 
             imagebutton:
                 idle "gui/preferencesMenu/auto_1x.png"
