@@ -88,6 +88,13 @@ label start:
 
     "Andrew added this text for initial commit in his branch."
 
+    menu(screen="choice_arrows"):
+        "Будешь в форт"
+        "Конечно пошли" (arrow_down=False):
+            "Красава"
+        "Нет, не иду" (arrow_down=True):
+            "Нет, идешь"
+
     menu:
         "You have a choice!"
         "Choice 1":
@@ -114,7 +121,6 @@ label start:
             "Text for choice 3"
         "Choice 4":
             "Text for choice 4"
-
 
     jump chapter_1
 

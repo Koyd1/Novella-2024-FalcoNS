@@ -218,6 +218,44 @@ style input:
 ## and action fields.
 ##
 ## https://www.renpy.org/doc/html/screen_special.html#choice
+screen choice_arrows(items):
+
+    hbox:
+        style "choice_arrows_hbox"
+        yalign 0.9
+        spacing gui.choice_spacing + 30
+        for i in items:
+            button:
+                if i.kwargs.get("arrow_down", False):
+                    style "menu_arrow_down_button"
+                else:
+                    style "menu_arrow_up_button"
+
+                text i.caption:
+                    style "menu_arrow_text"
+                action i.action
+
+            # textbutton i.caption action i.action
+
+style choice_arrows_hbox:
+    xalign 0.5
+    yalign 0.95
+    spacing gui.choice_spacing
+
+style menu_arrow_down_button is button:
+    background Frame("gui/button/choice_down_idle_background.png")
+    hover_background Frame("gui/button/choice_down_hover_background.png")
+    xsize 759
+    ysize 85
+
+style menu_arrow_up_button is button:
+    background Frame("gui/button/choice_up_idle_background.png")
+    hover_background Frame("gui/button/choice_up_hover_background.png")
+    xsize 759
+    ysize 85
+
+style menu_arrow_text is text:
+    properties gui.text_properties("choice_button")
 
 screen choice(items):
     style_prefix "choice"
