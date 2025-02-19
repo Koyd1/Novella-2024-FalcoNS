@@ -122,6 +122,8 @@ label start:
         "Choice 4":
             "Text for choice 4"
 
+    call screen Map
+
     jump chapter_1
 
 label chapter_1:

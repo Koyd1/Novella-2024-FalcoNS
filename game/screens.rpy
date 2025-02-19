@@ -88,6 +88,93 @@ style text:
 ## In-game screens
 ################################################################################
 
+### Map Screen ##################################################################
+##
+##############
+
+screen map_frame():
+    frame:
+        xsize 1830
+        ysize 715
+        background "images/map/map.png"
+        xalign 0.5
+        yalign 0.6   
+
+        use map_dot(839, 77, "Дом родителей",True)
+
+
+screen map_loc(x, y, name):
+    frame:
+        background "images/map/dot_loc.png"
+        pos(x, y)
+        image "images/map/test.png":
+            xpos 14
+            ypos 11
+
+    use map_name(x + 90, y, name)
+
+screen map_name(x, y, name):
+    frame:
+        xsize 200
+        ysize 100
+        background "images/map/dot_name.png"
+        pos(x, y)
+        text _(name):
+            size(20)
+            bold(True)
+            color("#000000")
+            xalign 0.5
+            yalign 0.5
+            # xpos 14
+            # ypos 11
+
+
+screen map_dot(x, y, name, active):
+    imagebutton:
+        xpos x
+        ypos y 
+        idle "images/map/dot_idle.png"
+        hovered Show("map_loc", x = x+17, y= y+48, name=name)
+        unhovered Hide("map_loc")
+        hover "images/map/dot_hover.png"
+        action NullAction()
+
+screen confirm_map_button():
+    imagebutton:
+        xalign 0.5
+        yalign 0.97
+        idle "images/map/confirm.png"
+        action NullAction()
+
+screen Map():
+    add "images/map/background.png"
+
+    hbox:
+        xalign 0.5
+        ypos 25
+        spacing 50
+        imagebutton:
+            idle "images/map/person.png"
+            action NullAction()
+        imagebutton:
+            idle "images/map/person.png"
+            action NullAction()
+        imagebutton:
+            idle "images/map/person.png"
+            action NullAction()
+        imagebutton:
+            idle "images/map/person.png"
+
+        vbox:
+            xsize 667
+            text _("На каждую локацию должен быть отправлен только 1 агент. Не задействованные члены команды остаются в участке вести документацию дела.")
+
+    use map_frame
+
+    use confirm_map_button
+
+
+
 
 ## Say screen ##################################################################
 ##
