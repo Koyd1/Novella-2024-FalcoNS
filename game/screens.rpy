@@ -101,7 +101,13 @@ screen map_frame():
         yalign 0.6   
 
         use map_dot(839, 77, "Дом родителей",True)
-
+        use map_dot(570, 230, "Дом Леони\nДжонс", False)
+        use map_dot(769, 405, "Ресторан на\nБлинк-роуд", False)
+        use map_dot(634, 600, "Дом на\nАрмори-стрит 19", False)
+        use map_dot(1115, 154, "Больница", True)
+        use map_dot(1273, 275, "Полиция", False)
+        use map_dot(1604, 260, "Дом на\nМарч-драйв 77", False)
+        use map_dot(1291, 549, "Университет", True)
 
 screen map_loc(x, y, name):
     frame:
@@ -125,49 +131,110 @@ screen map_name(x, y, name):
             color("#000000")
             xalign 0.5
             yalign 0.5
-            # xpos 14
-            # ypos 11
-
 
 screen map_dot(x, y, name, active):
     imagebutton:
         xpos x
         ypos y 
-        idle "images/map/dot_idle.png"
-        hovered Show("map_loc", x = x+17, y= y+48, name=name)
-        unhovered Hide("map_loc")
-        hover "images/map/dot_hover.png"
-        action NullAction()
+        if active:
+            idle "images/map/dot_idle.png"
+            hovered Show("map_loc", x = x+17, y= y+103, name=name)
+            unhovered Hide("map_loc")
+            hover "images/map/dot_hover.png"
+            action [SetDict(directions, selected_person, name), SetVariable("selected_person", "")]
+        else:
+            idle "images/map/dot_inactive.png"
+
+default selected_person = ""
+default directions = {
+    "" : "",
+    "casey" : "",
+    "person" : ""
+}
+
+define locations = {
+    "Дом родителей" : "images/map/test.png",
+    "Больница" : "images/map/test.png",
+    "Университет" : "images/map/test.png"
+}
+
+screen person(name):
+    hbox:
+        imagebutton:
+            if selected_person == name:
+                idle "images/map/" + name + "_selected.png"
+                action SetVariable("selected_person", "")
+            else:
+                idle "images/map/" + name + "_idle.png"
+            action SetVariable("selected_person", name)
+            # action NullAction()
+        if directions[name] == "":
+            image "images/map/not_selected.png":
+                yalign 1.0
+                xpos -55
+                # xalign 0.8
+        else:
+            image locations[directions[name]]:
+                yalign 1.0
+                xpos -55
 
 screen confirm_map_button():
     imagebutton:
         xalign 0.5
         yalign 0.97
         idle "images/map/confirm.png"
-        action NullAction()
+        if directions["casey"] == "":
+            action NullAction()
+        else:
+            action Jump("chapter_1")
 
 screen Map():
     add "images/map/background.png"
 
+    text (selected_person)
+    text (directions["casey"])
+
+    imagebutton:
+        xpos 15
+        ypos 15
+        auto "gui/quickMenu/settings_%s.png" action ShowMenu("preferences")
+
+    imagebutton:
+        xalign 0.975
+        ypos 50
+        idle "images/map/notebook.png"
+        action NullAction()
+
     hbox:
         xalign 0.5
         ypos 25
-        spacing 50
-        imagebutton:
-            idle "images/map/person.png"
-            action NullAction()
-        imagebutton:
-            idle "images/map/person.png"
-            action NullAction()
-        imagebutton:
-            idle "images/map/person.png"
-            action NullAction()
-        imagebutton:
-            idle "images/map/person.png"
+        spacing 20
+        use person("casey")
+        use person("person")
+        use person("person")
+        use person("person")
+        # use person("images/map/person.png")
+        # use person("images/map/person.png")
+        # use person("images/map/person.png")
+        
+        # imagebutton:
+        #     idle "images/map/person.png"
+        #     action NullAction()
+        # imagebutton:
+        #     idle "images/map/person.png"
+        #     action NullAction()
+        # imagebutton:
+        #     idle "images/map/person.png"
+        #     action NullAction()
+        # imagebutton:
+        #     idle "images/map/person.png"
 
         vbox:
-            xsize 667
-            text _("На каждую локацию должен быть отправлен только 1 агент. Не задействованные члены команды остаются в участке вести документацию дела.")
+            xsize 640
+            text _("НА КАЖДУЮ ЛОКАЦИЮ ДОЛЖЕН БЫТЬ ОТПРАВЛЕН ТОЛЬКО 1 АГЕНТ. НЕ ЗАДЕЙСТВОВАННЫЕ ЧЛЕНЫ КОМАНДЫ ОСТАЮТСЯ В УЧАСТКЕ ВЕСТИ ДОКУМЕНТАЦИЮ ДЕЛА."):
+                ypos 20
+                size(24)
+                font "fonts/Philosopher-BoldItalic.ttf"
 
     use map_frame
 
@@ -408,7 +475,7 @@ screen quick_menu():
         hbox:
             style_prefix "quick_left"
 
-            xpos 5
+            xpos 15
             yalign 0.006
 
             imagebutton:

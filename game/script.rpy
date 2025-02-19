@@ -121,12 +121,15 @@ label start:
             "Text for choice 3"
         "Choice 4":
             "Text for choice 4"
-
+    
+    $ quick_menu = False
     call screen Map
+    
 
     jump chapter_1
 
 label chapter_1:
+    $ quick_menu = True
     $ chapter = "Chapter One"
     $ location = "2nd Location"
     if "Chapter 1" not in persistent.chapters:
