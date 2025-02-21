@@ -92,6 +92,18 @@ style text:
 ##
 ##############
 
+init python:
+    def setLocation(dict, person, location):
+        # print(person, location)
+        """
+            Set location in the dictionary. This also removes all the same locations of other persons in the dict.
+        """
+        dict[person] = location
+        for key in dict.keys():
+            print(key)
+            if key != person and dict[key] == location:
+                dict[key] = ""
+
 screen map_frame():
     frame:
         xsize 1830
@@ -100,20 +112,21 @@ screen map_frame():
         xalign 0.5
         yalign 0.6   
 
-        use map_dot(839, 77, "Дом родителей",True)
+        use map_dot(839, 77, "Дом родителей",True, locations["Дом родителей"])
         use map_dot(570, 230, "Дом Леони\nДжонс", False)
         use map_dot(769, 405, "Ресторан на\nБлинк-роуд", False)
         use map_dot(634, 600, "Дом на\nАрмори-стрит 19", False)
-        use map_dot(1115, 154, "Больница", True)
+        use map_dot(1115, 154, "Больница", True, locations["Больница"])
         use map_dot(1273, 275, "Полиция", False)
         use map_dot(1604, 260, "Дом на\nМарч-драйв 77", False)
-        use map_dot(1291, 549, "Университет", True)
+        use map_dot(1291, 549, "Университет", True, locations["Университет"])
 
-screen map_loc(x, y, name):
+screen map_loc(x, y, name, image_path = None):
     frame:
         background "images/map/dot_loc.png"
         pos(x, y)
-        image "images/map/test.png":
+        image image_path:
+        # image "images/map/test.png":
             xpos 14
             ypos 11
 
@@ -132,16 +145,18 @@ screen map_name(x, y, name):
             xalign 0.5
             yalign 0.5
 
-screen map_dot(x, y, name, active):
+screen map_dot(x, y, name, active, image_path = None):
     imagebutton:
         xpos x
         ypos y 
         if active:
             idle "images/map/dot_idle.png"
-            hovered Show("map_loc", x = x+17, y= y+103, name=name)
+            hovered Show("map_loc", x = x+17, y= y+103, name=name, image_path=image_path)
             unhovered Hide("map_loc")
             hover "images/map/dot_hover.png"
-            action [SetDict(directions, selected_person, name), SetVariable("selected_person", "")]
+            action [Function(setLocation, directions, selected_person, name), SetVariable("selected_person", "")]
+            # SetDict(directions, selected_person, name)
+            # setLocation(directions, selected_person, name)
         else:
             idle "images/map/dot_inactive.png"
 
@@ -149,13 +164,20 @@ default selected_person = ""
 default directions = {
     "" : "",
     "casey" : "",
+    "braun" : "",
     "person" : ""
 }
 
+# define rus_to_eng = {
+#     "Дом родителей" : "Parents House",
+#     "Больница" : "Hospital",
+#     "Университет" : "University"
+# }
+
 define locations = {
-    "Дом родителей" : "images/map/test.png",
-    "Больница" : "images/map/test.png",
-    "Университет" : "images/map/test.png"
+    "Дом родителей" : "images/map/parent_house.png",
+    "Больница" : "images/map/hospital.png",
+    "Университет" : "images/map/university.png"
 }
 
 screen person(name):
@@ -210,24 +232,9 @@ screen Map():
         ypos 25
         spacing 20
         use person("casey")
+        use person("braun")
         use person("person")
         use person("person")
-        use person("person")
-        # use person("images/map/person.png")
-        # use person("images/map/person.png")
-        # use person("images/map/person.png")
-        
-        # imagebutton:
-        #     idle "images/map/person.png"
-        #     action NullAction()
-        # imagebutton:
-        #     idle "images/map/person.png"
-        #     action NullAction()
-        # imagebutton:
-        #     idle "images/map/person.png"
-        #     action NullAction()
-        # imagebutton:
-        #     idle "images/map/person.png"
 
         vbox:
             xsize 640
