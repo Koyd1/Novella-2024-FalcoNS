@@ -103,8 +103,20 @@ init python:
             print(key)
             if key != person and dict[key] == location:
                 dict[key] = ""
+    
+    def clearDict(dict):
+        """
+            This clears all keys' values and sets the to empty strings
+        """
+        for key in dict.keys():
+            dict[key] = ""
 
-screen map_frame():
+screen map_frame(locs):
+    # locs = [
+    #     [x, y, name, active, image_path, is_accessible_mc],
+    #     [x, y, name, active, image_path, is_accessible_mc] ..
+    # ]
+
     frame:
         xsize 1830
         ysize 715
@@ -112,14 +124,8 @@ screen map_frame():
         xalign 0.5
         yalign 0.6   
 
-        use map_dot(839, 77, "Дом родителей",True, locations["Дом родителей"])
-        use map_dot(570, 230, "Дом Леони\nДжонс", False)
-        use map_dot(769, 405, "Ресторан на\nБлинк-роуд", False)
-        use map_dot(634, 600, "Дом на\nАрмори-стрит 19", False)
-        use map_dot(1115, 154, "Больница", True, locations["Больница"])
-        use map_dot(1273, 275, "Полиция", False)
-        use map_dot(1604, 260, "Дом на\nМарч-драйв 77", False)
-        use map_dot(1291, 549, "Университет", True, locations["Университет"])
+        for loc in locs:
+            use map_dot(loc[0], loc[1], loc[2], loc[3], loc[4], loc[5])
 
 screen map_loc(x, y, name, image_path = None):
     frame:
@@ -145,7 +151,7 @@ screen map_name(x, y, name):
             xalign 0.5
             yalign 0.5
 
-screen map_dot(x, y, name, active, image_path = None):
+screen map_dot(x, y, name, active, image_path = None, is_accessible_mc = True):
     imagebutton:
         xpos x
         ypos y 
@@ -154,7 +160,11 @@ screen map_dot(x, y, name, active, image_path = None):
             hovered Show("map_loc", x = x+17, y= y+103, name=name, image_path=image_path)
             unhovered Hide("map_loc")
             hover "images/map/dot_hover.png"
-            action [Function(setLocation, directions, selected_person, name), SetVariable("selected_person", "")]
+            if not is_accessible_mc:
+                if selected_person != "jaclyn":
+                    action [Function(setLocation, directions, selected_person, name), SetVariable("selected_person", "")]
+            else:
+                action [Function(setLocation, directions, selected_person, name), SetVariable("selected_person", "")]
             # SetDict(directions, selected_person, name)
             # setLocation(directions, selected_person, name)
         else:
@@ -163,21 +173,34 @@ screen map_dot(x, y, name, active, image_path = None):
 default selected_person = ""
 default directions = {
     "" : "",
+    "jaclyn" : "",
     "casey" : "",
     "braun" : "",
-    "person" : ""
+    "phil" : ""
 }
 
-# define rus_to_eng = {
-#     "Дом родителей" : "Parents House",
-#     "Больница" : "Hospital",
-#     "Университет" : "University"
-# }
+define rus_to_eng_locs = {
+    "Дом родителей" : "parents_house",
+    "Больница" : "hospital",
+    "Университет" : "university",
+    "Дом Леони\nДжонс" : "leoni's_house",
+    "Ресторан на\nБлинк-роуд" : "restaurant",
+    "Дом на\nАрмори-стрит 19" : "james's_house",
+    "Полиция" : "police_station",
+    "Дом на\nМарч-драйв 77" : "kyle's_house"
+}
+
 
 define locations = {
     "Дом родителей" : "images/map/parent_house.png",
     "Больница" : "images/map/hospital.png",
-    "Университет" : "images/map/university.png"
+    "Университет" : "images/map/university.png",
+    "Дом Леони\nДжонс" : "images/map/parent_house.png",
+    "Ресторан на\nБлинк-роуд" : "images/map/parent_house.png",
+    "Дом на\nАрмори-стрит 19" : "images/map/parent_house.png",
+    "Полиция" : "images/map/parent_house.png",
+    "Дом на\nМарч-драйв 77" : "images/map/parent_house.png"
+
 }
 
 screen person(name):
@@ -205,12 +228,12 @@ screen confirm_map_button():
         xalign 0.5
         yalign 0.97
         idle "images/map/confirm.png"
-        if directions["casey"] == "":
+        if directions["jaclyn"] == "":
             action NullAction()
         else:
-            action Jump("chapter_1")
+            action Jump(rus_to_eng_locs[directions["jaclyn"]])
 
-screen Map():
+screen Map(locs):
     add "images/map/background.png"
 
     text (selected_person)
@@ -231,10 +254,11 @@ screen Map():
         xalign 0.5
         ypos 25
         spacing 20
+        use person("jaclyn")
         use person("casey")
         use person("braun")
-        use person("person")
-        use person("person")
+        use person("phil")
+        
 
         vbox:
             xsize 640
@@ -243,7 +267,7 @@ screen Map():
                 size(24)
                 font "fonts/Philosopher-BoldItalic.ttf"
 
-    use map_frame
+    use map_frame(locs)
 
     use confirm_map_button
 
