@@ -229,9 +229,18 @@ screen confirm_map_button():
         yalign 0.97
         idle "images/map/confirm.png"
         if directions["jaclyn"] == "":
-            action NullAction()
+            # action NullAction()
+            action Notify("Выберите локацию для главного героя!")
         else:
-            action Jump(rus_to_eng_locs[directions["jaclyn"]])
+            action [SetVariable("quick_menu", True), Jump(rus_to_eng_locs[directions["jaclyn"]])]
+
+screen notebook_icon():
+    imagebutton:
+            xalign 0.975
+            ypos 50
+            idle "images/map/notebook.png"
+            hover "images/map/notebook_selected.png"
+            action ToggleScreen("Notebook")
 
 screen Map(locs):
     add "images/map/background.png"
@@ -244,11 +253,7 @@ screen Map(locs):
         ypos 15
         auto "gui/quickMenu/settings_%s.png" action ShowMenu("preferences")
 
-    imagebutton:
-        xalign 0.975
-        ypos 50
-        idle "images/map/notebook.png"
-        action NullAction()
+    use notebook_icon    
 
     hbox:
         xalign 0.5
@@ -271,8 +276,23 @@ screen Map(locs):
 
     use confirm_map_button
 
+## Notebook Screen ##############################################################
+##
+## The notebook screen with all the clues and characters
+##
+##
 
+screen Notebook:
+    modal True
 
+    frame:
+        xsize 1201
+        ysize 977
+        xalign 0.5
+        yalign 0.55
+        background "images/notebook/notebook_bg.png"
+
+    use notebook_icon
 
 ## Say screen ##################################################################
 ##
@@ -1528,7 +1548,6 @@ init python:
             return [ach for ach in newachievements]
         else:    
             return [ach for ach in newachievements if ach["obtained"]]
-
 
 
 define ach_grid_cols = 3

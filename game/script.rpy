@@ -30,7 +30,7 @@ init python:
 ### Characters
 define mc = Character("Джеки Картер")
 define mc_thoughts = Character("Мысли Джеки")
-define julie = Character("Джуди")
+define julie = Character("Джули")
 
 define persistent.chapters = []
 
@@ -103,21 +103,14 @@ define e = Character("Eileen")
 # The game starts here.
 
 label start:
-
     $ unlock_achievement( "acquaintances", "1.1", "Вы получили досижение!")
-
-    scene bg room
-
-    show eileen happy
-
+    # scene bg room
+    # show eileen happy
     e "You've created a new Ren'Py game."
-
     e "Once you add a story, pictures, and music, you can release it to the world!"
-
     e "Я заметила, что Х ведет себя странно, он уже два дня не разговаривает со мной. Сегодня он оставил свой бумажник на столе, при том что обычно не забывает свои вещи... Может у него что-то случилось и он боится сказать?"
-
     "Andrew added this text for initial commit in his branch."
-
+    
     menu(screen="choice_arrows"):
         "Будешь в форт"
         "Конечно пошли" (arrow_down=False):
@@ -132,25 +125,25 @@ label start:
         "Choice 2":
             "Text for choice 2"
 
-    menu:
-        "Choice with 3 options!"
-        "Choice 1":
-            "Text for choice 1"
-        "Choice 2":
-            "Text for choice 2"
-        "Choice 3":
-            "Text for choice 3"
+    # menu:
+    #     "Choice with 3 options!"
+    #     "Choice 1":
+    #         "Text for choice 1"
+    #     "Choice 2":
+    #         "Text for choice 2"
+    #     "Choice 3":
+    #         "Text for choice 3"
 
-    menu:
-        "Choice with 4 options here!"
-        "Choice 1":
-            "Text for choice 1"
-        "Choice 2":
-            "Text for choice 2"
-        "Choice 3":
-            "Text for choice 3"
-        "Choice 4":
-            "Text for choice 4"
+    # menu:
+    #     "Choice with 4 options here!"
+    #     "Choice 1":
+    #         "Text for choice 1"
+    #     "Choice 2":
+    #         "Text for choice 2"
+    #     "Choice 3":
+    #         "Text for choice 3"
+    #     "Choice 4":
+    #         "Text for choice 4"
     
     $ quick_menu = False
     call screen Map(chapter1_locs1)
@@ -158,7 +151,7 @@ label start:
     jump chapter_1
 
 label chapter_1:
-    $ quick_menu = True
+
     $ chapter = "Chapter One"
     $ location = "2nd Location"
     if "Chapter 1" not in persistent.chapters:
@@ -169,18 +162,22 @@ label chapter_1:
     поэтому дело предстоит раскрыть."
 
     $ quick_menu = False
+    # $ config.rollback_enabled = False
+    $ renpy.block_rollback()
     call screen Map(chapter1_locs1)
     
     return
 
 label university:
 
+    $ renpy.block_rollback()
     scene univ_front
     mc_thoughts "Не нужно быть гением криминалистики, чтоб знать о том, что если хочешь узнать что угодно о ком угодно - найди самую тихую и неприметную девочку. Нет более качественных хранителей сплетен в старшей школе, чем они."    
     
     scene univ_hall
     mc "Извините, мисс?"
-    show julie at halfed
+    show julie at halfed 
+    with dissolve
     "???" "Вы кто?"
     mc "Спецагент Картер, отдел уголовных расследований ФБР. Как я могу к Вам обращаться?"
     julie "Джули."
@@ -190,6 +187,7 @@ label university:
     mc_thoughts "По-моему, я не говорил/а о том, что это не несчастный случай и не суицид"
     
     menu:
+        " " # Putting here spaces for it to activate the 'say' label with the choice label (black panel behind choice buttons)
         "Избавились":
             julie "От этой заносчивой занозы только глухой не слышал оскорблений в свой адрес. Ее гордая мамашка внушила ей, что она королева красоты, и что больше ничего в этой жизни неважно. А деньги папочки только усиливали их веру в это. Две куклы"
             jump univ_fe
@@ -199,6 +197,7 @@ label university:
 
 label univ_fe:
     menu:
+        " " # Putting here spaces for it to activate the 'say' label with the choice label (black panel behind choice buttons)
         "Вы не сильно любили мисс Лоуренс, судя по всему":
             julie "Никто ее не любил. С ней общались только из-за денег и популярности. Ее отец покупал ей места на конкурсах, лишь бы его стервозная жена реализовала свои несбывшиеся амбиции через дочь и не трогала его. Даже Мисс Университет он ей купил, хотя были девочки, которые мечтали об этом чертовом кольце не меньше, чем она, и были достойнее ее."
             julie "Кольцо Мисс Университет. Это пропуск на конкурс Мисс Штат. Девочки боролись за титул ради стипендии, чтобы помочь родителям с оплатой учебы. А Лоуренсы хотели потешить свое самолюбие. Неудивительно, что шли разговоры о том, чтоб отравить ее."
@@ -229,18 +228,21 @@ label univ_rs:
     julie "Многое теряете, босс."
     mc_thoughts "О, а вот и тот, о ком мы говорили!"
     "В конце коридора направляется к выходу из здания щуплый кучерявый парниша лет 20 с небольшим."
-    menu: 
+    menu:
+        " " # Putting here spaces for it to activate the 'say' label with the choice label (black panel behind choice buttons)
         "Стойте, сэр! Я из ФБР, нам нужно поговорить.":
             "Парень, не оборачиваясь, ускоряет шаг и выходит из здания"
             mc_thoughts "ГГ: Черт, он либо глухой, либо что-то знает. Ну ничего, увидимся на Армори-стрит"
             mc "Спасибо за помощь следствию, мисс."
             julie "Не забудьте передать привет."
             $ clearDict(directions)
+            $ quick_menu = False
             call screen Map(chapter1_locs2)
         "Я еще успею с ним общаться в более подходящей обстановке":
             mc "Спасибо за помощь следствию, мисс."
             julie "Не забудьте передать привет."
             $ clearDict(directions)
+            $ quick_menu = False
             call screen Map(chapter1_locs2)
 
 label hospital:
@@ -248,6 +250,12 @@ label hospital:
 
 label parents_house:
     "Parents house label"
+
+
+
+
+
+
 
 
 label chapter_2:
