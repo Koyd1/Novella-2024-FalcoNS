@@ -185,9 +185,9 @@ define rus_to_eng_locs = {
     "Университет" : "university",
     "Дом Леони\nДжонс" : "leoni's_house",
     "Ресторан на\nБлинк-роуд" : "restaurant",
-    "Дом на\nАрмори-стрит 19" : "james's_house",
+    "Дом на\nАрмори-стрит 19" : "james_house",
     "Полиция" : "police_station",
-    "Дом на\nМарч-драйв 77" : "kyle's_house"
+    "Дом на\nМарч-драйв 77" : "kyle_house"
 }
 
 
