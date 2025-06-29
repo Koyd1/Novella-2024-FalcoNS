@@ -291,6 +291,15 @@ screen Notebook:
         xalign 0.5
         yalign 0.55
         background "images/notebook/notebook_bg.png"
+        
+    button:
+        xpos 1450
+        ypos 75
+        xsize 40
+        ysize 40
+        background "images/notebook/closeNotebookBut.png"
+        action Hide("Notebook")
+        tooltip "Закрыть дневник"
 
     use notebook_icon
 
