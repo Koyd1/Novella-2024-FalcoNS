@@ -1103,9 +1103,12 @@ screen navigation_game():
 
 
 ### Start game screen ##############################################
+transform fit_screen:
+    fit "contain"
+    align (0.5, 0.5)
 screen press_to_start_game():
     zorder 100
-    add "gui/MainMenu/background.png"
+    add "gui/MainMenu/background.png" at fit_screen
 
     use press_to_start_game_overlay
 
@@ -1156,7 +1159,7 @@ screen main_menu():
                 $ cur_saves += 1
 
     # add gui.main_menu_background
-    add "gui/MainMenu/background.png"
+    add "gui/MainMenu/background.png" at fit_screen
 
     ## This empty frame darkens the main menu.
     frame:
