@@ -1,0 +1,10 @@
+﻿I'm sorry, but errors were detected in your script. Please correct the
+errors listed below, and try again.
+
+
+File "game/screens.rpy", line 482: end of line expected.
+    if if cur_page < max_pages: > cur_page:
+                                ^
+
+Ren'Py Version: Ren'Py 8.3.2.24090902
+Sun Jul 20 15:39:09 2025

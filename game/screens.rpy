@@ -326,12 +326,45 @@ default clues_files = [
     {
         "image_path" : "images/map/casey_idle.png", 
         "description" : "Clue description2."
+    },
+    {
+        "image_path" : "images/map/braun_idle.png", 
+        "description" : "Clue description3."
+    },
+    {
+        "image_path" : "images/map/casey_idle.png", 
+        "description" : "Clue description4."
+    },
+    {
+        "image_path" : "images/map/casey_idle.png", 
+        "description" : "Clue description5."
+    },
+    {
+        "image_path" : "images/map/casey_idle.png", 
+        "description" : "Clue description6."
+    },
+    {
+        "image_path" : "images/map/casey_idle.png", 
+        "description" : "Clue description7."
+    },
+    {
+        "image_path" : "images/map/casey_idle.png", 
+        "description" : "Clue description8."
+    },
+    {
+        "image_path" : "images/map/casey_idle.png", 
+        "description" : "Clue description9."
+    },
+    {
+        "image_path" : "images/map/casey_idle.png", 
+        "description" : "Clue description10."
     }
 ]
 default max_clue_pages = len(clues_files) // 6
 
 screen Notebook:
     modal True
+
 
     frame:
         xsize 1201
@@ -346,7 +379,7 @@ screen Notebook:
             xsize 40
             ysize 40
             background "images/notebook/closeNotebookBut.png"
-            action Hide("Notebook")
+            action [SetVariable("cur_notebook_screen", "title"), Hide("Notebook")]
             tooltip "Закрыть дневник"
         
         if cur_notebook_screen == "title":
@@ -377,9 +410,9 @@ screen Title_notebook():
         vbox:
             ypos 50
             spacing 20
-            textbutton _("Содержание"):
-                # text_style "tx_button"
-                action NullAction()
+            # textbutton _("Содержание"):
+            #     # text_style "tx_button"
+            #     action NullAction()
             textbutton _("Досье"):
                 # text_style "tx_button"
                 action SetVariable("cur_notebook_screen", "persons")
@@ -392,6 +425,7 @@ screen Title_notebook():
         
 
 screen Persons_Clues_notebook():
+    default max_pages = 0
     # Left Page
     frame:
         xpos 184
@@ -408,11 +442,13 @@ screen Persons_Clues_notebook():
             action SetVariable("cur_notebook_screen", "title")
 
         if cur_notebook_screen == "persons":
+            $ max_pages = (len(persons_files) - 1) // 6
             text "Досье":
                 color "#000000"
                 bold True
                 xalign 0.5
         if cur_notebook_screen == "clues":
+            $ max_pages = (len(clues_files) - 1) // 6
             text "Улики":
                 color "#000000"
                 bold True
@@ -430,7 +466,7 @@ screen Persons_Clues_notebook():
                         text _(person["description"]):
                             color "#000000"
             elif cur_notebook_screen == "clues":
-                for clue in clues_files[cur_clue_page*6:cur_clue_page*6+3]:
+                for clue in clues_files[cur_page*6:cur_page*6+3]:
                     hbox:
                         image clue["image_path"]
                         text _(clue["description"]):
@@ -456,29 +492,24 @@ screen Persons_Clues_notebook():
                         text _(person["description"]):
                             color "#000000"
             elif cur_notebook_screen == "clues":
-                for clue in clues_files[cur_clue_page*6+3:cur_clue_page*6+3+3]:
+                for clue in clues_files[cur_page*6+3:cur_page*6+3+3]:
                     hbox:
                         image clue["image_path"]
                         text _(clue["description"]):
                             color "#000000"
-
-    imagebutton:
-        xalign 0.18
-        yalign 0.81
-        idle "images/notebook/arrow_left.png"
-        if cur_page > 0:
+    if cur_page > 0:
+        imagebutton:
+            xalign 0.18
+            yalign 0.81
+            idle "images/notebook/arrow_left.png"
             action SetVariable("cur_page", cur_page-1)
-        else:
-            action NullAction()
-
-    imagebutton:
-        xalign 0.82
-        yalign 0.81
-        idle "images/notebook/arrow_right.png"
-        if max_person_pages > cur_page:
+       
+    if cur_page < max_pages:
+        imagebutton:
+            xalign 0.82
+            yalign 0.81
+            idle "images/notebook/arrow_right.png"
             action SetVariable("cur_page", cur_page+1)
-        else:
-            action NullAction()
 
     # use notebook_icon
 
