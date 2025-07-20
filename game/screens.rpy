@@ -279,8 +279,56 @@ screen Map(locs):
 ## Notebook Screen ##############################################################
 ##
 ## The notebook screen with all the clues and characters
+## 
+## For Persons file assuming only 6 files per page.
 ##
-##
+
+default cur_notebook_screen = "title"
+default cur_page = 0 # Counter for displaying notebook page
+default persons_files = [
+    {
+        "image_path" : "images/map/jaclyn_idle.png", 
+        "description" : "Some description1."
+    }, 
+    {
+        "image_path" : "images/map/casey_idle.png", 
+        "description" : "Some description2."
+    },
+    {
+        "image_path" : "images/map/braun_idle.png", 
+        "description" : "Some description3."
+    },
+    {
+        "image_path" : "images/map/jaclyn_idle.png", 
+        "description" : "Some description4."
+    }, 
+    {
+        "image_path" : "images/map/casey_idle.png", 
+        "description" : "Some description5."
+    },
+    {
+        "image_path" : "images/map/jaclyn_idle.png", 
+        "description" : "Some description6."
+    },
+    {
+        "image_path" : "images/map/braun_idle.png", 
+        "description" : "Some description6."
+    } 
+]
+default max_person_pages = len(persons_files) // 6
+
+default cur_clue_page = 0
+default clues_files = [
+    {
+        "image_path" : "images/map/jaclyn_idle.png", 
+        "description" : "Clue description1."
+    }, 
+    {
+        "image_path" : "images/map/casey_idle.png", 
+        "description" : "Clue description2."
+    }
+]
+default max_clue_pages = len(clues_files) // 6
 
 screen Notebook:
     modal True
@@ -292,7 +340,150 @@ screen Notebook:
         yalign 0.55
         background "images/notebook/notebook_bg.png"
 
-    use notebook_icon
+        button:
+            xalign 0.95
+            ypos 10
+            xsize 40
+            ysize 40
+            background "images/notebook/closeNotebookBut.png"
+            action Hide("Notebook")
+            tooltip "Закрыть дневник"
+        
+        if cur_notebook_screen == "title":
+            use Title_notebook    
+        elif cur_notebook_screen == "persons" or cur_notebook_screen == "clues":
+            use Persons_Clues_notebook
+
+style tx_button:
+    color "#131212"
+    hover_color "#13275e"
+    # bold True
+
+screen Title_notebook():
+    # Left Page
+    frame:
+        xpos 184
+        ypos 75
+        xsize 395
+        ysize 675
+        background "gui/chaptersScreen/transparent.png"
+        # background "#FFF"
+
+        text "Записи дела":
+            color "#000000"
+            bold True
+            xalign 0.5
+
+        vbox:
+            ypos 50
+            spacing 20
+            textbutton _("Содержание"):
+                # text_style "tx_button"
+                action NullAction()
+            textbutton _("Досье"):
+                # text_style "tx_button"
+                action SetVariable("cur_notebook_screen", "persons")
+            textbutton _("Улики"):
+                # text_style "tx_button"
+                action SetVariable("cur_notebook_screen", "clues")
+            textbutton _("Информация напарников"):
+                # text_style "tx_button"
+                action NullAction()
+        
+
+screen Persons_Clues_notebook():
+    # Left Page
+    frame:
+        xpos 184
+        ypos 75
+        xsize 395
+        ysize 675
+        background "gui/chaptersScreen/transparent.png"
+        # background "#FFF"
+
+        imagebutton:
+            xpos -5
+            ypos -10
+            idle "images/notebook/home.png"
+            action SetVariable("cur_notebook_screen", "title")
+
+        if cur_notebook_screen == "persons":
+            text "Досье":
+                color "#000000"
+                bold True
+                xalign 0.5
+        if cur_notebook_screen == "clues":
+            text "Улики":
+                color "#000000"
+                bold True
+                xalign 0.5
+
+
+        vbox:
+            ypos 50
+            spacing 20
+            # for person in persons_files[0:3]:
+            if cur_notebook_screen == "persons":
+                for person in persons_files[cur_page*6:cur_page*6+3]:
+                    hbox:
+                        image person["image_path"]
+                        text _(person["description"]):
+                            color "#000000"
+            elif cur_notebook_screen == "clues":
+                for clue in clues_files[cur_clue_page*6:cur_clue_page*6+3]:
+                    hbox:
+                        image clue["image_path"]
+                        text _(clue["description"]):
+                            color "#000000"
+
+    # Right Page
+    frame:
+        xpos 620
+        ypos 75
+        xsize 395
+        ysize 675
+        background "gui/chaptersScreen/transparent.png"
+        # background "#FFF"
+
+        vbox:
+            ypos 50
+            spacing 20
+            # for person in persons_files[3:6]:
+            if cur_notebook_screen == "persons":
+                for person in persons_files[cur_page*6+3:cur_page*6+3+3]:
+                    hbox:
+                        image person["image_path"]
+                        text _(person["description"]):
+                            color "#000000"
+            elif cur_notebook_screen == "clues":
+                for clue in clues_files[cur_clue_page*6+3:cur_clue_page*6+3+3]:
+                    hbox:
+                        image clue["image_path"]
+                        text _(clue["description"]):
+                            color "#000000"
+
+    imagebutton:
+        xalign 0.18
+        yalign 0.81
+        idle "images/notebook/arrow_left.png"
+        if cur_page > 0:
+            action SetVariable("cur_page", cur_page-1)
+        else:
+            action NullAction()
+
+    imagebutton:
+        xalign 0.82
+        yalign 0.81
+        idle "images/notebook/arrow_right.png"
+        if max_person_pages > cur_page:
+            action SetVariable("cur_page", cur_page+1)
+        else:
+            action NullAction()
+
+    # use notebook_icon
+
+    
+
 
 ## Say screen ##################################################################
 ##
