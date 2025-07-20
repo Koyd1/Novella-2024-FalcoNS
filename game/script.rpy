@@ -25,6 +25,14 @@ init python:
         data["chapter"] = chapter
         data["location"] = location
     
+    def add_person_file_info(persons_file, image_path: str, description: str):
+        persons_file.append({
+        "image_path" : image_path, 
+        "description" : description
+        })
+        # max_person_pages = len(persons_files) // 6
+        
+    
     config.save_json_callbacks = [save_add_info]
 
 ### Characters
@@ -178,6 +186,9 @@ label chapter_1:
     Согласно первоначальной версии, это несчастный случай либо суицид, но руки жертвы покрыты жуткими порезами, 
     поэтому дело предстоит раскрыть."
 
+    $ add_person_file_info(persons_files, "images/map/jaclyn_idle.png", "Добавил хуйню.")
+    $ max_person_pages = len(persons_files) // 6
+
     # $ config.rollback_enabled = False
     $ quick_menu = False
     $ renpy.block_rollback()
@@ -186,6 +197,23 @@ label chapter_1:
     return
 
 label university:
+
+    $ add_person_file_info(persons_files, "images/map/jaclyn_idle.png", "Добавил хуйню.")
+    $ max_person_pages = len(persons_files) // 6
+    $ add_person_file_info(persons_files, "images/map/jaclyn_idle.png", "Добавил хуйню.")
+    $ max_person_pages = len(persons_files) // 6
+    $ add_person_file_info(persons_files, "images/map/jaclyn_idle.png", "Добавил хуйню.")
+    $ max_person_pages = len(persons_files) // 6
+    $ add_person_file_info(persons_files, "images/map/jaclyn_idle.png", "Добавил хуйню.")
+    $ max_person_pages = len(persons_files) // 6
+    $ add_person_file_info(persons_files, "images/map/jaclyn_idle.png", "Добавил хуйню.")
+    $ max_person_pages = len(persons_files) // 6
+    $ add_person_file_info(persons_files, "images/map/jaclyn_idle.png", "Добавил хуйню.")
+    $ max_person_pages = len(persons_files) // 6
+    $ add_person_file_info(persons_files, "images/map/jaclyn_idle.png", "Добавил хуйню.")
+    $ max_person_pages = len(persons_files) // 6
+    $ add_person_file_info(persons_files, "images/map/jaclyn_idle.png", "Добавил хуйню.")
+    $ max_person_pages = len(persons_files) // 6
 
     $ renpy.block_rollback()
     $ clearDict(directions)
