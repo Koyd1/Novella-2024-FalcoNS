@@ -374,13 +374,13 @@ screen Notebook:
         background "images/notebook/notebook_bg.png"
 
         button:
-            xalign 0.95
-            ypos 10
-            xsize 40
-            ysize 40
-            background "images/notebook/closeNotebookBut.png"
-            action [SetVariable("cur_notebook_screen", "title"), Hide("Notebook")]
+            xpos 990
+            ypos 30
+            xsize 60
+            ysize 200
+            background Transform("images/notebook/closeNotebookBut.png", zoom=0.75)            action [SetVariable("cur_notebook_screen", "title"), Hide("Notebook")]
             tooltip "Закрыть дневник"
+
         
         if cur_notebook_screen == "title":
             use Title_notebook    
