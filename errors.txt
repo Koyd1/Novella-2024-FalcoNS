@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/screens.rpy", line 482: end of line expected.
-    if if cur_page < max_pages: > cur_page:
-                                ^
+File "game/script.rpy", line 42: expected statement.
+    init puthon:
+               ^
 
 Ren'Py Version: Ren'Py 8.3.2.24090902
-Sun Jul 20 15:39:09 2025
+Fri Sep  5 12:12:33 2025

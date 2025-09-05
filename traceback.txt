@@ -1,0 +1,32 @@
+﻿I'm sorry, but an uncaught exception occurred.
+
+While running game code:
+  File "game/script.rpy", line 498, in script
+    show doc_andrews at halfed
+  File "game/script.rpy", line 498, in <module>
+    show doc_andrews at halfed
+NameError: name 'halfed' is not defined
+
+-- Full Traceback ------------------------------------------------------------
+
+Full traceback:
+  File "game/script.rpy", line 498, in script
+    show doc_andrews at halfed
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/ast.py", line 1111, in execute
+    show_imspec(self.imspec, atl=getattr(self, "atl", None))
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/ast.py", line 1070, in show_imspec
+    at_list = [ renpy.python.py_eval(i) for i in at_list ]
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/ast.py", line 1070, in <listcomp>
+    at_list = [ renpy.python.py_eval(i) for i in at_list ]
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/python.py", line 1209, in py_eval
+    return py_eval_bytecode(code, globals, locals)
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/python.py", line 1202, in py_eval_bytecode
+    return eval(bytecode, globals, locals)
+  File "game/script.rpy", line 498, in <module>
+    show doc_andrews at halfed
+NameError: name 'halfed' is not defined
+
+macOS-14.5-arm64-arm-64bit arm64
+Ren'Py 8.3.2.24090902
+NovellaProj 1.0
+Fri Sep  5 13:51:50 2025
