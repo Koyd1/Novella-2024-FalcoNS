@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 42: expected statement.
-    init puthon:
-               ^
+File "game/screens.rpy", line 711: 'yaligny_choice_align' is not a keyword argument or valid child of the hbox statement.
+    yaligny_choice_align
+                        ^
 
 Ren'Py Version: Ren'Py 8.3.2.24090902
-Fri Sep  5 12:12:33 2025
+Thu Sep 25 00:48:51 2025

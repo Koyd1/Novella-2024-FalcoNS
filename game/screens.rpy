@@ -584,7 +584,7 @@ style window:
 style namebox:
     # xpos 40
     ypos -86
-    xsize 324
+    xsize 400
     ysize 54
     background Frame("gui/namebox.png", gui.namebox_borders, tile=gui.namebox_tile, xalign=gui.name_xalign)
     # padding gui.namebox_borders.padding
@@ -683,7 +683,7 @@ style menu_arrow_up_button is button:
 
 style menu_arrow_text is text:
     properties gui.text_properties("choice_button")
-
+    
 screen choice(items):
     style_prefix "choice"
 
@@ -706,10 +706,11 @@ screen choice(items):
 
     else: # 2 options (or more but 4 or more will get out of the screen)
         hbox:
-            yalign 0.9
+            yalign 0.99
+            ysize 300
             spacing gui.choice_spacing + 30
             for i in items:
-                textbutton i.caption action i.action
+                textbutton i.caption action i.action yalign 0.5
 
 style choice_vbox:
     xalign 0.5
@@ -726,11 +727,22 @@ style choice_button is button
 style choice_button_text is button_text
 
 
-style choice_button is default:
-    properties gui.button_properties("choice_button")
+# style choice_button is default:
+#     properties gui.button_properties("choice_button")
 
 style choice_button_text is default:
     properties gui.text_properties("choice_button")
+
+# style choice_long_button is choice_button:
+#     background Frame("gui/button/long_choice.png")
+#     hover_background Frame("gui/button/long_choice_hover.png")
+style choice_button is button:
+    background Frame("gui/button/choice_idle_background.png", 15, 15)
+    hover_background Frame("gui/button/choice_hover_background.png", 15, 15)
+    yminimum 85
+    xsize 800
+    xpadding 40
+
 
 
 ## Quick Menu screen ###########################################################
