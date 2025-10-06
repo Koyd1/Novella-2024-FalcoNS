@@ -36,6 +36,7 @@ init python:
 
     config.save_json_callbacks = [save_add_info]
 
+
 # Создание персонажей
 
 ### Characters
@@ -76,6 +77,15 @@ define chapter1_locs2 = [
     [1604, 260, "Дом на\nМарч-драйв 77", True, locations["Дом на\nМарч-драйв 77"], True],
     [1291, 549, "Университет", False, None, True]
 ]
+init python:
+    def char_callback(tag):
+        def callback(event, interact=True, **kwargs):
+            if event == "show":
+                renpy.show(tag, at_list=[sprite_centered, active])
+                for other in ["mc", "govard", "phil", "casey"]:
+                    if other != tag:
+                        renpy.show(other, at_list=[sprite_left if other=="casey" else sprite_right, inactive], layer="master")
+        return callback
 
 ### Splash screen and start screen
 image black = "#000"
@@ -143,7 +153,12 @@ transform inactive:
     alpha 0.5
     linear 0.2 alpha 0.5
 
+transform darken:
+    # matrixcolor TintMatrix("#ffffff")*SaturationMatrix(1.0)
+    linear 0.2 matrixcolor TintMatrix("#4e4e4e")*SaturationMatrix (1.0)
 
+transform lighten:
+    linear 0.2 matrixcolor TintMatrix("#ffffff")*SaturationMatrix(1.0)
 
 
 
@@ -253,34 +268,60 @@ label chapter_1:
     return
 
 label teemMeeting:
-    
-    scene expression im.Scale("images/locations/office.png", config.screen_width, config.screen_height)
-    show casey at sprite_left
-    show govard at sprite_centered
-    show phil at sprite_right
 
-    mc  "Жертва — Джейн Лоуренс. Двадцать два года. Училась в городском университете, факультет журналистики, второй курс. Утром её тело прибило к набережной. Пожилая леди, которая ее нашла, вряд ли будет там снова выгуливать свою собаку."
+    scene expression im.Scale("images/locations/office.png", config.screen_width, config.screen_height) with dissolve
+
+    show casey at sprite_left, darken
+    show govard at sprite_centered, darken
+    show phil at sprite_right, darken
+    mc "Жертва — Джейн Лоуренс. Двадцать два года. Училась в городском университете, факультет журналистики, второй курс. Утром её тело прибило к набережной. Пожилая леди, которая ее нашла, вряд ли будет там снова выгуливать свою собаку."
     mc "Местная полиция ограничилась ленточкой и протоколом. Родители опознали дочь. Всё. Они считают, что дальше пусть работает федеральный уровень. И вот мы здесь."
+
+    show govard at sprite_centered, lighten
     govard "Давно наш отдел занимается утопленниками?"
+
+    show govard at sprite_centered, darken
     mc "Агент Браун, меньше вопросов. Если дело отдали нам, на то есть причина."
+
+    show phil at sprite_right, lighten
     phil "Но у нас пока нет заключения по телу. Только время смерти в общих чертах — вчера вечером, несколько часов до того, как её вынесло к берегу. Ни причины, ни характера повреждений."
+
+    show phil at sprite_right, darken
     mc "Верно. Первое направление — морг городской больницы. Мистер Эндрюс уже ждет кого-то из нас с заключением."
+
+    show govard at sprite_centered, lighten
     govard "Если её убили, патологоанатом расскажет больше, чем все свидетели вместе."
+
+    show govard at sprite_centered, darken
     mc "Второе направление — университет. Второй курс журналистики. Друзья, одногруппники, завистники. Любые слухи и сплетни."
+
+    show casey at sprite_left, lighten
     casey "Там же мы можем узнать о её личной жизни. Возможно, были отношения, о которых родители не знали."
-    mc "Именно. А родители — третье направление. Дом семьи Лоуренс. Там лежат её вещи, фотографии, записки. Родители скажут нам, какой была Джейн вне стен кампуса. "
+
+    show casey at sprite_left, darken
+    mc "Именно. А родители — третье направление. Дом семьи Лоуренс. Там лежат её вещи, фотографии, записки. Родители скажут нам, какой была Джейн вне стен кампуса."
+
     mc "Но учтите — они только что потеряли дочь. Разговор будет тонкий. Впрочем, это не повод размазывать эмоции. Мы расследуем убийство."
+
+    show phil at sprite_right, lighten
     phil "Тогда один из нас остаётся здесь? Чтобы разобрать материалы полиции?"
+
+    show phil at sprite_right, darken
     mc "Да. У нас три точки и четыре человека. Тот, кто остаётся, не отдыхает, а проверяет материалы полиции."
+
+    show govard at sprite_centered, lighten
     govard "То есть кто-то сидит за бумагами, пока остальные работают по-настоящему. Отличный жребий."
+
+    show govard at sprite_centered, darken
     mc "Вопрос один: кто куда пойдёт. Морг. Университет. Дом родителей. Штаб. Решаем быстро."
+
     hide mc
     hide govard
     hide casey
 
-
     $ quick_menu = False
     call screen Map(chapter1_locs1)
+
 
 
 label university:
@@ -386,8 +427,8 @@ label parents_house:
     $ clearDict(directions)
     scene par_h_entry 
     with dissolve
-    show mr_lawrence at halfed_left
-    show mrs_lawrence at halfed_right
+    show mr_lawrence at halfed_left,darken
+    show mrs_lawrence at halfed_right,darken
     mc "Мистер и Миссис Лоуренс, я спецагент Жаклин из ФБР, примите мои соболезнования. Мне необходимо задать вам пару вопросов."
     menu:
         " "
@@ -396,13 +437,24 @@ label parents_house:
         "Когда вы в последний раз говорили с вашей дочерью?":
             jump par_house_ltsd
 
+
 label par_house_td: # Расскажите о дочери
+    show mr_lawrence at halfed_left, lighten
     mr_lawrence "Наша Джейн всегда была хорошей девочкой. Она не заслужила такую короткую жизнь..."
+
+    show mr_lawrence at halfed_left, darken
+    show mrs_lawrence at halfed_right, lighten
     mrs_lawrence "Она была нашей звездочкой, нашей единственной красавицей."
     mrs_lawrence @ pride "Всегда была лучшей на всех конкурсах. Джейн была маленькой копией меня. Я ей очень гордилась."
+
+    show mrs_lawrence at halfed_right, darken
     mc_thoughts "Eе дочери нет в живых, а она вспоминает о конкурсах"
     mc "Ваша дочь жила вместе с Вами?"
-    mr_lawrence "Нет, ну что Вы. Она уже большая девочка. Как только ей испольнилось 18, она переехала жить к своему молодому человеку."
+
+    show mr_lawrence at halfed_left, lighten
+    mr_lawrence "Нет, ну что Вы. Она уже большая девочка. Как только ей исполнилось 18, она переехала жить к своему молодому человеку."
+
+    show mr_lawrence at halfed_left, darken
     menu:
         " "
         "Вы знали его?":
@@ -411,14 +463,28 @@ label par_house_td: # Расскажите о дочери
             jump par_house_tthah
 
 label par_house_ltsd: # последний раз говорили с дочерью
+    show mrs_lawrence at halfed_right, lighten
     mrs_lawrence "Я звонила поздравить ее с титулом Мисс Университет. Это было на прошлой неделе. Джейн мечтала об этом титуле."
     mrs_lawrence "Это бы приблизило ее к тому, чтобы выйти в претендентки на Мисс Штат. Это была ее мечта, наша мечта."
+
+    show mrs_lawrence at halfed_right, darken
+    show mr_lawrence at halfed_left, lighten
     mr_lawrence @ sad "Она получила кольцо, но корону моя малышка уже не получит."
+
+    show mr_lawrence at halfed_left, darken
     mc "Что за кольцо?"
-    mrs_lawrence "Девушка, получившая титул Мисс Университет получает кольцо в качестве приза. Только с ним она уже сможет отправиться на следующий этап. Я тоже остановилась на кольце в свое время..."
+
+    show mrs_lawrence at halfed_right, lighten
+    mrs_lawrence "Девушка, получившая титул Мисс Университет, получает кольцо в качестве приза. Только с ним она уже сможет отправиться на следующий этап. Я тоже остановилась на кольце в свое время..."
     mrs_lawrence "Но Джейни могла получить корону..."
+
+    show mrs_lawrence at halfed_right, darken
     mc "Джейн жила у вас?"
-    mr_lawrence "Нет, ну что Вы. Она уже большая девочка. Как только ей испольнилось 18, она переехала жить к своему молодому человеку."
+
+    show mr_lawrence at halfed_left, lighten
+    mr_lawrence "Нет, ну что Вы. Она уже большая девочка. Как только ей исполнилось 18, она переехала жить к своему молодому человеку."
+
+    show mr_lawrence at halfed_left, darken
     menu:
         " "
         "Вы знали его?":
@@ -426,17 +492,30 @@ label par_house_ltsd: # последний раз говорили с дочер
         "Вы говорили с ним после случившегося?":
             jump par_house_tthah
 
-label par_house_ukh: # вы знали его
+label par_house_ukh: # Вы знали его
+    show mr_lawrence at halfed_left, lighten
     mr_lawrence "Кайл его зовут, лично не встречались, видели фотографии и знаем адрес: Марч-Драйв 77. Познакомились они в последних классах школы. Он капитан команды по футболу, крепкий парень."
+
+    show mr_lawrence at halfed_left, darken
+    show mrs_lawrence at halfed_right, lighten
     mrs_lawrence "Правда, характером он был похлеще нашей Джейн. Ссорились они ежедневно."
-    mr_lawrence "Помню, однажды так сильно поругались, что она вернулась к жить нам. Так наш телефон в гостиной просто разрывался: я однажды взял трубку, а там 'Стань моей, я буду тебя любить' и всякое подобное."
+
+    show mrs_lawrence at halfed_right, darken
+    show mr_lawrence at halfed_left, lighten
+    mr_lawrence "Помню, однажды так сильно поругались, что она вернулась жить к нам. Так наш телефон в гостиной просто разрывался: я однажды взял трубку, а там 'Стань моей, я буду тебя любить' и всякое подобное."
     mr_lawrence "Непривычно было слышать такие вещи от брутального парня, я бы не поверил, если бы сам не услышал."
     mr_lawrence @ thoughts "Еще и говор у него такой странный, как будто с акцентом."
+
+    show mr_lawrence at halfed_left, darken
     jump par_house_wsl
 
-label par_house_wsl: # когда она вновь уехала
+label par_house_wsl: # Когда она вновь уехала
     mc "Когда она вновь уехала от Вас?"
+
+    show mrs_lawrence at halfed_right, lighten
     mrs_lawrence "Через неделю. И вот уже почти три месяца все было спокойно. Притерлись наконец, мы думали. Не представляю, каково этому парнишке сейчас."
+
+    show mrs_lawrence at halfed_right, darken
     menu:
         " "
         "Вы были близки с ней?":
@@ -444,44 +523,79 @@ label par_house_wsl: # когда она вновь уехала
         "С кем она делилась своими переживаниями или секретами?":
             jump par_house_whss
 
-label par_house_wuc: # вы были близки с ней
+label par_house_wuc: # Вы были близки с ней
+    show mrs_lawrence at halfed_right, lighten
     mrs_lawrence "Она была свободолюбивой и гордой. Я не лезла к ней в душу. Я была хорошей матерью и никогда не нарушала ее границ."
+
+    show mrs_lawrence at halfed_right, darken
     mc_thoughts "Или просто не интересовалась дочерью."
+
+    show mrs_lawrence at halfed_right, lighten
     mrs_lawrence "Я даже никогда не заглядывала в ее личный дневник, хотя знала, где он лежит. Он даже сейчас у нас дома. Джейн его оставила у нас, когда неделю здесь жила. Но он очень древний, вряд ли он Вам поможет."
+
     # *Получить записи дневника*
     "(В личном дневнике записи о маме-тиране и многолетнем сталкерстве)"
-    # Кто-то мог желать ей зла?
+
     mc "Кто-то мог желать ей зла?"
+
+    show mrs_lawrence at halfed_right, darken
+    show mrs_lawrence at halfed_right, lighten
     mrs_lawrence @ outraged "Ну что Вы?! Нашу девочку всегда обожали. Она всегда побеждала и была первой. Парни сходили по ней с ума, а девушки восхищались."
+
+    show mrs_lawrence at halfed_right, darken
     mc_thoughts "Или завидовали.."
+
+    show mr_lawrence at halfed_left, lighten
     mr_lawrence @ sad "Вот, посмотрите показывает детский школьный альбом. Она всегда была красивой девочкой. А здесь она уже роскошная девушка показывает выпускной альбом. Не представляю, кто мог так поступить с ней... Только чудовище. Она сама никогда бы не сделала это..."
+
+    show mr_lawrence at halfed_left, darken
     mc "Мы сделаем всё, что в наших силах, чтобы раскрыть дело, Мистер и Миссис Лоуренс."
+
     hide mr_lawrence
     hide mrs_lawrence
     $ quick_menu = False
     $ renpy.block_rollback()
     call screen Map(chapter1_locs2)
 
-label par_house_whss: # с кем она делилась своими переживаниями
+label par_house_whss: # С кем делилась переживаниями
+    show mrs_lawrence at halfed_right, lighten
     mrs_lawrence "Она держала какую-то тетрадку под кроватью. Полагаю, что это ее личный дневник, она его оставила у нас, когда неделю здесь жила. Но он очень древний, вряд ли он Вам поможет."
+
     # *Получить записи дневника*
-    "(В личном дневники записи о маме-тиране и многолетнем сталкерстве)"
-    # Кто-то мог желать ей зла?
+    "(В личном дневнике записи о маме-тиране и многолетнем сталкерстве)"
+
     mc "Кто-то мог желать ей зла?"
+
+    show mrs_lawrence at halfed_right, darken
+    show mrs_lawrence at halfed_right, lighten
     mrs_lawrence "Ну что Вы?! Нашу девочку всегда обожали. Она всегда побеждала и была первой. Парни сходили по ней с ума, а девушки восхищались."
+
+    show mrs_lawrence at halfed_right, darken
     mc_thoughts "Или завидовали.."
+
+    show mr_lawrence at halfed_left, lighten
     mr_lawrence "Вот, посмотрите показывает детский школьный альбом. Она всегда была красивой девочкой. А здесь она уже роскошная девушка показывает выпускной альбом. Не представляю, кто мог так поступить с ней... Только чудовище. Она сама никогда бы не сделала это..."
+
+    show mr_lawrence at halfed_left, darken
     mc "Мы сделаем всё, что в наших силах, чтобы раскрыть дело, Мистер и Миссис Лоуренс."
+
+    hide mr_lawrence
+    hide mrs_lawrence
     $ quick_menu = False
     $ renpy.block_rollback()
-    
     call screen Map(chapter1_locs2)
 
-label par_house_tthah: # вы говорили с ним после случившегося
-    mrs_lawrence "У нас нет его контактов, только знаем, что зовут его Кайл. Он живет далеко - на Марч-Драйв 77, если бы он хотел, сам бы приехал. Джейн доверяла ему, а мы доверяли Джейн. Она девочка с высокими запросами, мы ее такой воспитали."
+label par_house_tthah: # Вы говорили с ним после случившегося
+    show mrs_lawrence at halfed_right, lighten
+    mrs_lawrence "У нас нет его контактов, только знаем, что зовут его Кайл. Он живет далеко — на Марч-Драйв 77, если бы он хотел, сам бы приехал. Джейн доверяла ему, а мы доверяли Джейн. Она девочка с высокими запросами, мы ее такой воспитали."
     mrs_lawrence "Поклонников у нее всегда было много, но она выбирала самых лучших. Правда, характером он был похлеще нашей Джейн. Ссорились они ежедневно."
-    mr_lawrence "Помню, однажды так сильно поругались, что она вернулась к жить нам. Так наш телефон в гостиной просто разрывался: я однажды взял трубку, а там 'Стань моей, я буду тебя любить' и всякое подобное. Непривычно было слышать такие вещи от брутального парня, я бы не поверил, если бы сам не услышал."
+
+    show mrs_lawrence at halfed_right, darken
+    show mr_lawrence at halfed_left, lighten
+    mr_lawrence "Помню, однажды так сильно поругались, что она вернулась жить к нам. Так наш телефон в гостиной просто разрывался: я однажды взял трубку, а там 'Стань моей, я буду тебя любить' и всякое подобное. Непривычно было слышать такие вещи от брутального парня, я бы не поверил, если бы сам не услышал."
     mr_lawrence @ thoughts "Еще и говор у него такой странный, как будто с акцентом."
+
+    show mr_lawrence at halfed_left, darken
     jump par_house_wsl
 
 label hospital:
@@ -1038,12 +1152,6 @@ label khouse_whir: # Что произошло в ресторане?
             $ quick_menu = False
             $ renpy.block_rollback()
             call screen Map(chapter1_locs2)
-
-
-
-
-
-
 
 label chapter_2:
     $ chapter = "Chapter Two"
