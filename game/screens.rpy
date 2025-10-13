@@ -358,6 +358,26 @@ default clues_files = [
     {
         "image_path" : "images/map/casey_idle.png", 
         "description" : "Clue description10."
+    },
+    {
+        "image_path" : "images/map/casey_idle.png", 
+        "description" : "Clue description10."
+    },
+    {
+        "image_path" : "images/map/casey_idle.png", 
+        "description" : "Clue description10."
+    },
+    {
+        "image_path" : "images/map/casey_idle.png", 
+        "description" : "Clue description10."
+    },
+    {
+        "image_path" : "images/map/casey_idle.png", 
+        "description" : "Clue description10."
+    },
+    {
+        "image_path" : "images/map/casey_idle.png", 
+        "description" : "Clue description10."
     }
 ]
 default max_clue_pages = len(clues_files) // 6
@@ -371,14 +391,19 @@ screen Notebook:
         ysize 977
         xalign 0.5
         yalign 0.55
-        background "images/notebook/notebook_bg.png"
+        if cur_notebook_screen == "persons" and cur_page % 2 == 1:
+            background "images/notebook/notebook_bg_dirty1.png"
+        elif cur_notebook_screen == "clues" and cur_page % 2 == 1:
+            background "images/notebook/notebook_bg_dirty2.png"
+        else: 
+            background "images/notebook/notebook_bg.png"
 
         button:
             xpos 990
             ypos 30
             xsize 60
             ysize 200
-            background Transform("images/notebook/closeNotebookBut.png", zoom=0.75)            action [SetVariable("cur_notebook_screen", "title"), Hide("Notebook")]
+            background Transform("images/notebook/closeNotebookBut.png", zoom=0.75)  action [SetVariable("cur_notebook_screen", "title"), Hide("Notebook")]
             tooltip "Закрыть дневник"
 
         
