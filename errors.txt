@@ -2,9 +2,13 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 1176: expected statement.
-    print(assigned_person)
-                          ^
+File "game/script.rpy", line 1186: end of line expected.
+    govard "Следы гематом в районе запястий, что свидетельствует о том, что убийца был физически сильнее ее, так как этого было достаточно, чтоб ее обездвижить. Множество порезов в зоне кистей рук. Но только один из них, на безымянном пальце, был нанесен при жизни."    if assigned_person == "phil":
+                                                                                                                                                                                                                                                                              ^
+
+File "game/script.rpy", line 1191: end of line expected.
+    phil "Следы гематом в районе запястий, что свидетельствует о том, что убийца был физически сильнее ее, так как этого было достаточно, чтоб ее обездвижить. Множество порезов в зоне кистей рук. Но только один из них, на безымянном пальце, был нанесен при жизни."    if assigned_person == "phil":
+                                                                                                                                                                                                                                                                            ^
 
 Ren'Py Version: Ren'Py 8.3.2.24090902
-Tue Nov 11 02:04:30 2025
+Tue Nov 11 10:15:31 2025

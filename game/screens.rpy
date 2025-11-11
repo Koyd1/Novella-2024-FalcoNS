@@ -175,7 +175,7 @@ default directions = {
     "" : "",
     "jaclyn" : "",
     "casey" : "",
-    "braun" : "",
+    "govard" : "",
     "phil" : ""
 }
 
@@ -261,7 +261,7 @@ screen Map(locs):
         spacing 20
         use person("jaclyn")
         use person("casey")
-        use person("braun")
+        use person("govard")
         use person("phil")
         
 
@@ -300,7 +300,7 @@ default persons_files = [
         "description" : "Some description2."
     },
     {
-        "name": "Braun",
+        "name": "Govard",
         "image_path" : "images/map/braun_idle.png", 
         "description" : "Some description3."
     },
@@ -320,7 +320,7 @@ default persons_files = [
         "description" : "Some description6."
     },
     {
-        "name": "Braun",
+        "name": "Govard",
         "image_path" : "images/map/braun_idle.png", 
         "description" : "Some description6."
     } 

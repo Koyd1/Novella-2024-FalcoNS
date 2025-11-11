@@ -1,90 +1,32 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script.rpy", line 323, in script
-    call screen Map(chapter1_locs1)
-  File "renpy/common/000statements.rpy", line 671, in execute_call_screen
-    store._return = renpy.call_screen(name, *args, **kwargs)
-  File "game/screens.rpy", line 395, in execute
-    screen Notebook:
-  File "game/screens.rpy", line 395, in execute
-    screen Notebook:
-  File "game/screens.rpy", line 399, in execute
-    frame:
-  File "game/screens.rpy", line 420, in execute
-    if cur_notebook_screen == "title":
-  File "game/screens.rpy", line 423, in execute
-    use Persons_notebook
-  File "game/screens.rpy", line 463, in execute
-    screen Persons_notebook():
-  File "game/screens.rpy", line 463, in execute
-    screen Persons_notebook():
-  File "game/screens.rpy", line 467, in execute
-    frame:
-  File "game/screens.rpy", line 475, in execute
-    imagebutton:
-Exception: Imagebutton does not have a idle image.
+  File "game/script.rpy", line 1189, in script
+    show phil at sprite_rigth, lighten
+  File "game/script.rpy", line 1189, in <module>
+    show phil at sprite_rigth, lighten
+NameError: name 'sprite_rigth' is not defined
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 323, in script
-    call screen Map(chapter1_locs1)
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/ast.py", line 1974, in execute
-    self.call("execute")
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/ast.py", line 1953, in call
-    return renpy.statements.call(method, parsed, *args, **kwargs)
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/statements.py", line 374, in call
-    return method(parsed, *args, **kwargs)
-  File "renpy/common/000statements.rpy", line 671, in execute_call_screen
-    store._return = renpy.call_screen(name, *args, **kwargs)
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/exports/statementexports.py", line 345, in call_screen
-    rv = renpy.ui.interact(mouse="screen", type="screen", roll_forward=roll_forward)
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/ui.py", line 301, in interact
-    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/display/core.py", line 2215, in interact
-    repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, pause=pause, pause_start=pause_start, pause_modal=pause_modal, **kwargs) # type: ignore
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/display/core.py", line 2745, in interact_core
-    root_widget.visit_all(lambda d : d.per_interact())
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/display/displayable.py", line 434, in visit_all
-    d.visit_all(callback, seen)
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/display/displayable.py", line 434, in visit_all
-    d.visit_all(callback, seen)
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/display/displayable.py", line 434, in visit_all
-    d.visit_all(callback, seen)
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/display/screen.py", line 480, in visit_all
-    callback(self)
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/display/core.py", line 2745, in <lambda>
-    root_widget.visit_all(lambda d : d.per_interact())
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/display/screen.py", line 491, in per_interact
-    self.update()
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/display/screen.py", line 697, in update
-    self.screen.function(**self.scope)
-  File "game/screens.rpy", line 395, in execute
-    screen Notebook:
-  File "game/screens.rpy", line 395, in execute
-    screen Notebook:
-  File "game/screens.rpy", line 399, in execute
-    frame:
-  File "game/screens.rpy", line 420, in execute
-    if cur_notebook_screen == "title":
-  File "game/screens.rpy", line 423, in execute
-    use Persons_notebook
-  File "game/screens.rpy", line 463, in execute
-    screen Persons_notebook():
-  File "game/screens.rpy", line 463, in execute
-    screen Persons_notebook():
-  File "game/screens.rpy", line 467, in execute
-    frame:
-  File "game/screens.rpy", line 475, in execute
-    imagebutton:
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/ui.py", line 975, in _imagebutton
-    idle = choice(idle, idle_image, "idle", required=True)
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/ui.py", line 971, in choice
-    raise Exception("Imagebutton does not have a %s image." % (name,))
-Exception: Imagebutton does not have a idle image.
+  File "game/script.rpy", line 1189, in script
+    show phil at sprite_rigth, lighten
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/ast.py", line 1111, in execute
+    show_imspec(self.imspec, atl=getattr(self, "atl", None))
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/ast.py", line 1070, in show_imspec
+    at_list = [ renpy.python.py_eval(i) for i in at_list ]
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/ast.py", line 1070, in <listcomp>
+    at_list = [ renpy.python.py_eval(i) for i in at_list ]
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/python.py", line 1209, in py_eval
+    return py_eval_bytecode(code, globals, locals)
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/python.py", line 1202, in py_eval_bytecode
+    return eval(bytecode, globals, locals)
+  File "game/script.rpy", line 1189, in <module>
+    show phil at sprite_rigth, lighten
+NameError: name 'sprite_rigth' is not defined
 
 macOS-14.5-arm64-arm-64bit arm64
 Ren'Py 8.3.2.24090902
 NovellaProj 1.0
-Thu Oct 23 00:33:17 2025
+Tue Nov 11 10:38:39 2025
