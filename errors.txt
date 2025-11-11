@@ -2,17 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 501: Line is followed by a block, despite not being a menu choice. Did you forget a colon at the end of the line?
-    " "
-       ^
-
-File "game/script.rpy", line 546: Line is followed by a block, despite not being a menu choice. Did you forget a colon at the end of the line?
-    " "
-       ^
-
-File "game/script.rpy", line 596: Line is followed by a block, despite not being a menu choice. Did you forget a colon at the end of the line?
-    " "
-       ^
+File "game/script.rpy", line 1176: expected statement.
+    print(assigned_person)
+                          ^
 
 Ren'Py Version: Ren'Py 8.3.2.24090902
-Mon Oct  6 21:31:37 2025
+Tue Nov 11 02:04:30 2025

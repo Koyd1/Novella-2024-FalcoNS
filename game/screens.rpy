@@ -282,35 +282,45 @@ screen Map(locs):
 ## 
 ## For Persons file assuming only 6 files per page.
 ##
+init python:
+    def frame_with_image(image_path, name):
+        return Frame("images/notebook/photo_frame.png", 10, 10, tile=False), image_path, name
 
 default cur_notebook_screen = "title"
 default cur_page = 0 # Counter for displaying notebook page
 default persons_files = [
     {
-        "image_path" : "images/map/jaclyn_idle.png", 
-        "description" : "Some description1."
+        "name": "mr Lawrence",
+        "image_path" : "images/characters/chapter1/mr_lawrence/mr_lawrence.png", 
+        "description" : "мореплаватель из Генуи, открывший Америку для Европы в 1492 году. Он совершил четыре путешествия через Атлантику при поддержке испанских королей, думая, что плывёт в Индию. Его открытия положили начало эпохе Великих географических открытий и колонизации Нового Света."
     }, 
     {
+        "name": "Casey",
         "image_path" : "images/map/casey_idle.png", 
         "description" : "Some description2."
     },
     {
+        "name": "Braun",
         "image_path" : "images/map/braun_idle.png", 
         "description" : "Some description3."
     },
     {
+        "name": "Jaclyn",
         "image_path" : "images/map/jaclyn_idle.png", 
         "description" : "Some description4."
     }, 
     {
+        "name": "Casey",
         "image_path" : "images/map/casey_idle.png", 
         "description" : "Some description5."
     },
     {
+        "name": "Jaclyn",
         "image_path" : "images/map/jaclyn_idle.png", 
         "description" : "Some description6."
     },
     {
+        "name": "Braun",
         "image_path" : "images/map/braun_idle.png", 
         "description" : "Some description6."
     } 
@@ -321,7 +331,7 @@ default cur_clue_page = 0
 default clues_files = [
     {
         "image_path" : "images/map/jaclyn_idle.png", 
-        "description" : "Clue description1."
+        "description" : "Clue description1.Clue description1."
     }, 
     {
         "image_path" : "images/map/casey_idle.png", 
@@ -384,8 +394,6 @@ default max_clue_pages = len(clues_files) // 6
 
 screen Notebook:
     modal True
-
-
     frame:
         xsize 1201
         ysize 977
@@ -408,7 +416,9 @@ screen Notebook:
 
         
         if cur_notebook_screen == "title":
-            use Title_notebook    
+            use Title_notebook 
+        elif cur_notebook_screen == "persons":
+            use Persons_notebook   
         elif cur_notebook_screen == "persons" or cur_notebook_screen == "clues":
             use Persons_Clues_notebook
 
@@ -447,7 +457,335 @@ screen Title_notebook():
             textbutton _("Информация напарников"):
                 # text_style "tx_button"
                 action NullAction()
+
+screen Persons_notebook():
+
+    # 2 персонажа слева, 3 справа
+    default left_persons_count = 2
+    default right_persons_count = 3
+    default max_persons_per_page = left_persons_count + right_persons_count
+    default total_persons = len(persons_files)
+    default max_pages = (total_persons - 1) // max_persons_per_page
+
+    frame:
+        xsize 1201
+        ysize 977
+        xalign 0.5
+        yalign 0.55
+        background "images/notebook/notebook_bg.png"
+
+        button:
+            xpos 990
+            ypos 30
+            xsize 60
+            ysize 200
+            background Transform("images/notebook/closeNotebookBut.png", zoom=0.75)
+            action [SetVariable("cur_notebook_screen", "title"), Hide("Notebook")]
+            tooltip "Закрыть дневник"
+
+        # ==== ЛЕВАЯ СТРАНИЦА ====
+        frame:
+            xpos 184
+            ypos 75
+            xsize 395
+            ysize 675
+            background "gui/chaptersScreen/transparent.png"
+
+            imagebutton:
+                xpos -5
+                ypos -10
+                idle "images/notebook/home.png"
+                action SetVariable("cur_notebook_screen", "title")
+
+            text "ДОСЬЕ":
+                color "#000000"
+                bold True
+                xalign 0.5
+                ypos 0
+
+            vbox:
+                ypos 80
+                spacing 50
+
+                $ start_index = cur_page * max_persons_per_page
+                $ left_persons = persons_files[start_index : start_index + left_persons_count]
+
+                for i, person in enumerate(left_persons):
+                    hbox:
+                        spacing 40
+
+                        # фото всегда слева
+                        vbox:
+                            spacing 8
+                            xalign 0.5
+                            yalign 0.0
+                            frame:
+                                xsize 150
+                                ysize 192
+                                background Frame("images/notebook/photo_frame.png", 10, 10)
+                                add Transform(person["image_path"], xysize=(150,192), fit="contain", align=(0.5,0.5))
+                            text person.get("name", ""):
+                                xalign 0.5
+                                color "#000000"
+                                size 20
+                                bold True
+
+                        # текст всегда справа
+                        text person["description"]:
+                            color "#000000"
+                            size 18
+                            xmaximum 210
+
+        # ==== ПРАВАЯ СТРАНИЦА ====
+        frame:
+            xpos 620
+            ypos 25
+            xsize 395
+            ysize 675
+            background "gui/chaptersScreen/transparent.png"
+
+            vbox:
+                ypos 40
+                spacing 20
+
+                $ right_start = start_index + left_persons_count
+                $ right_persons = persons_files[right_start : right_start + right_persons_count]
+
+                for i, person in enumerate(right_persons):
+                    $ index = right_start + i + 1
+
+                    hbox:
+                        spacing 20
+                        if index % 2 == 1:
+                            vbox:
+                                spacing 8
+                                frame:
+                                    xsize 150
+                                    ysize 192
+                                    background Frame("images/notebook/photo_frame.png", 10, 10)
+                                    add Transform(person["image_path"], xysize=(150,192), fit="contain", align=(0.5,0.5))
+                                text person.get("name", ""):
+                                    color "#000000"
+                                    size 20
+                                    bold True
+                                    xalign 0.5
+                            text person["description"]:
+                                color "#000000"
+                                size 18
+                                xmaximum 210
+                        else:
+                            text person["description"]:
+                                color "#000000"
+                                size 18
+                                xmaximum 210
+                            vbox:
+                                spacing 8
+                                frame:
+                                    xsize 150
+                                    ysize 192
+                                    background Frame("images/notebook/photo_frame.png", 10, 10)
+                                    add Transform(person["image_path"], xysize=(150,200), fit="contain", align=(0.5,0.5))
+                                text person.get("name", ""):
+                                    color "#000000"
+                                    size 20
+                                    bold True
+                                    xalign 0.5
+
+        # ==== КНОПКИ ПЕРЕЛИСТЫВАНИЯ ====
+        if cur_page > 0:
+            imagebutton:
+                xalign 0.18
+                yalign 0.81
+                idle "images/notebook/arrow_left.png"
+                # hover "images/notebook/arrow_left_hover.png"
+                action [SetVariable("cur_page", cur_page - 1), With(dissolve)]
+
+        if cur_page < max_pages:
+            imagebutton:
+                xalign 0.82
+                yalign 0.81
+                idle "images/notebook/arrow_right.png"
+                # hover "images/notebook/arrow_right_hover.png"
+                action [SetVariable("cur_page", cur_page + 1), With(dissolve)]
+
+
+# screen Persons_notebook():
+
+#     # default max_pages = (len(persons_files) - 1) // 6  # по 6 персонажей на разворот (3 слева, 3 справа)
+#     default max_persons_per_side = 3
+#     default max_persons_per_page = max_persons_per_side * 2
+#     default total_persons = len(persons_files)
+#     default max_pages = (total_persons - 1) // max_persons_per_page
+
+#     frame:
+#         xsize 1201
+#         ysize 977
+#         xalign 0.5
+#         yalign 0.55
+#         background "images/notebook/notebook_bg.png"
+#         button:
+#             xpos 990
+#             ypos 30
+#             xsize 60
+#             ysize 200
+#             background Transform("images/notebook/closeNotebookBut.png", zoom=0.75)  action [SetVariable("cur_notebook_screen", "title"), Hide("Notebook")]
+#             tooltip "Закрыть дневник"
+
         
+        
+
+#         # ==== ЛЕВАЯ СТРАНИЦА ====
+#         frame:
+#             xpos 184
+#             ypos 75
+#             xsize 395
+#             ysize 675
+#             background "gui/chaptersScreen/transparent.png"
+#             # Кнопка возврата на титульный экран
+#             imagebutton:
+#                 xpos -5
+#                 ypos -10
+#                 idle "images/notebook/home.png"
+#                 action SetVariable("cur_notebook_screen", "title")
+
+#             # Заголовок только на левой странице
+#             text "ДОСЬЕ":
+#                 color "#000000"
+#                 bold True
+#                 xalign 0.5
+#                 ypos 0
+
+#             vbox:
+#                 ypos 60
+#                 spacing 50
+#                 $ start_index = cur_page * max_persons_per_page
+#                 $ left_persons = persons_files[start_index : start_index + max_persons_per_side]
+
+#                 for i, person in enumerate(left_persons):
+#                 # for i, person in enumerate(persons_files[cur_page*6 : cur_page*6+3]):
+#                     $ index = i + 1 + cur_page * 6
+
+#                     if index % 2 == 1:  # фото слева, текст справа
+#                         hbox:
+#                             spacing 20
+#                             vbox:
+#                                 spacing 8
+#                                 xalign 0.5
+#                                 yalign 0.0
+#                                 frame:
+#                                     xsize 115  # уменьшили с 140
+#                                     ysize 150  # уменьшили с 185
+#                                     background Frame("images/notebook/photo_frame.png", 10, 10)
+#                                     add Transform(person["image_path"], xysize=(115,150), fit="contain", align=(0.5,0.5))
+#                                 text person.get("name", ""):
+#                                     xalign 0.5
+#                                     color "#000000"
+#                                     size 20
+#                                     bold True
+#                             text person["description"]:
+#                                 color "#000000"
+#                                 size 18
+#                                 xmaximum 210
+#                     else:  # фото справа, текст слева
+#                         hbox:
+#                             spacing 20
+#                             text person["description"]:
+#                                 color "#000000"
+#                                 size 18
+#                                 xmaximum 210
+#                             vbox:
+#                                 spacing 8
+#                                 xalign 0.5
+#                                 yalign 0.0
+#                                 frame:
+#                                     xsize 115  # уменьшили с 140
+#                                     ysize 150  # уменьшили с 185
+#                                     background Frame("images/notebook/photo_frame.png", 10, 10)
+#                                     add Transform(person["image_path"], xysize=(115,150), fit="contain", align=(0.5,0.5))
+#                                 text person.get("name", ""):
+#                                     xalign 0.5
+#                                     color "#000000"
+#                                     size 20
+#                                     bold True
+
+#         # ==== ПРАВАЯ СТРАНИЦА ====
+#         frame:
+#             xpos 620
+#             ypos 25
+#             xsize 395
+#             ysize 675
+#             background "gui/chaptersScreen/transparent.png"
+
+#             vbox:
+#                 ypos 60
+#                 spacing 60
+#                 $ right_persons = persons_files[start_index + max_persons_per_side : start_index + max_persons_per_page]
+
+#                 for i, person in enumerate(right_persons):
+
+#                 # for i, person in enumerate(persons_files[cur_page*6+3 : cur_page*6+6]):
+#                     $ index = i + 4 + cur_page * 6
+
+#                     if index % 2 == 1:  # фото слева, текст справа
+#                         hbox:
+#                             spacing 20
+#                             vbox:
+#                                 spacing 8
+#                                 xalign 0.5
+#                                 yalign 0.0
+#                                 frame:
+#                                     xsize 115 
+#                                     ysize 150 
+#                                     background Frame("images/notebook/photo_frame.png", 10, 10)
+#                                     add Transform(person["image_path"], xysize=(115,150), fit="contain", align=(0.5,0.5))
+#                                 text person.get("name", ""):
+#                                     xalign 0.5
+#                                     color "#000000"
+#                                     size 20
+#                                     bold True
+#                             text person["description"]:
+#                                 color "#000000"
+#                                 size 18
+#                                 xmaximum 210
+#                     else:  # фото справа, текст слева
+#                         hbox:
+#                             spacing 20
+#                             text person["description"]:
+#                                 color "#000000"
+#                                 size 18
+#                                 xmaximum 210
+#                             vbox:
+#                                 spacing 8
+#                                 xalign 0.5
+#                                 yalign 0.0
+#                                 frame:
+#                                     xsize 115 
+#                                     ysize 150 
+#                                     background Frame("images/notebook/photo_frame.png", 10, 10)
+#                                     add Transform(person["image_path"], xysize=(115,150), fit="contain", align=(0.5,0.5))
+#                                 text person.get("name", ""):
+#                                     xalign 0.5
+#                                     color "#000000"
+#                                     size 20
+#                                     bold True
+
+#         # ==== КНОПКИ ПЕРЕЛИСТЫВАНИЯ ====
+#         if cur_page > 0:
+#             imagebutton:
+#                 xalign 0.18
+#                 yalign 0.91
+#                 idle "images/notebook/arrow_left.png"
+#                 hover "images/notebook/arrow_left_hover.png"
+#                 action [SetVariable("cur_page", cur_page-1), With(dissolve)]
+        
+#         if cur_page < max_pages:
+#             imagebutton:
+#                 xalign 0.82
+#                 yalign 0.91
+#                 idle "images/notebook/arrow_right.png"
+#                 hover "images/notebook/arrow_right_hover.png"
+#                 action [SetVariable("cur_page", cur_page+1), With(dissolve)]
+
 
 screen Persons_Clues_notebook():
     default max_pages = 0

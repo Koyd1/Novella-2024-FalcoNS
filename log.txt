@@ -1,4 +1,4 @@
-2025-10-06 18:35:00 UTC
+2025-11-11 00:08:59 UTC
 macOS-14.5-arm64-arm-64bit
 Ren'Py 8.3.2.24090902
 
@@ -27,9 +27,9 @@ Analyze screens took 0.01s
 Save screen analysis took 0.03s
 Prepare screens took 0.07s
 Save pyanalysis. took 0.00s
-Save bytecode. took 0.03s
+Save bytecode. took 0.04s
 Running _start took 0.00s
-Interface start took 2.08s
+Interface start took 0.41s
 
 Initializing gl2 renderer:
 primary display bounds: (0, 0, 1440, 900)
@@ -39,8 +39,13 @@ Vendor: "b'Apple'"
 Renderer: b'Apple M1'
 Version: b'2.1 Metal - 88.1'
 Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(2243, 1262) drawable=(4486, 2524)
-Maximum texture size: 4550x4096
+Screen sizes: virtual=(1920, 1080) physical=(1394, 784) drawable=(2788, 1568)
+Maximum texture size: 4096x4096
+
+jaclyn
+casey
+braun
+phil
 
 jaclyn
 casey

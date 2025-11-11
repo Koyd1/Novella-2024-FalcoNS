@@ -344,7 +344,7 @@ label university:
     $ max_person_pages = len(persons_files) // 6
 
     $ renpy.block_rollback()
-    $ clearDict(directions)
+    # $ clearDict(directions)
     scene univ_front
     # show mc thoughts at sprite_centered
     mc_thoughts "Не нужно быть гением криминалистики, чтоб знать о том, что если хочешь узнать что угодно о ком угодно - найди самую тихую и неприметную девочку. Нет более качественных хранителей сплетен в старшей школе, чем они."    
@@ -410,21 +410,23 @@ label univ_rs:
             mc "Спасибо за помощь следствию, мисс."
             julie "Не забудьте передать привет."
             hide julie
-            $ quick_menu = False
-            $ renpy.block_rollback()
-            call screen Map(chapter1_locs2)
+            jump evidence_exchange
+            # $ quick_menu = False
+            # $ renpy.block_rollback()
+            # call screen Map(chapter1_locs2)
         "Я еще успею с ним общаться в более подходящей обстановке":
             mc "Спасибо за помощь следствию, мисс."
             julie "Не забудьте передать привет."
             hide julie
-            $ quick_menu = False
-            $ renpy.block_rollback()
-            call screen Map(chapter1_locs2)
+            # $ quick_menu = False
+            # $ renpy.block_rollback()
+            # call screen Map(chapter1_locs2)
+            jump evidence_exchange
 
 label parents_house:
 
     $ renpy.block_rollback()
-    $ clearDict(directions)
+    # $ clearDict(directions)
     scene par_h_entry 
     with dissolve
     show mr_lawrence at halfed_left,darken
@@ -553,9 +555,10 @@ label par_house_wuc: # Вы были близки с ней
 
     hide mr_lawrence
     hide mrs_lawrence
-    $ quick_menu = False
-    $ renpy.block_rollback()
-    call screen Map(chapter1_locs2)
+    jump evidence_exchange
+    # $ quick_menu = False
+    # $ renpy.block_rollback()
+    # call screen Map(chapter1_locs2)
 
 label par_house_whss: # С кем делилась переживаниями
     show mrs_lawrence at halfed_right, lighten
@@ -581,9 +584,10 @@ label par_house_whss: # С кем делилась переживаниями
 
     hide mr_lawrence
     hide mrs_lawrence
-    $ quick_menu = False
-    $ renpy.block_rollback()
-    call screen Map(chapter1_locs2)
+    jump evidence_exchange
+    # $ quick_menu = False
+    # $ renpy.block_rollback()
+    # call screen Map(chapter1_locs2)
 
 label par_house_tthah: # Вы говорили с ним после случившегося
     show mrs_lawrence at halfed_right, lighten
@@ -600,7 +604,7 @@ label par_house_tthah: # Вы говорили с ним после случив
 
 label hospital:
     $ renpy.block_rollback()
-    $ clearDict(directions)
+    # $ clearDict(directions)
     scene hospital 
     with dissolve
     show doc_andrews at halfed
@@ -673,14 +677,16 @@ label hosp_lm: # Узнать больше
             doc_andrews "Она сильная как ее мама, она справится. Если я смогу чем-то помочь, Жаклин, всегда можешь на меня рассчитывать"
             mc "Спасибо, Эндрюс."
             hide doc_andrews
-            $ quick_menu = False
-            $ renpy.block_rollback()
-            call screen Map(chapter1_locs2)
+            jump evidence_exchange
+            # $ quick_menu = False
+            # $ renpy.block_rollback()
+            # call screen Map(chapter1_locs2)
         "Я не хочу об этом говорить":
             hide doc_andrews
-            $ quick_menu = False
-            $ renpy.block_rollback()
-            call screen Map(chapter1_locs2)
+            jump evidence_exchange
+            # $ quick_menu = False
+            # $ renpy.block_rollback()
+            # call screen Map(chapter1_locs2)
 
 label hosp_lc: # Взглянуть на веши
     mc "Такие же серьги я подарила Лие на 16-летие"
@@ -691,18 +697,20 @@ label hosp_lc: # Взглянуть на веши
             doc_andrews "Она сильная как ее мама, она справится. Если я смогу чем-то помочь, Жаклин, всегда можешь на меня рассчитывать"
             mc "Спасибо, Эндрюс."
             hide doc_andrews
-            $ quick_menu = False
-            $ renpy.block_rollback()
-            call screen Map(chapter1_locs2)
+            jump evidence_exchange
+            # $ quick_menu = False
+            # $ renpy.block_rollback()
+            # call screen Map(chapter1_locs2)
         "Я не хочу об этом говорить":
             hide doc_andrews
-            $ quick_menu = False
-            $ renpy.block_rollback()
-            call screen Map(chapter1_locs2)
+            jump evidence_exchange
+            # $ quick_menu = False
+            # $ renpy.block_rollback()
+            # call screen Map(chapter1_locs2)
 
 label restaurant:
     $ renpy.block_rollback()
-    $ clearDict(directions)
+    # $ clearDict(directions)
     scene restaurant with dissolve
     show mrs_velaskez at halfed
     with dissolve
@@ -780,9 +788,10 @@ label rest_whn: # # Что произошло после
     mc "Спасибо, вопросов больше нет. Выдайте мне, пожалуйста, полный список сотрудников."
     lisa "Сейчас напишу."
     hide lisa
-    $ quick_menu = False
-    $ renpy.block_rollback()
-    call screen Map(chapter1_locs2)
+    jump evidence_exchange
+    # $ quick_menu = False
+    # $ renpy.block_rollback()
+    # call screen Map(chapter1_locs2)
 
 label rest_cwl2: # пообщаться с Лизой v2
     hide mrs_velaskez with dissolve
@@ -827,7 +836,7 @@ label rest_wwtm: # Кто этот молодой человек
 
 label james_house:
     $ renpy.block_rollback()
-    $ clearDict(directions)
+    # $ clearDict(directions)
     scene james_house with dissolve
     mc "Джеймс Майерс, это специальный агент Картер, отдел уголовных расследований ФБР. Откройте дверь."
     show james at halfed
@@ -961,9 +970,10 @@ label jhouse_wawhd: # Есть кто-то, кто мог желать ей см
     james "Очень в этом сомневаюсь."
     mc_thoughts "Я тоже."
     mc "Спасибо за помощь, мистер Майерс."
-    $ quick_menu = False
-    $ renpy.block_rollback()
-    call screen Map(chapter1_locs2)
+    # $ quick_menu = False
+    # $ renpy.block_rollback()
+    # call screen Map(chapter1_locs2)
+    jump evidence_exchange
 
 
 label kyle_house:
@@ -1140,18 +1150,41 @@ label khouse_whir: # Что произошло в ресторане?
             kyle "Мы любили эот место за то, что оно безлюдное, так что очень сомневаюсь."
             mc "Ясно, спасибо за помощь следствию, мистер Ричардс."
             kyle "Рад помочь."
-            $ quick_menu = False
-            $ renpy.block_rollback()
-            call screen Map(chapter1_locs2)
+            jump evidence_exchange
+            # $ quick_menu = False
+            # $ renpy.block_rollback()
+            # call screen Map(chapter1_locs2)
         "Где находится это 'ваше место'?":
             kyle "Озеро Ист-Спринг в 15 милях отсюда."
             mc "Кто-то может подтвердить то, что Вы были там?"
             kyle "Мы любили это место за то, что оно безлюдное, так что очень сомневаюсь."       
             mc "Ясно, спасибо за помощь следствию, мистер Ричардс."
             kyle "Рад помочь."
-            $ quick_menu = False
-            $ renpy.block_rollback()
-            call screen Map(chapter1_locs2)
+            jump evidence_exchange
+            # $ quick_menu = False
+            # $ renpy.block_rollback()
+            # call screen Map(chapter1_locs2)
+
+label evidence_exchange:
+    scene expression im.Scale("images/locations/office.png", config.screen_width, config.screen_height) with dissolve
+    show casey at sprite_left, darken
+    show govard at sprite_centered, darken
+    show phil at sprite_right, darken
+    mc " Ладно, времени терять нечего. Разъехались, посмотрели — теперь выкладывайте. Начнём с морга."
+    $ location = "Больница"
+    $ assigned_person = next((name for name, loc in directions.items() if loc == location), None)
+    if assigned_person == "casey":
+        show casey at sprite_left, lighten
+        casey "Смерть наступила около полуночи вследствие убийства. Следов сескуального насилия не обнаружено. Отпечатков также не обнаружено из-за нахождения тела в воде. Причиной смерти является удушье, но так как в легких вода не была обнаружена, она не дышала еще до того, как оказалась в реке. Жертва была задушена собственным шарфом. Родители не захотели забирать ее вещи. Следы гематом в районе запястий, что свидетельствует о том, что убийца был физически сильнее ее, так как этого было достаточно, чтоб ее обездвижить. Множество порезов в зоне кистей рук. Но только один из них, на безымянном пальце, был нанесен при жизни."
+    mc "С заключением ясно. Что достали ценного у родителей?"
+    mc "Ну уже есть с чем работать. Марч-Драйв 77 - запишите новый адрес, туда нужно будет отправиться. Жду отчет по университету. "
+    mc "Судя по тому, что ее парень живет в двух местах, парень вовсе не один. Итого у нас четыре новых точки: Марч-Драйв 77 с таинственным незнакомцем, Армори-стрит 19 с неким Кайлом, ресторан на Блинк-Роуд, где жертву вероятно видели в последний раз и проверьте мисс Джонс - у нее пока самый явный мотив."
+    show govard at sprite_centered, lighten
+    govard "Давно наш отдел занимается утопленниками?"
+    $ quick_menu = False
+    $ renpy.block_rollback()
+    $ clearDict(directions)
+    call screen Map(chapter1_locs2)
 
 label chapter_2:
     $ chapter = "Chapter Two"
