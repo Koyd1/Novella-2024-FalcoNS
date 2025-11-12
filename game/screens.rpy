@@ -91,6 +91,58 @@ style text:
 ### Map Screen ##################################################################
 ##
 ##############
+screen unlock_notification(name, image_path):
+    zorder 200  # поверх всего
+    frame:
+        at notif_slide
+        xalign 0.5
+        yalign 0.01  # сверху по центру
+        background Frame("gui/button/1111choice_idle_background.png", 10, 10)
+        padding (20, 20)
+        xmaximum 700
+        yminimum 0
+        xfill False
+
+        hbox:
+            spacing 20
+            add Transform(image_path, xysize=(70, 70), fit="contain")
+            text f"Добавлено досье о {name}!":
+                color "#ffffff"
+                size 26
+                bold True
+                xalign 0.5
+                yalign 0.5
+                outlines [(1, "#000", 0, 0)]
+
+    # автоматическое скрытие через 2.5 секунды
+    timer 2.5 action Hide("unlock_notification")
+
+transform notif_slide:
+    yoffset -100
+    alpha 0.0
+    easein 0.4 yoffset 0 alpha 1.0
+    pause 2.0
+    easeout 0.4 alpha 0.0
+
+init python:
+    def unlock_person(key):
+        """
+        Разблокирует персонажа и показывает кастомное уведомление
+        с его именем из словаря persons.
+        """
+        if key in persons:
+            person = persons[key]
+            person["locked"] = False
+            person_name = person.get("name", key)
+            image_path = person.get("image_path", None)
+
+            if image_path:
+                renpy.show_screen("unlock_notification", name=person_name, image_path=image_path)
+            else:
+                renpy.notify(f"Добавлено досье о {person_name}!")
+        else:
+            renpy.notify(f"Персонаж '{key}' не найден.")
+
 
 init python:
     def setLocation(dict, person, location):
@@ -169,6 +221,14 @@ screen map_dot(x, y, name, active, image_path = None, is_accessible_mc = True):
             # setLocation(directions, selected_person, name)
         else:
             idle "images/map/dot_inactive.png"
+default persons = {
+    "james": {"name":"Джеймс Майерс","image_path":"images/characters/chapter1/james/james.png", "description": "сожитель жертвы, 30 лет, избалованный парень из богатой семьи, унаследовавший состояние отца, имеет всё, но потерял вкус к жизни, который пытается вернуть случайными связями и поисками любви, которой ему не хватало в детстве. Изысканно и дорого одет.", "locked": True },
+    "kyle": {"name":"Кайл Ричардс","image_path":"images/characters/chapter1/kyle/kyle.png", "description": "Футболист, 24 года, атлетичное телосложение, высокий рост. Вспыльчив, брутален, использует высокомерие как защитную реакцию перед страхом одиночества. ", "locked": True },
+    "lisa": { "name":"Лиза","image_path":"images/characters/chapter1/lisa/lisa.png","description": "официантка, 20-22 года, стройная, высокая девушка, собранные темно-русые волосы. Апатичная и уставшая от работы. ", "locked": True },
+    "mr_lawrence": { "name":"Мистер Лоуренс","image_path":"images/characters/chapter1/mr_lawrence/mr_lawrence.png", "description": " папа жертвы, стареющий мужик, хоть и ухоженный, бизнесмен при бабле, любит всё красивое, и когда ему не ебут мозг (вайб бати, который всегда работал, и спрашивал в каком ты классе, когда ты уже писал диплом).", "locked": True },
+    "mrs_lawrence": { "name":"Миссис Лоуренс","image_path":"images/characters/chapter1/mrs_lawrence/mrs_lawrence.png", "description": "мама жертвы, стареющая “королева красоты” лет 50-55, высокая, худая, ухоженная, светлые волосы, немного морщин, молодится изо всех сил и продолжала самоутверждаться за счет красивой дочери (вайб суки и мамы-тирана).", "locked": True },
+    "mrs_velaskez": { "name":"Миссис Веласкес","image_path":"images/characters/chapter1/mrs_velaskez/mrs_velaskez.png", "description": "шеф-повар и владелец ресторана на Блинк-роуд. Властная, крупная, подавляющая всех вокруг женщина латинских кровей, (НЕ ЧЕРНАЯ) лет 50-55, ходит в кителе шефа. Избыточный вес, резкие черты лица, седеющие кучерявые волосы, недовольное лицо, агрессивная речь (вайб властной mommy-bitch).", "locked": True }
+}
 
 default selected_person = ""
 default directions = {
@@ -445,33 +505,39 @@ screen Title_notebook():
         vbox:
             ypos 50
             spacing 20
-            # textbutton _("Содержание"):
-            #     # text_style "tx_button"
-            #     action NullAction()
             textbutton _("Досье"):
-                # text_style "tx_button"
                 action SetVariable("cur_notebook_screen", "persons")
             textbutton _("Улики"):
-                # text_style "tx_button"
                 action SetVariable("cur_notebook_screen", "clues")
             textbutton _("Информация напарников"):
-                # text_style "tx_button"
                 action NullAction()
 
 screen Persons_notebook():
 
     # 2 персонажа слева, 3 справа
+    default unlocked_persons = [p for p in persons.values() if not p.get("locked", True)]
     default left_persons_count = 2
     default right_persons_count = 3
     default max_persons_per_page = left_persons_count + right_persons_count
-    default total_persons = len(persons_files)
-    default max_pages = (total_persons - 1) // max_persons_per_page
+    default total_persons = len(unlocked_persons)
+    default max_pages = max(0, (total_persons - 1) // max_persons_per_page)
+    $ max_left_box_height = 650
+    $ max_right_box_height = 675
+
+    $ min_spacing = 5
+    $ max_spacing = 40
+
+    $ current_height = min(renpy.get_physical_size()[1], max_left_box_height)
+    $ dynamic_spacing = min_spacing + (max_spacing - min_spacing) * (current_height / max_left_box_height)
+    $ dynamic_spacing_right = min_spacing + (max_spacing - min_spacing) * (current_height / max_right_box_height)
+
 
     frame:
         xsize 1201
         ysize 977
         xalign 0.5
         yalign 0.55
+        
         background "images/notebook/notebook_bg.png"
 
         button:
@@ -488,7 +554,8 @@ screen Persons_notebook():
             xpos 184
             ypos 75
             xsize 395
-            ysize 675
+            # ysize 675
+            ysize max_left_box_height
             background "gui/chaptersScreen/transparent.png"
 
             imagebutton:
@@ -505,18 +572,19 @@ screen Persons_notebook():
 
             vbox:
                 ypos 80
-                spacing 50
+                spacing dynamic_spacing 
 
                 $ start_index = cur_page * max_persons_per_page
-                $ left_persons = persons_files[start_index : start_index + left_persons_count]
+                $ left_persons = unlocked_persons[start_index : start_index + left_persons_count]
+
 
                 for i, person in enumerate(left_persons):
                     hbox:
-                        spacing 40
+                        spacing 20
 
                         # фото всегда слева
                         vbox:
-                            spacing 8
+                            spacing 5
                             xalign 0.5
                             yalign 0.0
                             frame:
@@ -541,15 +609,16 @@ screen Persons_notebook():
             xpos 620
             ypos 25
             xsize 395
-            ysize 675
+            # ysize 675
+            ysize max_right_box_height
             background "gui/chaptersScreen/transparent.png"
 
             vbox:
                 ypos 40
-                spacing 20
+                spacing dynamic_spacing_right
 
                 $ right_start = start_index + left_persons_count
-                $ right_persons = persons_files[right_start : right_start + right_persons_count]
+                $ right_persons = unlocked_persons[right_start : right_start + right_persons_count]
 
                 for i, person in enumerate(right_persons):
                     $ index = right_start + i + 1
@@ -558,7 +627,7 @@ screen Persons_notebook():
                         spacing 20
                         if index % 2 == 1:
                             vbox:
-                                spacing 8
+                                spacing 5
                                 frame:
                                     xsize 150
                                     ysize 192
@@ -597,7 +666,6 @@ screen Persons_notebook():
                 xalign 0.18
                 yalign 0.81
                 idle "images/notebook/arrow_left.png"
-                # hover "images/notebook/arrow_left_hover.png"
                 action [SetVariable("cur_page", cur_page - 1), With(dissolve)]
 
         if cur_page < max_pages:
@@ -605,7 +673,6 @@ screen Persons_notebook():
                 xalign 0.82
                 yalign 0.81
                 idle "images/notebook/arrow_right.png"
-                # hover "images/notebook/arrow_right_hover.png"
                 action [SetVariable("cur_page", cur_page + 1), With(dissolve)]
 
 

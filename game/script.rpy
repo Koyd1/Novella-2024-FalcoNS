@@ -250,10 +250,7 @@ label chapter_1:
     show expression Solid("#000000b0") as dark_overlay
     if "Chapter 1" not in persistent.chapters:
         $ persistent.chapters.append("Chapter 1")
-    "Убийство молодой студентки: Джейн Лоуренс, 22 года. 
-    Тело найдено на берегу реки прохожей пожилой женщиной, выгуливающей собаку.
-    Согласно первоначальной версии, это несчастный случай либо суицид, но руки жертвы покрыты жуткими порезами, 
-    поэтому дело предстоит раскрыть."
+    "Убийство молодой студентки: Джейн Лоуренс, 22 года. Тело найдено на берегу реки прохожей пожилой женщиной, выгуливающей собаку. Согласно первоначальной версии, это несчастный случай либо суицид, но руки жертвы покрыты жуткими порезами, поэтому дело предстоит раскрыть."
     
 
     $ add_person_file_info(persons_files, "images/map/jaclyn_idle.png", "Добавил хуйню.")
@@ -411,6 +408,7 @@ label univ_rs:
             julie "Не забудьте передать привет."
             hide julie
             jump evidence_exchange
+
         "Я еще успею с ним общаться в более подходящей обстановке":
             mc "Спасибо за помощь следствию, мисс."
             julie "Не забудьте передать привет."
@@ -549,6 +547,7 @@ label par_house_wuc: # Вы были близки с ней
 
     hide mr_lawrence
     hide mrs_lawrence
+    $unlock_person("mrs_lawrence")
     jump evidence_exchange
 
 label par_house_whss: # С кем делилась переживаниями
@@ -575,6 +574,7 @@ label par_house_whss: # С кем делилась переживаниями
 
     hide mr_lawrence
     hide mrs_lawrence
+    $unlock_person("mrs_lawrence")
     jump evidence_exchange
 
 label par_house_tthah: # Вы говорили с ним после случившегося
@@ -732,6 +732,7 @@ label rest_am: # Распросить еще
     mc "С кем я могу поговорить из официантов, кто видел пару в тот вечер?"
     mrs_velaskez "Сейчас позову Лизу, она их обслуживала. Единственный толковый человек, который здесь работает."
     hide mrs_velaskez with dissolve
+    $unlock_person("mrs_velaskez")
     show lisa at halfed
     with dissolve
     mc "Я спецагент Картер, ФБР. Мне небходимо задать Вам пару вопросов."
@@ -768,6 +769,7 @@ label rest_whn: # # Что произошло после
 
 label rest_cwl2: # пообщаться с Лизой v2
     hide mrs_velaskez with dissolve
+    $unlock_person("mrs_velaskez")
     show lisa at halfed
     with dissolve
     mc "Я спецагент Картер, ФБР. Мне небходимо задать Вам пару вопросов."
@@ -943,6 +945,7 @@ label jhouse_wawhd: # Есть кто-то, кто мог желать ей см
     james "Очень в этом сомневаюсь."
     mc_thoughts "Я тоже."
     mc "Спасибо за помощь, мистер Майерс."
+    $unlock_person("james")
     jump evidence_second_exchange
 
 
