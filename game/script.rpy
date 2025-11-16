@@ -16,8 +16,6 @@
 #     config.after_load_callbacks.append(func)
 
 ### Config to store variable info in savefiles
-
-
 init python:
 
     chapter = "Chapter Zero"
@@ -273,7 +271,7 @@ label teemMeeting:
     show phil at sprite_right, darken
     mc "Жертва — Джейн Лоуренс. Двадцать два года. Училась в городском университете, факультет журналистики, второй курс. Утром её тело прибило к набережной. Пожилая леди, которая ее нашла, вряд ли будет там снова выгуливать свою собаку."
     mc "Местная полиция ограничилась ленточкой и протоколом. Родители опознали дочь. Всё. Они считают, что дальше пусть работает федеральный уровень. И вот мы здесь."
-
+    $unlock_clue("victim_photo")
     show govard at sprite_centered, lighten
     govard "Давно наш отдел занимается утопленниками?"
 
@@ -1304,6 +1302,7 @@ label evidence_second_exchange:
     $ clearDict(directions)
     call screen Map(chapter1_locs2)
     return
+
 
 
 label chapter_2:

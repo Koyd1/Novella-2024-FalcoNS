@@ -106,7 +106,7 @@ screen unlock_notification(name, image_path):
         hbox:
             spacing 20
             add Transform(image_path, xysize=(70, 70), fit="contain")
-            text f"Добавлено досье о {name}!":
+            text f"Добавлена информация: {name}!":
                 color "#ffffff"
                 size 26
                 bold True
@@ -142,6 +142,24 @@ init python:
                 renpy.notify(f"Добавлено досье о {person_name}!")
         else:
             renpy.notify(f"Персонаж '{key}' не найден.")
+    
+    def unlock_clue(key):
+        """
+        Разблокирует улику и показывает кастомное уведомление
+        с его именем из словаря clue.
+        """
+        if key in clues:
+            clue = clues[key]
+            clue["locked"] = False
+            clue_name = clue.get("name", key)
+            image_path = clue.get("image_path", None)
+
+            if image_path:
+                renpy.show_screen("unlock_notification", name=clue_name, image_path=image_path)
+            else:
+                renpy.notify(f"Добавлена новая улика: {clue_name}!")
+        else:
+            renpy.notify(f"Улика '{key}' не найдена.")
 
 
 init python:
@@ -221,6 +239,7 @@ screen map_dot(x, y, name, active, image_path = None, is_accessible_mc = True):
             # setLocation(directions, selected_person, name)
         else:
             idle "images/map/dot_inactive.png"
+
 default persons = {
     "james": {"name":"Джеймс Майерс","image_path":"images/characters/chapter1/james/james.png", "description": "сожитель жертвы, 30 лет, избалованный парень из богатой семьи, унаследовавший состояние отца, имеет всё, но потерял вкус к жизни, который пытается вернуть случайными связями и поисками любви, которой ему не хватало в детстве. Изысканно и дорого одет.", "locked": True },
     "kyle": {"name":"Кайл Ричардс","image_path":"images/characters/chapter1/kyle/kyle.png", "description": "Футболист, 24 года, атлетичное телосложение, высокий рост. Вспыльчив, брутален, использует высокомерие как защитную реакцию перед страхом одиночества. ", "locked": True },
@@ -228,6 +247,57 @@ default persons = {
     "mr_lawrence": { "name":"Мистер Лоуренс","image_path":"images/characters/chapter1/mr_lawrence/mr_lawrence.png", "description": " папа жертвы, стареющий мужик, хоть и ухоженный, бизнесмен при бабле, любит всё красивое, и когда ему не ебут мозг (вайб бати, который всегда работал, и спрашивал в каком ты классе, когда ты уже писал диплом).", "locked": True },
     "mrs_lawrence": { "name":"Миссис Лоуренс","image_path":"images/characters/chapter1/mrs_lawrence/mrs_lawrence.png", "description": "мама жертвы, стареющая “королева красоты” лет 50-55, высокая, худая, ухоженная, светлые волосы, немного морщин, молодится изо всех сил и продолжала самоутверждаться за счет красивой дочери (вайб суки и мамы-тирана).", "locked": True },
     "mrs_velaskez": { "name":"Миссис Веласкес","image_path":"images/characters/chapter1/mrs_velaskez/mrs_velaskez.png", "description": "шеф-повар и владелец ресторана на Блинк-роуд. Властная, крупная, подавляющая всех вокруг женщина латинских кровей, (НЕ ЧЕРНАЯ) лет 50-55, ходит в кителе шефа. Избыточный вес, резкие черты лица, седеющие кучерявые волосы, недовольное лицо, агрессивная речь (вайб властной mommy-bitch).", "locked": True }
+}
+
+default clues = {
+    "ring" : {
+        "name": "Кольцо Миссис Веласкес", 
+        "image_path": "images/clues/ring.png",
+        "description": "крупное, как будто перстень, референс ниже, только ЗОЛОТОЕ. Оно желательно лежит на ее столе в кабинете (на поверхности стола)",
+        "locked": True
+    },
+    "adult_album" : {
+        "name": "Выпускной альбом 10 класс", 
+        "image_path": "images/clues/adult_album.png",
+        "description": "лист как школьная виньетка, где будут фотографии подростков среди которых жертва и убийца",
+        "locked": True
+    },
+    "victim_photo" : {
+        "name": "Фото Жертвы", 
+        "image_path": "images/clues/victim_photo.png",
+        "description": "Фото жертвы с Кольцо Мисс Университет + Ленточка мисс Университет (на референсе всратая ИИ надпись - не обращайте внимание)",
+        "locked": True
+    },
+    "corpse" : {
+        "name": "Труп", 
+        "image_path": "images/clues/corpse.png",
+        "description": "Фото с места преступления - накрытый тканью (брезент) труп, лежащий на булыжчатой набережной у реки, вокруг опечатано, на улице пасмурно",
+        "locked": True
+    },
+    "workers_list" : {
+        "name": "Список сотрудников", 
+        "image_path": "images/clues/workers_list.png",
+        "description": "Список сотрудников ресторана миссис Веласкес",
+        "locked": True
+    },
+    "hands" : {
+        "name": "Руки Жертвы", 
+        "image_path": "images/clues/hands.png",
+        "description": "Фото порезов на руках - женские бледные руки с ненакрашенными ногтями, много порезов на всей поверхности, включая пальцы, но самый глубокий на левом безымянном (сори, тут референсы оч страшно выглядят по запросу)",
+        "locked": True
+    },
+    "diary" : {
+        "name": "Личный дневник", 
+        "image_path": "images/clues/diary.png",
+        "description": "розовая девчачья книжечка как на фотке ниже (и закрытый, и открытый вариант), вайб такой же в целом",
+        "locked": True
+    },
+    "kid_album" : {
+        "name": "Выпускной альбом 4 класс", 
+        "image_path": "images/clues/kid_album.png",
+        "description": "лист как школьная виньетка, где будут фотографии детей среди которых жертва и убийца",
+        "locked": True
+    }
 }
 
 default selected_person = ""
@@ -387,70 +457,7 @@ default persons_files = [
 ]
 default max_person_pages = len(persons_files) // 6
 
-default cur_clue_page = 0
-default clues_files = [
-    {
-        "image_path" : "images/map/jaclyn_idle.png", 
-        "description" : "Clue description1.Clue description1."
-    }, 
-    {
-        "image_path" : "images/map/casey_idle.png", 
-        "description" : "Clue description2."
-    },
-    {
-        "image_path" : "images/map/braun_idle.png", 
-        "description" : "Clue description3."
-    },
-    {
-        "image_path" : "images/map/casey_idle.png", 
-        "description" : "Clue description4."
-    },
-    {
-        "image_path" : "images/map/casey_idle.png", 
-        "description" : "Clue description5."
-    },
-    {
-        "image_path" : "images/map/casey_idle.png", 
-        "description" : "Clue description6."
-    },
-    {
-        "image_path" : "images/map/casey_idle.png", 
-        "description" : "Clue description7."
-    },
-    {
-        "image_path" : "images/map/casey_idle.png", 
-        "description" : "Clue description8."
-    },
-    {
-        "image_path" : "images/map/casey_idle.png", 
-        "description" : "Clue description9."
-    },
-    {
-        "image_path" : "images/map/casey_idle.png", 
-        "description" : "Clue description10."
-    },
-    {
-        "image_path" : "images/map/casey_idle.png", 
-        "description" : "Clue description10."
-    },
-    {
-        "image_path" : "images/map/casey_idle.png", 
-        "description" : "Clue description10."
-    },
-    {
-        "image_path" : "images/map/casey_idle.png", 
-        "description" : "Clue description10."
-    },
-    {
-        "image_path" : "images/map/casey_idle.png", 
-        "description" : "Clue description10."
-    },
-    {
-        "image_path" : "images/map/casey_idle.png", 
-        "description" : "Clue description10."
-    }
-]
-default max_clue_pages = len(clues_files) // 6
+
 
 screen Notebook:
     modal True
@@ -479,8 +486,8 @@ screen Notebook:
             use Title_notebook 
         elif cur_notebook_screen == "persons":
             use Persons_notebook   
-        elif cur_notebook_screen == "persons" or cur_notebook_screen == "clues":
-            use Persons_Clues_notebook
+        elif cur_notebook_screen == "clues":
+            use Clues_notebook
 
 style tx_button:
     color "#131212"
@@ -546,7 +553,7 @@ screen Persons_notebook():
             xsize 60
             ysize 200
             background Transform("images/notebook/closeNotebookBut.png", zoom=0.75)
-            action [SetVariable("cur_notebook_screen", "title"), Hide("Notebook")]
+            action [SetVariable("cur_notebook_screen", "title"), SetVariable("cur_page", 0), Hide("Notebook")]
             tooltip "Закрыть дневник"
 
         # ==== ЛЕВАЯ СТРАНИЦА ====
@@ -562,7 +569,7 @@ screen Persons_notebook():
                 xpos -5
                 ypos -10
                 idle "images/notebook/home.png"
-                action SetVariable("cur_notebook_screen", "title")
+                action [SetVariable("cur_notebook_screen", "title"), SetVariable("cur_page", 0)]
 
             text "ДОСЬЕ":
                 color "#000000"
@@ -676,186 +683,24 @@ screen Persons_notebook():
                 action [SetVariable("cur_page", cur_page + 1), With(dissolve)]
 
 
-# screen Persons_notebook():
 
-#     # default max_pages = (len(persons_files) - 1) // 6  # по 6 персонажей на разворот (3 слева, 3 справа)
-#     default max_persons_per_side = 3
-#     default max_persons_per_page = max_persons_per_side * 2
-#     default total_persons = len(persons_files)
-#     default max_pages = (total_persons - 1) // max_persons_per_page
-
-#     frame:
-#         xsize 1201
-#         ysize 977
-#         xalign 0.5
-#         yalign 0.55
-#         background "images/notebook/notebook_bg.png"
-#         button:
-#             xpos 990
-#             ypos 30
-#             xsize 60
-#             ysize 200
-#             background Transform("images/notebook/closeNotebookBut.png", zoom=0.75)  action [SetVariable("cur_notebook_screen", "title"), Hide("Notebook")]
-#             tooltip "Закрыть дневник"
-
-        
-        
-
-#         # ==== ЛЕВАЯ СТРАНИЦА ====
-#         frame:
-#             xpos 184
-#             ypos 75
-#             xsize 395
-#             ysize 675
-#             background "gui/chaptersScreen/transparent.png"
-#             # Кнопка возврата на титульный экран
-#             imagebutton:
-#                 xpos -5
-#                 ypos -10
-#                 idle "images/notebook/home.png"
-#                 action SetVariable("cur_notebook_screen", "title")
-
-#             # Заголовок только на левой странице
-#             text "ДОСЬЕ":
-#                 color "#000000"
-#                 bold True
-#                 xalign 0.5
-#                 ypos 0
-
-#             vbox:
-#                 ypos 60
-#                 spacing 50
-#                 $ start_index = cur_page * max_persons_per_page
-#                 $ left_persons = persons_files[start_index : start_index + max_persons_per_side]
-
-#                 for i, person in enumerate(left_persons):
-#                 # for i, person in enumerate(persons_files[cur_page*6 : cur_page*6+3]):
-#                     $ index = i + 1 + cur_page * 6
-
-#                     if index % 2 == 1:  # фото слева, текст справа
-#                         hbox:
-#                             spacing 20
-#                             vbox:
-#                                 spacing 8
-#                                 xalign 0.5
-#                                 yalign 0.0
-#                                 frame:
-#                                     xsize 115  # уменьшили с 140
-#                                     ysize 150  # уменьшили с 185
-#                                     background Frame("images/notebook/photo_frame.png", 10, 10)
-#                                     add Transform(person["image_path"], xysize=(115,150), fit="contain", align=(0.5,0.5))
-#                                 text person.get("name", ""):
-#                                     xalign 0.5
-#                                     color "#000000"
-#                                     size 20
-#                                     bold True
-#                             text person["description"]:
-#                                 color "#000000"
-#                                 size 18
-#                                 xmaximum 210
-#                     else:  # фото справа, текст слева
-#                         hbox:
-#                             spacing 20
-#                             text person["description"]:
-#                                 color "#000000"
-#                                 size 18
-#                                 xmaximum 210
-#                             vbox:
-#                                 spacing 8
-#                                 xalign 0.5
-#                                 yalign 0.0
-#                                 frame:
-#                                     xsize 115  # уменьшили с 140
-#                                     ysize 150  # уменьшили с 185
-#                                     background Frame("images/notebook/photo_frame.png", 10, 10)
-#                                     add Transform(person["image_path"], xysize=(115,150), fit="contain", align=(0.5,0.5))
-#                                 text person.get("name", ""):
-#                                     xalign 0.5
-#                                     color "#000000"
-#                                     size 20
-#                                     bold True
-
-#         # ==== ПРАВАЯ СТРАНИЦА ====
-#         frame:
-#             xpos 620
-#             ypos 25
-#             xsize 395
-#             ysize 675
-#             background "gui/chaptersScreen/transparent.png"
-
-#             vbox:
-#                 ypos 60
-#                 spacing 60
-#                 $ right_persons = persons_files[start_index + max_persons_per_side : start_index + max_persons_per_page]
-
-#                 for i, person in enumerate(right_persons):
-
-#                 # for i, person in enumerate(persons_files[cur_page*6+3 : cur_page*6+6]):
-#                     $ index = i + 4 + cur_page * 6
-
-#                     if index % 2 == 1:  # фото слева, текст справа
-#                         hbox:
-#                             spacing 20
-#                             vbox:
-#                                 spacing 8
-#                                 xalign 0.5
-#                                 yalign 0.0
-#                                 frame:
-#                                     xsize 115 
-#                                     ysize 150 
-#                                     background Frame("images/notebook/photo_frame.png", 10, 10)
-#                                     add Transform(person["image_path"], xysize=(115,150), fit="contain", align=(0.5,0.5))
-#                                 text person.get("name", ""):
-#                                     xalign 0.5
-#                                     color "#000000"
-#                                     size 20
-#                                     bold True
-#                             text person["description"]:
-#                                 color "#000000"
-#                                 size 18
-#                                 xmaximum 210
-#                     else:  # фото справа, текст слева
-#                         hbox:
-#                             spacing 20
-#                             text person["description"]:
-#                                 color "#000000"
-#                                 size 18
-#                                 xmaximum 210
-#                             vbox:
-#                                 spacing 8
-#                                 xalign 0.5
-#                                 yalign 0.0
-#                                 frame:
-#                                     xsize 115 
-#                                     ysize 150 
-#                                     background Frame("images/notebook/photo_frame.png", 10, 10)
-#                                     add Transform(person["image_path"], xysize=(115,150), fit="contain", align=(0.5,0.5))
-#                                 text person.get("name", ""):
-#                                     xalign 0.5
-#                                     color "#000000"
-#                                     size 20
-#                                     bold True
-
-#         # ==== КНОПКИ ПЕРЕЛИСТЫВАНИЯ ====
-#         if cur_page > 0:
-#             imagebutton:
-#                 xalign 0.18
-#                 yalign 0.91
-#                 idle "images/notebook/arrow_left.png"
-#                 hover "images/notebook/arrow_left_hover.png"
-#                 action [SetVariable("cur_page", cur_page-1), With(dissolve)]
-        
-#         if cur_page < max_pages:
-#             imagebutton:
-#                 xalign 0.82
-#                 yalign 0.91
-#                 idle "images/notebook/arrow_right.png"
-#                 hover "images/notebook/arrow_right_hover.png"
-#                 action [SetVariable("cur_page", cur_page+1), With(dissolve)]
-
-
-screen Persons_Clues_notebook():
+screen Clues_notebook():
     default max_pages = 0
+    default unlocked_clues = [c for c in clues.values() if not c.get("locked", True)]
+    # default unlocked_clues = [c for c in clues.values()]
+    default clues_count_per_page = 3
+    default total_clues = len(unlocked_clues)
+    default max_pages = max(0, (total_clues - 1) // max_persons_per_page)
+    $ max_left_box_height = 650
+    $ max_right_box_height = 675
+
+    $ min_spacing = 5
+    $ max_spacing = 40
+
+    $ current_height = min(renpy.get_physical_size()[1], max_left_box_height)
+    $ dynamic_spacing = min_spacing + (max_spacing - min_spacing) * (current_height / max_left_box_height)
+    $ dynamic_spacing_right = min_spacing + (max_spacing - min_spacing) * (current_height / max_right_box_height)
+
     # Left Page
     frame:
         xpos 184
@@ -869,64 +714,70 @@ screen Persons_Clues_notebook():
             xpos -5
             ypos -10
             idle "images/notebook/home.png"
-            action SetVariable("cur_notebook_screen", "title")
+            action [SetVariable("cur_notebook_screen", "title"), SetVariable("cur_page", 0)]
 
-        if cur_notebook_screen == "persons":
-            $ max_pages = (len(persons_files) - 1) // 6
-            text "Досье":
-                color "#000000"
-                bold True
-                xalign 0.5
-        if cur_notebook_screen == "clues":
-            $ max_pages = (len(clues_files) - 1) // 6
-            text "Улики":
-                color "#000000"
-                bold True
-                xalign 0.5
-
+        
+        text "Улики":
+            color "#000000"
+            bold True
+            xalign 0.5
 
         vbox:
             ypos 50
             spacing 20
-            # for person in persons_files[0:3]:
-            if cur_notebook_screen == "persons":
-                for person in persons_files[cur_page*6:cur_page*6+3]:
-                    hbox:
-                        image person["image_path"]
-                        text _(person["description"]):
-                            color "#000000"
-            elif cur_notebook_screen == "clues":
-                for clue in clues_files[cur_page*6:cur_page*6+3]:
-                    hbox:
-                        image clue["image_path"]
-                        text _(clue["description"]):
-                            color "#000000"
+            $ start_index = cur_page * clues_count_per_page
+            $ clues_dict_per_page = unlocked_clues[start_index:start_index + clues_count_per_page]
+            
+            for clue in clues_dict_per_page:
+                vbox:
+                    spacing 20
+                    text clue["name"]:
+                        color "#000000"
+                        size 28
+                        bold True
+                    text clue["description"]:
+                        color "#000000"
+                        size 22
+                        xmaximum 410
+                    image "images/notebook/clue_line.png":
+                        xsize 390
+                    
 
     # Right Page
     frame:
         xpos 620
-        ypos 75
+        ypos 25
         xsize 395
-        ysize 675
+        # ysize 675
+        ysize max_right_box_height
         background "gui/chaptersScreen/transparent.png"
-        # background "#FFF"
 
         vbox:
-            ypos 50
-            spacing 20
-            # for person in persons_files[3:6]:
-            if cur_notebook_screen == "persons":
-                for person in persons_files[cur_page*6+3:cur_page*6+3+3]:
-                    hbox:
-                        image person["image_path"]
-                        text _(person["description"]):
-                            color "#000000"
-            elif cur_notebook_screen == "clues":
-                for clue in clues_files[cur_page*6+3:cur_page*6+3+3]:
-                    hbox:
-                        image clue["image_path"]
-                        text _(clue["description"]):
-                            color "#000000"
+            ypos 40
+            spacing dynamic_spacing_right
+
+            $ start_index = cur_page * clues_count_per_page
+            $ clues_dict_per_page = unlocked_clues[start_index:start_index + clues_count_per_page]
+
+            for i, clue in enumerate(clues_dict_per_page):
+                $ index = i + 1
+
+                vbox:
+                    spacing 20
+                    if index % 2 == 1:
+                        frame:
+                            xsize 150
+                            ysize 192
+                            background Frame("images/notebook/photo_frame.png", 10, 10)
+                            add Transform(clue["image_path"], xysize=(140,192), fit="contain", align=(0.5,0.5))
+                    else:
+                        frame:
+                            xpos 1.0
+                            xsize 150
+                            ysize 192
+                            background Frame("images/notebook/photo_frame.png", 10, 10)
+                            add Transform(clue["image_path"], xysize=(140,200), fit="contain", align=(0.5,0.5))
+                            
     if cur_page > 0:
         imagebutton:
             xalign 0.18
@@ -942,6 +793,96 @@ screen Persons_Clues_notebook():
             action SetVariable("cur_page", cur_page+1)
 
     # use notebook_icon
+
+
+# screen Persons_Clues_notebook():
+#     default max_pages = 0
+#     # Left Page
+#     frame:
+#         xpos 184
+#         ypos 75
+#         xsize 395
+#         ysize 675
+#         background "gui/chaptersScreen/transparent.png"
+#         # background "#FFF"
+
+#         imagebutton:
+#             xpos -5
+#             ypos -10
+#             idle "images/notebook/home.png"
+#             action SetVariable("cur_notebook_screen", "title")
+
+#         if cur_notebook_screen == "persons":
+#             $ max_pages = (len(persons_files) - 1) // 6
+#             text "Досье":
+#                 color "#000000"
+#                 bold True
+#                 xalign 0.5
+#         if cur_notebook_screen == "clues":
+#             $ max_pages = (len(clues_files) - 1) // 6
+#             text "Улики":
+#                 color "#000000"
+#                 bold True
+#                 xalign 0.5
+
+
+#         vbox:
+#             ypos 50
+#             spacing 20
+#             # for person in persons_files[0:3]:
+#             if cur_notebook_screen == "persons":
+#                 for person in persons_files[cur_page*6:cur_page*6+3]:
+#                     hbox:
+#                         image person["image_path"]
+#                         text _(person["description"]):
+#                             color "#000000"
+#             elif cur_notebook_screen == "clues":
+#                 for clue in clues_files[cur_page*6:cur_page*6+3]:
+#                     hbox:
+#                         image clue["image_path"]
+#                         text _(clue["description"]):
+#                             color "#000000"
+
+#     # Right Page
+#     frame:
+#         xpos 620
+#         ypos 75
+#         xsize 395
+#         ysize 675
+#         background "gui/chaptersScreen/transparent.png"
+#         # background "#FFF"
+
+#         vbox:
+#             ypos 50
+#             spacing 20
+#             # for person in persons_files[3:6]:
+#             if cur_notebook_screen == "persons":
+#                 for person in persons_files[cur_page*6+3:cur_page*6+3+3]:
+#                     hbox:
+#                         image person["image_path"]
+#                         text _(person["description"]):
+#                             color "#000000"
+#             elif cur_notebook_screen == "clues":
+#                 for clue in clues_files[cur_page*6+3:cur_page*6+3+3]:
+#                     hbox:
+#                         image clue["image_path"]
+#                         text _(clue["description"]):
+#                             color "#000000"
+#     if cur_page > 0:
+#         imagebutton:
+#             xalign 0.18
+#             yalign 0.81
+#             idle "images/notebook/arrow_left.png"
+#             action SetVariable("cur_page", cur_page-1)
+       
+#     if cur_page < max_pages:
+#         imagebutton:
+#             xalign 0.82
+#             yalign 0.81
+#             idle "images/notebook/arrow_right.png"
+#             action SetVariable("cur_page", cur_page+1)
+
+#     # use notebook_icon
 
     
 
