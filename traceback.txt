@@ -1,37 +1,43 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script.rpy", line 1140, in script
-    mc " Ладно, времени терять нечего. Разъехались, посмотрели — теперь выкладывайте."
-  File "game/screens.rpy", line 94, in execute
-    screen unlock_notification(name, image_path):
-  File "game/screens.rpy", line 94, in execute
-    screen unlock_notification(name, image_path):
-  File "game/screens.rpy", line 96, in execute
-    frame:
-  File "game/screens.rpy", line 106, in execute
-    hbox:
-  File "game/screens.rpy", line 109, in execute
-    text "Добавлено досье о [name[name].capitalize()]!":
-TypeError: string indices must be integers
+  File "game/script.rpy", line 318, in script
+    call screen Map(chapter1_locs1)
+  File "renpy/common/000statements.rpy", line 671, in execute_call_screen
+    store._return = renpy.call_screen(name, *args, **kwargs)
+  File "game/screens.rpy", line 406, in execute
+    screen Map(locs):
+  File "game/screens.rpy", line 406, in execute
+    screen Map(locs):
+  File "game/screens.rpy", line 439, in execute
+    use confirm_map_button(locs)
+  File "game/screens.rpy", line 386, in execute
+    screen confirm_map_button(locs):
+  File "game/screens.rpy", line 386, in execute
+    screen confirm_map_button(locs):
+  File "game/screens.rpy", line 387, in execute
+    imagebutton:
+  File "game/screens.rpy", line 387, in keywords
+    imagebutton:
+  File "game/screens.rpy", line 393, in <module>
+    true = [SetVariable("quick_menu", True), Jump(rus_to_eng_locs[directions["jaclyn"]])],
+KeyError: ''
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 1140, in script
-    mc " Ладно, времени терять нечего. Разъехались, посмотрели — теперь выкладывайте."
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/ast.py", line 2573, in execute
-    Say.execute(self)
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/ast.py", line 615, in execute
-    renpy.exports.say(who, what, *args, **kwargs)
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/exports/sayexports.py", line 132, in say
-    who(what, *args, **kwargs)
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/character.py", line 1455, in __call__
-    self.do_display(who, what, cb_args=self.cb_args, dtt=dtt, **display_args)
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/character.py", line 1106, in do_display
-    display_say(who,
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/character.py", line 803, in display_say
-    rv = renpy.ui.interact(mouse='say', type=type, roll_forward=roll_forward)
+  File "game/script.rpy", line 318, in script
+    call screen Map(chapter1_locs1)
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/ast.py", line 1974, in execute
+    self.call("execute")
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/ast.py", line 1953, in call
+    return renpy.statements.call(method, parsed, *args, **kwargs)
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/statements.py", line 374, in call
+    return method(parsed, *args, **kwargs)
+  File "renpy/common/000statements.rpy", line 671, in execute_call_screen
+    store._return = renpy.call_screen(name, *args, **kwargs)
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/exports/statementexports.py", line 345, in call_screen
+    rv = renpy.ui.interact(mouse="screen", type="screen", roll_forward=roll_forward)
   File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/ui.py", line 301, in interact
     rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
   File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/display/core.py", line 2215, in interact
@@ -52,34 +58,25 @@ Full traceback:
     self.update()
   File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/display/screen.py", line 697, in update
     self.screen.function(**self.scope)
-  File "game/screens.rpy", line 94, in execute
-    screen unlock_notification(name, image_path):
-  File "game/screens.rpy", line 94, in execute
-    screen unlock_notification(name, image_path):
-  File "game/screens.rpy", line 96, in execute
-    frame:
-  File "game/screens.rpy", line 106, in execute
-    hbox:
-  File "game/screens.rpy", line 109, in execute
-    text "Добавлено досье о [name[name].capitalize()]!":
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/text/text.py", line 1999, in __init__
-    self.set_text(text, scope, substitute) # type: ignore
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/text/text.py", line 2132, in set_text
-    i, did_sub = renpy.substitutions.substitute(i, scope, substitute) # type: ignore
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/substitutions.py", line 373, in substitute
-    s = interpolate(s, variables) # type: ignore
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/substitutions.py", line 86, in interpolate
-    raise e
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/substitutions.py", line 78, in interpolate
-    value = renpy.python.py_eval(code, {}, scope)
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/python.py", line 1209, in py_eval
-    return py_eval_bytecode(code, globals, locals)
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/python.py", line 1202, in py_eval_bytecode
-    return eval(bytecode, globals, locals)
-  File "<none>", line 1, in <module>
-TypeError: string indices must be integers
+  File "game/screens.rpy", line 406, in execute
+    screen Map(locs):
+  File "game/screens.rpy", line 406, in execute
+    screen Map(locs):
+  File "game/screens.rpy", line 439, in execute
+    use confirm_map_button(locs)
+  File "game/screens.rpy", line 386, in execute
+    screen confirm_map_button(locs):
+  File "game/screens.rpy", line 386, in execute
+    screen confirm_map_button(locs):
+  File "game/screens.rpy", line 387, in execute
+    imagebutton:
+  File "game/screens.rpy", line 387, in keywords
+    imagebutton:
+  File "game/screens.rpy", line 393, in <module>
+    true = [SetVariable("quick_menu", True), Jump(rus_to_eng_locs[directions["jaclyn"]])],
+KeyError: ''
 
 macOS-14.5-arm64-arm-64bit arm64
 Ren'Py 8.3.2.24090902
 NovellaProj 1.0
-Wed Nov 12 15:51:49 2025
+Sat Nov 22 14:56:10 2025

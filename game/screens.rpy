@@ -181,12 +181,24 @@ init python:
         for key in dict.keys():
             dict[key] = ""
 
-screen map_frame(locs):
-    # locs = [
-    #     [x, y, name, active, image_path, is_accessible_mc],
-    #     [x, y, name, active, image_path, is_accessible_mc] ..
-    # ]
+    def all_active_locations_assigned(locs, directions):
+        """
+        Проверяет, что каждая активная локация занята хотя бы одним агентом.
+        locs = список локаций chapter1_locs1 или chapter1_locs2
+        directions = словарь вида {agent : location_name}
+        """
+        active_locations = [loc[2] for loc in locs if loc[3] == True]
 
+        assigned_locations = directions.values()
+
+        for loc_name in active_locations:
+            if loc_name not in assigned_locations:
+                return False
+        
+        return True
+
+
+screen map_frame(locs):
     frame:
         xsize 1830
         ysize 715
@@ -353,16 +365,17 @@ screen person(name):
                 yalign 1.0
                 xpos -55
 
-screen confirm_map_button():
+screen confirm_map_button(locs):
     imagebutton:
         xalign 0.5
         yalign 0.97
         idle "images/map/confirm.png"
-        if directions["jaclyn"] == "":
-            # action NullAction()
-            action Notify("Выберите локацию для главного героя!")
-        else:
-            action [SetVariable("quick_menu", True), Jump(rus_to_eng_locs[directions["jaclyn"]])]
+        action If(
+            all_active_locations_assigned(locs, directions),
+            true = [SetVariable("quick_menu", True),Jump(rus_to_eng_locs.get(directions["jaclyn"], "fallback_label"))],
+            false = Notify("Каждая открытая локация должна быть занята агентом!")
+        )
+
 
 screen notebook_icon():
     imagebutton:
@@ -404,7 +417,9 @@ screen Map(locs):
 
     use map_frame(locs)
 
-    use confirm_map_button
+    # use confirm_map_button
+    use confirm_map_button(locs)
+
 
 ## Notebook Screen ##############################################################
 ##
