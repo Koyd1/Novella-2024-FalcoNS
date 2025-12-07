@@ -67,7 +67,7 @@ define chapter1_locs1 = [
 
 define chapter1_locs2 = [
     [839, 77, "Дом родителей",False, None, True],
-    [570, 230, "Дом Леони\nДжонс", False, locations["Дом Леони\nДжонс"], False],
+    [570, 230, "Дом Леони\nДжонс", True, locations["Дом Леони\nДжонс"], False],
     [769, 405, "Ресторан на\nБлинк-роуд", True, locations["Ресторан на\nБлинк-роуд"], True],
     [634, 600, "Дом на\nАрмори-стрит 19", True, locations["Дом на\nАрмори-стрит 19"], True],
     [1115, 154, "Больница", False, None, True],

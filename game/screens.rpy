@@ -337,7 +337,7 @@ define locations = {
     "Дом родителей" : "images/map/chapter1/parent_house.png",
     "Больница" : "images/map/hospital.png",
     "Университет" : "images/map/chapter1/university.png",
-    "Дом Леони\nДжонс" : "images/map/parent_house.png",
+    "Дом Леони\nДжонс" : "images/map/chapter1/parent_house.png",
     "Ресторан на\nБлинк-роуд" : "images/map/chapter1/restaurant.png",
     "Дом на\nАрмори-стрит 19" : "images/map/chapter1/bf_house.png",
     "Полиция" : "",
