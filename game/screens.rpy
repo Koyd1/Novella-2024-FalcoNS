@@ -253,12 +253,22 @@ screen map_dot(x, y, name, active, image_path = None, is_accessible_mc = True):
             idle "images/map/dot_inactive.png"
 
 default persons = {
-    "james": {"name":"Джеймс Майерс","image_path":"images/characters/chapter1/james/james.png", "description": "сожитель жертвы, 30 лет, избалованный парень из богатой семьи, унаследовавший состояние отца, имеет всё, но потерял вкус к жизни, который пытается вернуть случайными связями и поисками любви, которой ему не хватало в детстве. Изысканно и дорого одет.", "locked": True },
-    "kyle": {"name":"Кайл Ричардс","image_path":"images/characters/chapter1/kyle/kyle.png", "description": "Футболист, 24 года, атлетичное телосложение, высокий рост. Вспыльчив, брутален, использует высокомерие как защитную реакцию перед страхом одиночества. ", "locked": True },
-    "lisa": { "name":"Лиза","image_path":"images/characters/chapter1/lisa/lisa.png","description": "официантка, 20-22 года, стройная, высокая девушка, собранные темно-русые волосы. Апатичная и уставшая от работы. ", "locked": True },
-    "mr_lawrence": { "name":"Мистер Лоуренс","image_path":"images/characters/chapter1/mr_lawrence/mr_lawrence.png", "description": " папа жертвы, стареющий мужик, хоть и ухоженный, бизнесмен при бабле, любит всё красивое, и когда ему не ебут мозг (вайб бати, который всегда работал, и спрашивал в каком ты классе, когда ты уже писал диплом).", "locked": True },
-    "mrs_lawrence": { "name":"Миссис Лоуренс","image_path":"images/characters/chapter1/mrs_lawrence/mrs_lawrence.png", "description": "мама жертвы, стареющая “королева красоты” лет 50-55, высокая, худая, ухоженная, светлые волосы, немного морщин, молодится изо всех сил и продолжала самоутверждаться за счет красивой дочери (вайб суки и мамы-тирана).", "locked": True },
-    "mrs_velaskez": { "name":"Миссис Веласкес","image_path":"images/characters/chapter1/mrs_velaskez/mrs_velaskez.png", "description": "шеф-повар и владелец ресторана на Блинк-роуд. Властная, крупная, подавляющая всех вокруг женщина латинских кровей, (НЕ ЧЕРНАЯ) лет 50-55, ходит в кителе шефа. Избыточный вес, резкие черты лица, седеющие кучерявые волосы, недовольное лицо, агрессивная речь (вайб властной mommy-bitch).", "locked": True }
+    "james": {"name":"Джеймс Майерс","image_path":"images/scaled_characters/scene_characters/james.png", "description": "Сожитель Джейн. Привык получать всё без усилий, но внутри чувствует пустоту. Ищет чувство нужности через отношения. Прожигает жизнь, находя легкие удовольствия.", "locked": True },
+    "kyle": {"name":"Кайл Ричардс","image_path":"images/scaled_characters/scene_characters/kyle.png", "description": "Бывший парень Джейн. Талантливый футболист, стремящийся монетизировать свою спортивную карьеру. Сомневается в себе из-за чувства финансовой несостоятельности.", "locked": True },
+    "lisa": { "name":"Лиза","image_path":"images/scaled_characters/scene_characters/lisa.png","description": "официантка, 20-22 года, стройная, высокая девушка, собранные темно-русые волосы. Апатичная и уставшая от работы. ", "locked": True },
+    "mr_lawrence": { "name":"Мистер Лоуренс","image_path":"images/scaled_characters/scene_characters/mr_lawrence.png", "description": " Отец Джейн Лоуренс, привыкший жить по расписанию бизнеса. Спокоен, редко показывает эмоции. В семье скорее наблюдатель, чем участник.", "locked": True },
+    "mrs_lawrence": { "name":"Миссис Лоуренс","image_path":"images/scaled_characters/scene_characters/mrs_lawrence.png", "description": "Мать Джейн Лоуренс. Стремится выглядеть моложе, чем есть, и всегда держит лицо победительницы. Резка, контролирующая, склонна к драматизации.", "locked": True },
+    "mrs_velaskez": { "name":"Миссис Веласкес","image_path":"images/scaled_characters/scene_characters/mrs_velaskez.png", "description": "Шеф-повар и владелица ресторана. Властная и громкая женщина, привыкшая командовать кухней и людьми. Любит давить авторитетом и не терпит возражений.", "locked": True },
+    "dr_andrews":{"name":"Доктор Эндрюс", "image_path":"images/scaled_characters/scene_characters/dr_andrews.png", "description":"Спокойный, опытный и немного ворчливый патологоанатом. Предпочитает иронию серьезности и часто добродушно язвит над детективами. На удивление еще не разочарован в этом мире.", "locked": True },
+    "julie":{"name":"Джули", "image_path":"images/scaled_characters/scene_characters/julie.png", "description":"Любит собирать слухи и анализировать людей, что делает её ценным, хотя и не всегда приятным собеседником. Часто держится отстранённо, будто выше происходящего.", "locked": True },
+    "lewis":{"name":"Луис Веласкес", "image_path":"images/scaled_characters/scene_characters/lewis.png", "description":"Щуплый, нервный парень с латинскими корнями. Выглядит младше своего возраста, но компенсирует это резкими реакциями и стремлением казаться смелее, чем есть.", "locked": True },
+    "lisa":{"name":"Лиза", "image_path":"images/scaled_characters/scene_characters/lisa.png", "description":"Тихая и эмоционально выгоревшая официантка. Делает свою работу механически, пытаясь оставаться незаметной и не вовлекаться в чужие драмы.", "locked": True },
+}
+default main_characters = {
+    "jaclyn" : {"name":"Жаклин Картер", "image_path":"images/scaled_characters/main_characters/jaclyn.png", "description":"Старший агент, чья хладнокровная собранность позволяет ей удерживать команду в рамках и вести расследование чётко и жёстко."},
+    "casey" : {"name":"Кейси Айронс", "image_path":"images/scaled_characters/main_characters/casey.png", "description":"Мягкий эмпат, легко находящий общий язык с родственниками жертвы и тонко улавливающий эмоции, от которых сама нередко страдает."},
+    "govard" : {"name":"Говард Браун", "image_path":"images/scaled_characters/main_characters/govard.png", "description":"Мощная силовая опора, чья прямота и резкость особенно эффективны в разговорах с подозреваемыми, привыкшими давить на окружающих."},
+    "phil" : {"name":"Фил Моррисон", "image_path":"images/scaled_characters/main_characters/phil.png", "description":"Аналитический ум команды, погружённый в отчёты, экспертизы и улики, благодаря чему он замечает то, что остальные могли бы упустить."}
 }
 
 default clues = {
@@ -503,6 +513,8 @@ screen Notebook:
             use Persons_notebook   
         elif cur_notebook_screen == "clues":
             use Clues_notebook
+        elif cur_notebook_screen == "team":
+            use Team_notebook
 
 style tx_button:
     color "#131212"
@@ -531,8 +543,8 @@ screen Title_notebook():
                 action SetVariable("cur_notebook_screen", "persons")
             textbutton _("Улики"):
                 action SetVariable("cur_notebook_screen", "clues")
-            textbutton _("Информация напарников"):
-                action NullAction()
+            textbutton _("Напарники"):
+                action SetVariable("cur_notebook_screen", "team")
 
 screen Persons_notebook():
 
@@ -544,10 +556,10 @@ screen Persons_notebook():
     default total_persons = len(unlocked_persons)
     default max_pages = max(0, (total_persons - 1) // max_persons_per_page)
     $ max_left_box_height = 650
-    $ max_right_box_height = 675
+    $ max_right_box_height = 600
 
     $ min_spacing = 5
-    $ max_spacing = 40
+    $ max_spacing = 100
 
     $ current_height = min(renpy.get_physical_size()[1], max_left_box_height)
     $ dynamic_spacing = min_spacing + (max_spacing - min_spacing) * (current_height / max_left_box_height)
@@ -593,8 +605,8 @@ screen Persons_notebook():
                 ypos 0
 
             vbox:
-                ypos 80
-                spacing dynamic_spacing 
+                ypos 90
+                spacing 60
 
                 $ start_index = cur_page * max_persons_per_page
                 $ left_persons = unlocked_persons[start_index : start_index + left_persons_count]
@@ -610,10 +622,10 @@ screen Persons_notebook():
                             xalign 0.5
                             yalign 0.0
                             frame:
-                                xsize 150
-                                ysize 192
+                                xsize 155
+                                ysize 191
                                 background Frame("images/notebook/photo_frame.png", 10, 10)
-                                add Transform(person["image_path"], xysize=(150,192), fit="contain", align=(0.5,0.5))
+                                add Transform(person["image_path"], xysize=(155,190), fit="fit", align=(0.5,0.5))
                             text person.get("name", ""):
                                 xalign 0.5
                                 color "#000000"
@@ -628,16 +640,16 @@ screen Persons_notebook():
 
         # ==== ПРАВАЯ СТРАНИЦА ====
         frame:
-            xpos 620
+            xpos 605
             ypos 25
-            xsize 395
+            xsize 378
             # ysize 675
             ysize max_right_box_height
             background "gui/chaptersScreen/transparent.png"
 
             vbox:
                 ypos 40
-                spacing dynamic_spacing_right
+                spacing 15
 
                 $ right_start = start_index + left_persons_count
                 $ right_persons = unlocked_persons[right_start : right_start + right_persons_count]
@@ -651,10 +663,10 @@ screen Persons_notebook():
                             vbox:
                                 spacing 5
                                 frame:
-                                    xsize 150
-                                    ysize 192
+                                    xsize 155
+                                    ysize 191
                                     background Frame("images/notebook/photo_frame.png", 10, 10)
-                                    add Transform(person["image_path"], xysize=(150,192), fit="contain", align=(0.5,0.5))
+                                    add Transform(person["image_path"], xysize=(155,190), fit="fit", align=(0.5,0.5))
                                 text person.get("name", ""):
                                     color "#000000"
                                     size 20
@@ -672,10 +684,10 @@ screen Persons_notebook():
                             vbox:
                                 spacing 8
                                 frame:
-                                    xsize 150
-                                    ysize 192
+                                    xsize 155
+                                    ysize 191
                                     background Frame("images/notebook/photo_frame.png", 10, 10)
-                                    add Transform(person["image_path"], xysize=(150,200), fit="contain", align=(0.5,0.5))
+                                    add Transform(person["image_path"], xysize=(155,190), fit="fit", align=(0.5,0.5))
                                 text person.get("name", ""):
                                     color "#000000"
                                     size 20
@@ -683,6 +695,151 @@ screen Persons_notebook():
                                     xalign 0.5
 
         # ==== КНОПКИ ПЕРЕЛИСТЫВАНИЯ ====
+        if cur_page > 0:
+            imagebutton:
+                xalign 0.18
+                yalign 0.81
+                idle "images/notebook/arrow_left.png"
+                action [SetVariable("cur_page", cur_page - 1), With(dissolve)]
+
+        if cur_page < max_pages:
+            imagebutton:
+                xalign 0.82
+                yalign 0.81
+                idle "images/notebook/arrow_right.png"
+                action [SetVariable("cur_page", cur_page + 1), With(dissolve)]
+
+screen Team_notebook():
+
+    default main_chars = [c for c in main_characters.values()]
+    $ total_chars = len(main_chars)
+    $ left_count = 2
+    $ right_count = 2
+    $ max_per_page = left_count + right_count
+    $ max_pages = max(0, (total_chars - 1) // max_per_page)
+
+    frame:
+        xsize 1201
+        ysize 977
+        xalign 0.5
+        yalign 0.55
+        background "images/notebook/notebook_bg.png"
+
+        button:
+            xpos 990
+            ypos 30
+            xsize 60
+            ysize 200
+            background Transform("images/notebook/closeNotebookBut.png", zoom=0.75)
+            action [SetVariable("cur_notebook_screen", "title"), SetVariable("cur_page", 0), Hide("Notebook")]
+            tooltip "Закрыть дневник"
+
+        # ==== ЛЕВАЯ СТРАНИЦА ====
+        frame:
+            xpos 184
+            ypos 75
+            xsize 395
+            ysize 650
+            background "gui/chaptersScreen/transparent.png"
+
+            imagebutton:
+                xpos -5
+                ypos -10
+                idle "images/notebook/home.png"
+                action [SetVariable("cur_notebook_screen", "title"), SetVariable("cur_page", 0)]
+
+            text "НАПАРНИКИ":
+                color "#000000"
+                bold True
+                xalign 0.5
+                ypos 0
+
+            vbox:
+                ypos 90
+                spacing 60
+
+                $ start = cur_page * max_per_page
+                $ left_side = main_chars[start : start + left_count]
+
+                for person in left_side:
+                    hbox:
+                        spacing 20
+
+                        vbox:
+                            spacing 5
+                            frame:
+                                xsize 155
+                                ysize 191
+                                background Frame("images/notebook/photo_frame.png", 10, 10)
+                                add Transform(person["image_path"], xysize=(155,190), fit="fit", align=(0.5,0.5))
+                            text person["name"]:
+                                xalign 0.5
+                                color "#000000"
+                                size 20
+                                bold True
+
+                        text person["description"]:
+                            color "#000000"
+                            size 18
+                            xmaximum 210
+
+
+        # ==== ПРАВАЯ СТРАНИЦА ====
+        frame:
+            xpos 605
+            ypos 25
+            xsize 378
+            ysize 600
+            background "gui/chaptersScreen/transparent.png"
+
+            vbox:
+                ypos 40
+                spacing 30
+
+                $ right_start = start + left_count
+                $ right_side = main_chars[right_start : right_start + right_count]
+
+                for i, person in enumerate(right_side):
+                    $ index = i
+                    hbox:
+                        spacing 20
+                        if index % 2 == 0:
+                            vbox:
+                                spacing 8
+                                frame:
+                                    xsize 155
+                                    ysize 191
+                                    background Frame("images/notebook/photo_frame.png", 10, 10)
+                                    add Transform(person["image_path"], xysize=(155,190), fit="fit", align=(0.5,0.5))
+                                text person["name"]:
+                                    color "#000000"
+                                    size 20
+                                    bold True
+                                    xalign 0.5
+                            text person["description"]:
+                                color "#000000"
+                                size 18
+                                xmaximum 210
+                        else:
+                            text person["description"]:
+                                color "#000000"
+                                size 18
+                                xmaximum 210
+                            vbox:
+                                spacing 8
+                                frame:
+                                    xsize 155
+                                    ysize 191
+                                    background Frame("images/notebook/photo_frame.png", 10, 10)
+                                    add Transform(person["image_path"], xysize=(155,190), fit="fit", align=(0.5,0.5))
+                                text person["name"]:
+                                    color "#000000"
+                                    size 20
+                                    bold True
+                                    xalign 0.5
+
+
+        # ==== ПЕРЕЛИСТЫВАНИЕ ====
         if cur_page > 0:
             imagebutton:
                 xalign 0.18

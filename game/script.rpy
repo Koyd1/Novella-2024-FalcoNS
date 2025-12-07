@@ -405,12 +405,14 @@ label univ_rs:
             mc "Спасибо за помощь следствию, мисс."
             julie "Не забудьте передать привет."
             hide julie
+            $unlock_person("julie") 
             jump evidence_exchange
 
         "Я еще успею с ним общаться в более подходящей обстановке":
             mc "Спасибо за помощь следствию, мисс."
             julie "Не забудьте передать привет."
             hide julie
+            $unlock_person("julie")
             jump evidence_exchange
 
 label parents_house:
@@ -533,7 +535,7 @@ label par_house_wuc: # Вы были близки с ней
     show mrs_lawrence at halfed_right, darken
     show mrs_lawrence at halfed_right, lighten
     mrs_lawrence @ outraged "Ну что Вы?! Нашу девочку всегда обожали. Она всегда побеждала и была первой. Парни сходили по ней с ума, а девушки восхищались."
-
+    $unlock_person("mrs_lawrence")
     show mrs_lawrence at halfed_right, darken
     mc_thoughts "Или завидовали.."
 
@@ -545,7 +547,8 @@ label par_house_wuc: # Вы были близки с ней
 
     hide mr_lawrence
     hide mrs_lawrence
-    $unlock_person("mrs_lawrence")
+    
+    $unlock_person("mr_lawrence")
     jump evidence_exchange
 
 label par_house_whss: # С кем делилась переживаниями
@@ -663,9 +666,11 @@ label hosp_lm: # Узнать больше
             doc_andrews "Она сильная как ее мама, она справится. Если я смогу чем-то помочь, Жаклин, всегда можешь на меня рассчитывать"
             mc "Спасибо, Эндрюс."
             hide doc_andrews
+            $unlock_person("dr_andrews")
             jump evidence_exchange
         "Я не хочу об этом говорить":
             hide doc_andrews
+            $unlock_person("dr_andrews")
             jump evidence_exchange
 
 label hosp_lc: # Взглянуть на веши
@@ -677,9 +682,11 @@ label hosp_lc: # Взглянуть на веши
             doc_andrews "Она сильная как ее мама, она справится. Если я смогу чем-то помочь, Жаклин, всегда можешь на меня рассчитывать"
             mc "Спасибо, Эндрюс."
             hide doc_andrews
+            $unlock_person("dr_andrews")
             jump evidence_exchange
         "Я не хочу об этом говорить":
             hide doc_andrews
+            $unlock_person("dr_andrews")
             jump evidence_exchange
 
 label restaurant:
@@ -763,6 +770,7 @@ label rest_whn: # # Что произошло после
     mc "Спасибо, вопросов больше нет. Выдайте мне, пожалуйста, полный список сотрудников."
     lisa "Сейчас напишу."
     hide lisa
+    $unlock_person("lisa")
     jump evidence_second_exchange
 
 label rest_cwl2: # пообщаться с Лизой v2
@@ -1121,6 +1129,7 @@ label khouse_whir: # Что произошло в ресторане?
             kyle "Мы любили эот место за то, что оно безлюдное, так что очень сомневаюсь."
             mc "Ясно, спасибо за помощь следствию, мистер Ричардс."
             kyle "Рад помочь."
+            $unlock_person("kyle")
             jump evidence_second_exchange
         "Где находится это 'ваше место'?":
             kyle "Озеро Ист-Спринг в 15 милях отсюда."
@@ -1128,6 +1137,7 @@ label khouse_whir: # Что произошло в ресторане?
             kyle "Мы любили это место за то, что оно безлюдное, так что очень сомневаюсь."       
             mc "Ясно, спасибо за помощь следствию, мистер Ричардс."
             kyle "Рад помочь."
+            $unlock_person("kyle")
             jump evidence_exchange
 
 label evidence_exchange:
