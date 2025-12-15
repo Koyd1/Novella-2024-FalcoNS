@@ -1,13 +1,13 @@
-2025-12-15 14:38:20 UTC
+2025-12-15 19:23:38 UTC
 macOS-14.5-arm64-arm-64bit
 Ren'Py 8.3.2.24090902
 
-Early init took 0.05s
-Loading error handling took 0.03s
-Loading script took 0.19s
+Early init took 0.06s
+Loading error handling took 0.04s
+Loading script took 0.11s
 Loading save slot metadata took 0.03s
 Loading persistent took 0.00s
-Running init code took 0.05s
+Running init code took 0.04s
 Loading analysis data took 0.02s
 Analyze and compile ATL took 0.00s
 Reloading save slot metadata took 0.02s
@@ -26,9 +26,9 @@ Analyze screens took 0.00s
 Save screen analysis took 0.00s
 Prepare screens took 0.07s
 Save pyanalysis. took 0.00s
-Save bytecode. took 0.03s
+Save bytecode. took 0.00s
 Running _start took 0.00s
-Interface start took 0.40s
+Interface start took 0.36s
 
 Initializing gl2 renderer:
 primary display bounds: (0, 0, 1440, 900)
@@ -57,10 +57,48 @@ jaclyn
 casey
 govard
 phil
+
+jaclyn
+casey
+govard
+phil
+
+jaclyn
+casey
+govard
+phil
+
+jaclyn
+casey
+govard
+phil
+
+jaclyn
+casey
+govard
+phil
+
+Full traceback:
+  File "game/script.rpy", line 1240, in script
+    $ assigned_person = next((name for name, loc in directions.items() if loc == location1), None)
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/ast.py", line 821, in execute
+    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/python.py", line 1178, in py_exec_bytecode
+    exec(bytecode, globals, locals)
+  File "game/script.rpy", line 1240, in <module>
+    $ assigned_person = next((name for name, loc in directions.items() if loc == location1), None)
+NameError: name 'location1' is not defined
+
+While running game code:
+  File "game/script.rpy", line 1240, in script
+    $ assigned_person = next((name for name, loc in directions.items() if loc == location1), None)
+  File "game/script.rpy", line 1240, in <module>
+    $ assigned_person = next((name for name, loc in directions.items() if loc == location1), None)
+NameError: name 'location1' is not defined
 Resetting cache.
-Early init took 95.46s
-Loading error handling took 0.03s
-Loading script took 0.43s
+Early init took 192.21s
+Loading error handling took 0.04s
+Loading script took 0.29s
 Loading save slot metadata took 0.02s
 Loading persistent took 0.00s
 Running init code took 0.03s
@@ -72,17 +110,17 @@ Backing up script files to '/Users/rima/Library/RenPy/backups/Novella-2024-Falco
 Dump and make backups took 0.04s
 Cleaning cache took 0.00s
 Making clean stores took 0.00s
-Initial gc took 0.04s
+Initial gc took 0.05s
 DPI scale factor: 1.000000
 Creating interface object took 0.00s
 Cleaning stores took 0.00s
-Init translation took 0.03s
+Init translation took 0.04s
 Build styles took 0.00s
 Load screen analysis took 0.00s
-Analyze screens took 0.02s
+Analyze screens took 0.01s
 Save screen analysis took 0.03s
-Prepare screens took 0.11s
-Save pyanalysis. took 0.02s
+Prepare screens took 0.07s
+Save pyanalysis. took 0.00s
 Save bytecode. took 0.02s
 Running _start took 0.00s
 Interface start took 0.09s

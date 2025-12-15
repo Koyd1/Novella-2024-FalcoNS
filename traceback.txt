@@ -1,52 +1,26 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
-After initialization, but before game start.
-  File "game/screens.rpy", line 446, in prepare_screen
-    screen from_icon(from_name, size=42):
-  File "game/screens.rpy", line 446, in prepare
-    screen from_icon(from_name, size=42):
-  File "game/screens.rpy", line 447, in prepare
-    if from_name:
-  File "game/screens.rpy", line 447, in prepare
-    if from_name:
-  File "game/screens.rpy", line 454, in prepare
-    add Transform(
-SyntaxError: invalid syntax (screens.rpy, line 459)
+While running game code:
+  File "game/script.rpy", line 1240, in script
+    $ assigned_person = next((name for name, loc in directions.items() if loc == location1), None)
+  File "game/script.rpy", line 1240, in <module>
+    $ assigned_person = next((name for name, loc in directions.items() if loc == location1), None)
+NameError: name 'location1' is not defined
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/bootstrap.py", line 359, in bootstrap
-    renpy.main.main()
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/main.py", line 652, in main
-    run(restart)
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/main.py", line 94, in run
-    renpy.display.screen.prepare_screens()
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/display/screen.py", line 1026, in prepare_screens
-    s.ast.prepare_screen()
-  File "game/screens.rpy", line 446, in prepare_screen
-    screen from_icon(from_name, size=42):
-  File "game/screens.rpy", line 446, in prepare
-    screen from_icon(from_name, size=42):
-  File "game/screens.rpy", line 447, in prepare
-    if from_name:
-  File "game/screens.rpy", line 447, in prepare
-    if from_name:
-  File "game/screens.rpy", line 454, in prepare
-    add Transform(
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/py3analysis.py", line 803, in ast_eval
-    return self.ast_eval_literal(expr)[0]
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/py3analysis.py", line 785, in ast_eval_literal
-    expr = py_compile(expr, 'eval', ast_node=True)
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/python.py", line 1144, in py_compile
-    raise e
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/python.py", line 1081, in py_compile
-    raise orig_e
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/python.py", line 1073, in py_compile
-    tree = compile(source, filename, py_mode, ast.PyCF_ONLY_AST | flags, 1)
-SyntaxError: invalid syntax (screens.rpy, line 459)
+  File "game/script.rpy", line 1240, in script
+    $ assigned_person = next((name for name, loc in directions.items() if loc == location1), None)
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/ast.py", line 821, in execute
+    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/python.py", line 1178, in py_exec_bytecode
+    exec(bytecode, globals, locals)
+  File "game/script.rpy", line 1240, in <module>
+    $ assigned_person = next((name for name, loc in directions.items() if loc == location1), None)
+NameError: name 'location1' is not defined
 
 macOS-14.5-arm64-arm-64bit arm64
 Ren'Py 8.3.2.24090902
 NovellaProj 1.0
-Mon Dec 15 11:24:21 2025
+Mon Dec 15 21:24:48 2025

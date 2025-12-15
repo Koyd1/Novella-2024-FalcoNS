@@ -1237,7 +1237,7 @@ label evidence_second_exchange:
         show phil at sprite_right, darken
         mc "Армори-стрит 19. Слушаю."
         
-        $ assigned_person = next((name for name, loc in directions.items() if loc == location1), None)
+        $ assigned_person = next((name for name, loc in directions.items() if loc == location), None)
         if assigned_person == "casey":
             show casey at sprite_left, lighten
             casey "Джеймс встречался с ней три месяца и в тот вечер собирался сделать Джейн предложение, но после скандала с бывшим оставил её одну в ресторане. Это говорит о серьёзных проблемах в отношениях, правда? Тогда когда она пожила неделю у родителей, она ушла не к Кайлу, а к Джеймсу."
@@ -1264,7 +1264,7 @@ label evidence_second_exchange:
     if main_location !="Дом на\nМарч-драйв 77":
         $location1 = "Дом на\nМарч-драйв 77"
         mc "Что узнали от второго парня?"
-        $ assigned_person = next((name for name, loc in directions.items() if loc == location), None)
+        $ assigned_person = next((name for name, loc in directions.items() if loc == location1), None)
         if assigned_person == "casey":
             show casey at sprite_left, lighten
             casey "Они встречались с самого школьного возраста и были вместе четыре года, но когда Джейн пережила нервный срыв из-за конкурса красоты в отсутствие Кайла, отношения начали рушиться. Когда Кайл поехал на чемпионат по футболу, она восприняла это как предательство, ведь она нуждалась в нём больше, чем когда-либо."
