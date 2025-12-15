@@ -125,7 +125,7 @@ transform notif_slide:
     easeout 0.4 alpha 0.0
 
 init python:
-    def unlock_person(key):
+    def unlock_person(key, from_ch=""):
         """
         Разблокирует персонажа и показывает кастомное уведомление
         с его именем из словаря persons.
@@ -133,6 +133,7 @@ init python:
         if key in persons:
             person = persons[key]
             person["locked"] = False
+            person["from"] = from_ch
             person_name = person.get("name", key)
             image_path = person.get("image_path", None)
 
@@ -253,16 +254,16 @@ screen map_dot(x, y, name, active, image_path = None, is_accessible_mc = True):
             idle "images/map/dot_inactive.png"
 
 default persons = {
-    "james": {"name":"Джеймс Майерс","image_path":"images/scaled_characters/scene_characters/james.png", "description": "Сожитель Джейн. Привык получать всё без усилий, но внутри чувствует пустоту. Ищет чувство нужности через отношения. Прожигает жизнь, находя легкие удовольствия.", "locked": True },
-    "kyle": {"name":"Кайл Ричардс","image_path":"images/scaled_characters/scene_characters/kyle.png", "description": "Бывший парень Джейн. Талантливый футболист, стремящийся монетизировать свою спортивную карьеру. Сомневается в себе из-за чувства финансовой несостоятельности.", "locked": True },
-    "lisa": { "name":"Лиза","image_path":"images/scaled_characters/scene_characters/lisa.png","description": "официантка, 20-22 года, стройная, высокая девушка, собранные темно-русые волосы. Апатичная и уставшая от работы. ", "locked": True },
-    "mr_lawrence": { "name":"Мистер Лоуренс","image_path":"images/scaled_characters/scene_characters/mr_lawrence.png", "description": " Отец Джейн Лоуренс, привыкший жить по расписанию бизнеса. Спокоен, редко показывает эмоции. В семье скорее наблюдатель, чем участник.", "locked": True },
-    "mrs_lawrence": { "name":"Миссис Лоуренс","image_path":"images/scaled_characters/scene_characters/mrs_lawrence.png", "description": "Мать Джейн Лоуренс. Стремится выглядеть моложе, чем есть, и всегда держит лицо победительницы. Резка, контролирующая, склонна к драматизации.", "locked": True },
-    "mrs_velaskez": { "name":"Миссис Веласкес","image_path":"images/scaled_characters/scene_characters/mrs_velaskez.png", "description": "Шеф-повар и владелица ресторана. Властная и громкая женщина, привыкшая командовать кухней и людьми. Любит давить авторитетом и не терпит возражений.", "locked": True },
-    "dr_andrews":{"name":"Доктор Эндрюс", "image_path":"images/scaled_characters/scene_characters/dr_andrews.png", "description":"Спокойный, опытный и немного ворчливый патологоанатом. Предпочитает иронию серьезности и часто добродушно язвит над детективами. На удивление еще не разочарован в этом мире.", "locked": True },
-    "julie":{"name":"Джули", "image_path":"images/scaled_characters/scene_characters/julie.png", "description":"Любит собирать слухи и анализировать людей, что делает её ценным, хотя и не всегда приятным собеседником. Часто держится отстранённо, будто выше происходящего.", "locked": True },
-    "lewis":{"name":"Луис Веласкес", "image_path":"images/scaled_characters/scene_characters/lewis.png", "description":"Щуплый, нервный парень с латинскими корнями. Выглядит младше своего возраста, но компенсирует это резкими реакциями и стремлением казаться смелее, чем есть.", "locked": True },
-    "lisa":{"name":"Лиза", "image_path":"images/scaled_characters/scene_characters/lisa.png", "description":"Тихая и эмоционально выгоревшая официантка. Делает свою работу механически, пытаясь оставаться незаметной и не вовлекаться в чужие драмы.", "locked": True },
+    "james": {"name":"Джеймс Майерс","image_path":"images/scaled_characters/scene_characters/james.png", "description": "Сожитель Джейн. Привык получать всё без усилий, но внутри чувствует пустоту. Ищет чувство нужности через отношения. Прожигает жизнь, находя легкие удовольствия.", "locked": True, "from":"" },
+    "kyle": {"name":"Кайл Ричардс","image_path":"images/scaled_characters/scene_characters/kyle.png", "description": "Бывший парень Джейн. Талантливый футболист, стремящийся монетизировать свою спортивную карьеру. Сомневается в себе из-за чувства финансовой несостоятельности.", "locked": True, "from":"" },
+    "lisa": { "name":"Лиза","image_path":"images/scaled_characters/scene_characters/lisa.png","description": "официантка, 20-22 года, стройная, высокая девушка, собранные темно-русые волосы. Апатичная и уставшая от работы. ", "locked": True, "from":"" },
+    "mr_lawrence": { "name":"Мистер Лоуренс","image_path":"images/scaled_characters/scene_characters/mr_lawrence.png", "description": " Отец Джейн Лоуренс, привыкший жить по расписанию бизнеса. Спокоен, редко показывает эмоции. В семье скорее наблюдатель, чем участник.", "locked": True , "from":""},
+    "mrs_lawrence": { "name":"Миссис Лоуренс","image_path":"images/scaled_characters/scene_characters/mrs_lawrence.png", "description": "Мать Джейн Лоуренс. Стремится выглядеть моложе, чем есть, и всегда держит лицо победительницы. Резка, контролирующая, склонна к драматизации.", "locked": True ,  "from":""},
+    "mrs_velaskez": { "name":"Миссис Веласкес","image_path":"images/scaled_characters/scene_characters/mrs_velaskez.png", "description": "Шеф-повар и владелица ресторана. Властная и громкая женщина, привыкшая командовать кухней и людьми. Любит давить авторитетом и не терпит возражений.", "locked": True, "from":"" },
+    "dr_andrews":{"name":"Доктор Эндрюс", "image_path":"images/scaled_characters/scene_characters/dr_andrews.png", "description":"Спокойный, опытный и немного ворчливый патологоанатом. Предпочитает иронию серьезности и часто добродушно язвит над детективами. На удивление еще не разочарован в этом мире.", "locked": True, "from":"" },
+    "judy":{"name":"Джуди", "image_path":"images/scaled_characters/scene_characters/judy.png", "description":"Любит собирать слухи и анализировать людей, что делает её ценным, хотя и не всегда приятным собеседником. Часто держится отстранённо, будто выше происходящего.", "locked": True, "from":"" },
+    "lewis":{"name":"Луис Веласкес", "image_path":"images/scaled_characters/scene_characters/lewis.png", "description":"Щуплый, нервный парень с латинскими корнями. Выглядит младше своего возраста, но компенсирует это резкими реакциями и стремлением казаться смелее, чем есть.", "locked": True, "from":"" },
+    "lisa":{"name":"Лиза", "image_path":"images/scaled_characters/scene_characters/lisa.png", "description":"Тихая и эмоционально выгоревшая официантка. Делает свою работу механически, пытаясь оставаться незаметной и не вовлекаться в чужие драмы.", "locked": True, "from":"" }
 }
 default main_characters = {
     "jaclyn" : {"name":"Жаклин Картер", "image_path":"images/scaled_characters/main_characters/jaclyn.png", "description":"Старший агент, чья хладнокровная собранность позволяет ей удерживать команду в рамках и вести расследование чётко и жёстко."},
@@ -441,48 +442,25 @@ init python:
     def frame_with_image(image_path, name):
         return Frame("images/notebook/photo_frame.png", 10, 10, tile=False), image_path, name
 
+
+screen from_icon(from_name, size=42):
+    if from_name:
+        fixed:
+            xsize size
+            ysize size
+            align (1.2, -0.1)
+            offset (-6, -6)
+            add Transform(
+                "images/map/%s_idle.png" % from_name,
+                xysize=(size, size)
+            )
+            add Transform(
+                "images/map/black_boder.png",
+                xysize=(size, size)
+            )
+        
 default cur_notebook_screen = "title"
 default cur_page = 0 # Counter for displaying notebook page
-default persons_files = [
-    {
-        "name": "mr Lawrence",
-        "image_path" : "images/characters/chapter1/mr_lawrence/mr_lawrence.png", 
-        "description" : "мореплаватель из Генуи, открывший Америку для Европы в 1492 году. Он совершил четыре путешествия через Атлантику при поддержке испанских королей, думая, что плывёт в Индию. Его открытия положили начало эпохе Великих географических открытий и колонизации Нового Света."
-    }, 
-    {
-        "name": "Casey",
-        "image_path" : "images/map/casey_idle.png", 
-        "description" : "Some description2."
-    },
-    {
-        "name": "Govard",
-        "image_path" : "images/map/braun_idle.png", 
-        "description" : "Some description3."
-    },
-    {
-        "name": "Jaclyn",
-        "image_path" : "images/map/jaclyn_idle.png", 
-        "description" : "Some description4."
-    }, 
-    {
-        "name": "Casey",
-        "image_path" : "images/map/casey_idle.png", 
-        "description" : "Some description5."
-    },
-    {
-        "name": "Jaclyn",
-        "image_path" : "images/map/jaclyn_idle.png", 
-        "description" : "Some description6."
-    },
-    {
-        "name": "Govard",
-        "image_path" : "images/map/braun_idle.png", 
-        "description" : "Some description6."
-    } 
-]
-default max_person_pages = len(persons_files) // 6
-
-
 
 screen Notebook:
     modal True
@@ -626,6 +604,7 @@ screen Persons_notebook():
                                 ysize 191
                                 background Frame("images/notebook/photo_frame.png", 10, 10)
                                 add Transform(person["image_path"], xysize=(155,190), fit="fit", align=(0.5,0.5))
+                                use from_icon(person.get("from", ""), size=42)
                             text person.get("name", ""):
                                 xalign 0.5
                                 color "#000000"
@@ -667,6 +646,7 @@ screen Persons_notebook():
                                     ysize 191
                                     background Frame("images/notebook/photo_frame.png", 10, 10)
                                     add Transform(person["image_path"], xysize=(155,190), fit="fit", align=(0.5,0.5))
+                                    use from_icon(person.get("from", ""), size=42)
                                 text person.get("name", ""):
                                     color "#000000"
                                     size 20
@@ -688,6 +668,7 @@ screen Persons_notebook():
                                     ysize 191
                                     background Frame("images/notebook/photo_frame.png", 10, 10)
                                     add Transform(person["image_path"], xysize=(155,190), fit="fit", align=(0.5,0.5))
+                                    use from_icon(person.get("from", ""), size=42)
                                 text person.get("name", ""):
                                     color "#000000"
                                     size 20
@@ -966,97 +947,6 @@ screen Clues_notebook():
 
     # use notebook_icon
 
-
-# screen Persons_Clues_notebook():
-#     default max_pages = 0
-#     # Left Page
-#     frame:
-#         xpos 184
-#         ypos 75
-#         xsize 395
-#         ysize 675
-#         background "gui/chaptersScreen/transparent.png"
-#         # background "#FFF"
-
-#         imagebutton:
-#             xpos -5
-#             ypos -10
-#             idle "images/notebook/home.png"
-#             action SetVariable("cur_notebook_screen", "title")
-
-#         if cur_notebook_screen == "persons":
-#             $ max_pages = (len(persons_files) - 1) // 6
-#             text "Досье":
-#                 color "#000000"
-#                 bold True
-#                 xalign 0.5
-#         if cur_notebook_screen == "clues":
-#             $ max_pages = (len(clues_files) - 1) // 6
-#             text "Улики":
-#                 color "#000000"
-#                 bold True
-#                 xalign 0.5
-
-
-#         vbox:
-#             ypos 50
-#             spacing 20
-#             # for person in persons_files[0:3]:
-#             if cur_notebook_screen == "persons":
-#                 for person in persons_files[cur_page*6:cur_page*6+3]:
-#                     hbox:
-#                         image person["image_path"]
-#                         text _(person["description"]):
-#                             color "#000000"
-#             elif cur_notebook_screen == "clues":
-#                 for clue in clues_files[cur_page*6:cur_page*6+3]:
-#                     hbox:
-#                         image clue["image_path"]
-#                         text _(clue["description"]):
-#                             color "#000000"
-
-#     # Right Page
-#     frame:
-#         xpos 620
-#         ypos 75
-#         xsize 395
-#         ysize 675
-#         background "gui/chaptersScreen/transparent.png"
-#         # background "#FFF"
-
-#         vbox:
-#             ypos 50
-#             spacing 20
-#             # for person in persons_files[3:6]:
-#             if cur_notebook_screen == "persons":
-#                 for person in persons_files[cur_page*6+3:cur_page*6+3+3]:
-#                     hbox:
-#                         image person["image_path"]
-#                         text _(person["description"]):
-#                             color "#000000"
-#             elif cur_notebook_screen == "clues":
-#                 for clue in clues_files[cur_page*6+3:cur_page*6+3+3]:
-#                     hbox:
-#                         image clue["image_path"]
-#                         text _(clue["description"]):
-#                             color "#000000"
-#     if cur_page > 0:
-#         imagebutton:
-#             xalign 0.18
-#             yalign 0.81
-#             idle "images/notebook/arrow_left.png"
-#             action SetVariable("cur_page", cur_page-1)
-       
-#     if cur_page < max_pages:
-#         imagebutton:
-#             xalign 0.82
-#             yalign 0.81
-#             idle "images/notebook/arrow_right.png"
-#             action SetVariable("cur_page", cur_page+1)
-
-#     # use notebook_icon
-
-    
 
 
 ## Say screen ##################################################################

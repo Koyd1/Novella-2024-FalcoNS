@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/screens.rpy", line 183: invalid syntax
-            init python:
-                  ^
+File "game/screens.rpy", line 453: 'zorder' is not a keyword argument or valid child of the fixed statement.
+    zorder 1000
+          ^
 
 Ren'Py Version: Ren'Py 8.3.2.24090902
-Sat Nov 22 14:55:32 2025
+Mon Dec 15 16:37:25 2025

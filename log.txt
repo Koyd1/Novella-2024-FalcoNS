@@ -1,13 +1,13 @@
-2025-12-07 23:43:14 UTC
+2025-12-15 14:38:20 UTC
 macOS-14.5-arm64-arm-64bit
 Ren'Py 8.3.2.24090902
 
 Early init took 0.05s
 Loading error handling took 0.03s
-Loading script took 0.11s
+Loading script took 0.19s
 Loading save slot metadata took 0.03s
 Loading persistent took 0.00s
-Running init code took 0.04s
+Running init code took 0.05s
 Loading analysis data took 0.02s
 Analyze and compile ATL took 0.00s
 Reloading save slot metadata took 0.02s
@@ -26,9 +26,9 @@ Analyze screens took 0.00s
 Save screen analysis took 0.00s
 Prepare screens took 0.07s
 Save pyanalysis. took 0.00s
-Save bytecode. took 0.00s
+Save bytecode. took 0.03s
 Running _start took 0.00s
-Interface start took 0.27s
+Interface start took 0.40s
 
 Initializing gl2 renderer:
 primary display bounds: (0, 0, 1440, 900)
@@ -38,12 +38,29 @@ Vendor: "b'Apple'"
 Renderer: b'Apple M1'
 Version: b'2.1 Metal - 88.1'
 Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1338, 753) drawable=(2676, 1506)
+Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
 Maximum texture size: 4096x4096
+Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
+Maximum texture size: 4096x4096
+
+jaclyn
+casey
+govard
+phil
+
+jaclyn
+casey
+govard
+phil
+
+jaclyn
+casey
+govard
+phil
 Resetting cache.
-Early init took 92.35s
+Early init took 95.46s
 Loading error handling took 0.03s
-Loading script took 0.37s
+Loading script took 0.43s
 Loading save slot metadata took 0.02s
 Loading persistent took 0.00s
 Running init code took 0.03s
@@ -62,13 +79,13 @@ Cleaning stores took 0.00s
 Init translation took 0.03s
 Build styles took 0.00s
 Load screen analysis took 0.00s
-Analyze screens took 0.01s
+Analyze screens took 0.02s
 Save screen analysis took 0.03s
-Prepare screens took 0.07s
-Save pyanalysis. took 0.03s
+Prepare screens took 0.11s
+Save pyanalysis. took 0.02s
 Save bytecode. took 0.02s
 Running _start took 0.00s
-Interface start took 0.06s
+Interface start took 0.09s
 
 Initializing gl2 renderer:
 primary display bounds: (0, 0, 1440, 900)
@@ -78,5 +95,7 @@ Vendor: "b'Apple'"
 Renderer: b'Apple M1'
 Version: b'2.1 Metal - 88.1'
 Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1338, 753) drawable=(2676, 1506)
+Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
+Maximum texture size: 4096x4096
+Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
 Maximum texture size: 4096x4096

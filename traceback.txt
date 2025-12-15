@@ -1,82 +1,52 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
-While running game code:
-  File "game/script.rpy", line 318, in script
-    call screen Map(chapter1_locs1)
-  File "renpy/common/000statements.rpy", line 671, in execute_call_screen
-    store._return = renpy.call_screen(name, *args, **kwargs)
-  File "game/screens.rpy", line 406, in execute
-    screen Map(locs):
-  File "game/screens.rpy", line 406, in execute
-    screen Map(locs):
-  File "game/screens.rpy", line 439, in execute
-    use confirm_map_button(locs)
-  File "game/screens.rpy", line 386, in execute
-    screen confirm_map_button(locs):
-  File "game/screens.rpy", line 386, in execute
-    screen confirm_map_button(locs):
-  File "game/screens.rpy", line 387, in execute
-    imagebutton:
-  File "game/screens.rpy", line 387, in keywords
-    imagebutton:
-  File "game/screens.rpy", line 393, in <module>
-    true = [SetVariable("quick_menu", True), Jump(rus_to_eng_locs[directions["jaclyn"]])],
-KeyError: ''
+After initialization, but before game start.
+  File "game/screens.rpy", line 446, in prepare_screen
+    screen from_icon(from_name, size=42):
+  File "game/screens.rpy", line 446, in prepare
+    screen from_icon(from_name, size=42):
+  File "game/screens.rpy", line 447, in prepare
+    if from_name:
+  File "game/screens.rpy", line 447, in prepare
+    if from_name:
+  File "game/screens.rpy", line 454, in prepare
+    add Transform(
+SyntaxError: invalid syntax (screens.rpy, line 459)
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 318, in script
-    call screen Map(chapter1_locs1)
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/ast.py", line 1974, in execute
-    self.call("execute")
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/ast.py", line 1953, in call
-    return renpy.statements.call(method, parsed, *args, **kwargs)
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/statements.py", line 374, in call
-    return method(parsed, *args, **kwargs)
-  File "renpy/common/000statements.rpy", line 671, in execute_call_screen
-    store._return = renpy.call_screen(name, *args, **kwargs)
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/exports/statementexports.py", line 345, in call_screen
-    rv = renpy.ui.interact(mouse="screen", type="screen", roll_forward=roll_forward)
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/ui.py", line 301, in interact
-    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/display/core.py", line 2215, in interact
-    repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, pause=pause, pause_start=pause_start, pause_modal=pause_modal, **kwargs) # type: ignore
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/display/core.py", line 2745, in interact_core
-    root_widget.visit_all(lambda d : d.per_interact())
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/display/displayable.py", line 434, in visit_all
-    d.visit_all(callback, seen)
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/display/displayable.py", line 434, in visit_all
-    d.visit_all(callback, seen)
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/display/displayable.py", line 434, in visit_all
-    d.visit_all(callback, seen)
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/display/screen.py", line 480, in visit_all
-    callback(self)
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/display/core.py", line 2745, in <lambda>
-    root_widget.visit_all(lambda d : d.per_interact())
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/display/screen.py", line 491, in per_interact
-    self.update()
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/display/screen.py", line 697, in update
-    self.screen.function(**self.scope)
-  File "game/screens.rpy", line 406, in execute
-    screen Map(locs):
-  File "game/screens.rpy", line 406, in execute
-    screen Map(locs):
-  File "game/screens.rpy", line 439, in execute
-    use confirm_map_button(locs)
-  File "game/screens.rpy", line 386, in execute
-    screen confirm_map_button(locs):
-  File "game/screens.rpy", line 386, in execute
-    screen confirm_map_button(locs):
-  File "game/screens.rpy", line 387, in execute
-    imagebutton:
-  File "game/screens.rpy", line 387, in keywords
-    imagebutton:
-  File "game/screens.rpy", line 393, in <module>
-    true = [SetVariable("quick_menu", True), Jump(rus_to_eng_locs[directions["jaclyn"]])],
-KeyError: ''
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/bootstrap.py", line 359, in bootstrap
+    renpy.main.main()
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/main.py", line 652, in main
+    run(restart)
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/main.py", line 94, in run
+    renpy.display.screen.prepare_screens()
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/display/screen.py", line 1026, in prepare_screens
+    s.ast.prepare_screen()
+  File "game/screens.rpy", line 446, in prepare_screen
+    screen from_icon(from_name, size=42):
+  File "game/screens.rpy", line 446, in prepare
+    screen from_icon(from_name, size=42):
+  File "game/screens.rpy", line 447, in prepare
+    if from_name:
+  File "game/screens.rpy", line 447, in prepare
+    if from_name:
+  File "game/screens.rpy", line 454, in prepare
+    add Transform(
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/py3analysis.py", line 803, in ast_eval
+    return self.ast_eval_literal(expr)[0]
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/py3analysis.py", line 785, in ast_eval_literal
+    expr = py_compile(expr, 'eval', ast_node=True)
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/python.py", line 1144, in py_compile
+    raise e
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/python.py", line 1081, in py_compile
+    raise orig_e
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/python.py", line 1073, in py_compile
+    tree = compile(source, filename, py_mode, ast.PyCF_ONLY_AST | flags, 1)
+SyntaxError: invalid syntax (screens.rpy, line 459)
 
 macOS-14.5-arm64-arm-64bit arm64
 Ren'Py 8.3.2.24090902
 NovellaProj 1.0
-Sat Nov 22 14:56:10 2025
+Mon Dec 15 11:24:21 2025
