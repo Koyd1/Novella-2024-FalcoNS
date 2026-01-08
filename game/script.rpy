@@ -37,8 +37,8 @@ init python:
 # Создание персонажей
 
 ### Characters
-define mc= Character("Джеки Картер", image = "jaclyn")
-define mc_thoughts = Character("Мысли Джеки")
+define mc= Character("Жаклин", image = "jaclyn")
+define mc_thoughts = Character("Мысли Жаклин")
 define govard = Character("Говард Браун", image="govard")
 define phil = Character("Фил Моррисон", image="phil")
 define casey = Character("Кейси Аронс", image= "casey")
@@ -103,12 +103,12 @@ transform halfed_right:
     zoom 0.6
     xalign 0.8
 
-# transform transform_logo:
-#     on show:
-#         alpha 0 xalign 0.5 yalign 0.5
-#         linear 2.0 alpha 1
-#     on hide:
-#         linear 2.0 alpha 0
+transform transform_logo:
+    on show:
+        alpha 0 xalign 0.5 yalign 0.5
+        linear 2.0 alpha 1
+    on hide:
+        linear 2.0 alpha 0
 
 transform reduction:
     zoom 0.3
@@ -160,23 +160,25 @@ transform lighten:
 
 
 
-# label splashscreen:
-#     # python:
-#     #     config.show = show
+label splashscreen:
+    # python:
+    #     config.show = show
 
-#     scene black 
-#     $ renpy.pause(1, hard=True) 
+    scene black 
+    $ renpy.pause(1, hard=True) 
     
-#     show logo at transform_logo
-#     $ renpy.pause(4, hard=True) 
+    play sound "sounds/splash_screen.mp3" fadein 1.0 fadeout 1.0 volume 0.5
+    $ renpy.pause(0.8)
+    show logo at transform_logo
+    $ renpy.pause(4, hard=True) 
     
-#     hide logo 
-#     $ renpy.pause(2, hard=True)
+    hide logo 
+    $ renpy.pause(2, hard=True)
     
-#     # python:
-#     #     config.show = ShowWithBrightness
+    # python:
+    #     config.show = ShowWithBrightness
 
-#     return
+    return
 
 label before_main_menu:
 
@@ -240,6 +242,8 @@ label start:
     # jump chapter_1
 
 label chapter_1:
+
+    play music "music/talk_detective.mp3" fadein 1.0 fadeout 1.0 loop
 
     $ chapter = "Chapter One"
     $ location = "2nd Location"
@@ -319,6 +323,7 @@ label teemMeeting:
 
 
 label university:
+    play music "music/univer.mp3" fadein 1.0 fadeout 1.0 loop
     $ renpy.block_rollback()
     # $ clearDict(directions)
     scene univ_front
@@ -334,7 +339,7 @@ label university:
     judy "Я знаю, почему Вы здесь."
     mc "О чем Вы?"
     judy "Вы не первый, кто спрашивает о Лоуренс. От нее избавились. Весь курс об этом говорит."
-    mc_thoughts "По-моему, я не говорил/а о том, что это не несчастный случай и не суицид"
+    mc_thoughts "По-моему, я не говорила о том, что это не несчастный случай и не суицид"
     
     menu:
         " " # Putting here spaces for it to activate the 'say' label with the choice label (black panel behind choice buttons)
@@ -373,7 +378,7 @@ label univ_rs:
     mc_thoughts "Ладно, она еще и любительница метафор."
     mc "Вы знаете, где можно найти ее молодого человека?"
     judy "Армори-стрит 19, но за дополнительную плату и не такое найду"
-    mc_thoughts "Похоже мне стоит опасаться, что я ей сказал/а, как меня зовут."
+    mc_thoughts "Похоже мне стоит опасаться, что я ей сказала, как меня зовут."
     mc "Спасибо, сэкономлю и поручу кибер-отделу."
     judy "Многое теряете, босс."
     mc_thoughts "О, а вот и тот, о ком мы говорили!"
@@ -397,7 +402,7 @@ label univ_rs:
             jump evidence_exchange
 
 label parents_house:
-
+    play music "music/james_house.mp3" fadein 1.0 fadeout 1.0 loop
     $ renpy.block_rollback()
     # $ clearDict(directions)
     scene par_h_entry 
@@ -573,6 +578,7 @@ label par_house_tthah: # Вы говорили с ним после случив
     jump par_house_wsl
 
 label hospital:
+    play music "music/talk_detective.mp3" fadein 1.0 fadeout 1.0 loop
     $ renpy.block_rollback()
     # $ clearDict(directions)
     scene hospital 
@@ -671,6 +677,7 @@ label hosp_lc: # Взглянуть на веши
             jump evidence_exchange
 
 label restaurant:
+    play music "music/chill_music.mp3" fadein 1.0 fadeout 1.0 loop
     $ renpy.block_rollback()
     # $ clearDict(directions)
     scene restaurant with dissolve
@@ -797,6 +804,7 @@ label rest_wwtm: # Кто этот молодой человек
 
 
 label james_house:
+    play music "music/james_house.mp3" fadein 1.0 fadeout 1.0 loop
     $ renpy.block_rollback()
     # $ clearDict(directions)
     scene james_house with dissolve
@@ -937,6 +945,7 @@ label jhouse_wawhd: # Есть кто-то, кто мог желать ей см
 
 
 label kyle_house:
+    play music "music/james_house.mp3" fadein 1.0 fadeout 1.0 loop
     scene kyle_house with dissolve
     mc "Кайл Ричардс, это специальный агент Картер, отдел уголовных расследований ФБР. Отройте дверь."
     show kyle at halfed
@@ -1122,6 +1131,7 @@ label khouse_whir: # Что произошло в ресторане?
             jump evidence_exchange
 
 label evidence_exchange:
+    play music "music/solving_the_crime.mp3" fadein 1.0 fadeout 1.0 loop
     scene expression im.Scale("images/locations/office.png", config.screen_width, config.screen_height) with dissolve
     show casey at sprite_left, darken
     show govard at sprite_centered, darken
@@ -1222,6 +1232,7 @@ label evidence_exchange:
 
 
 label evidence_second_exchange:
+    play music "music/solving_the_crime.mp3" fadein 1.0 fadeout 1.0 loop
     scene expression im.Scale("images/locations/office.png", config.screen_width, config.screen_height) with dissolve
     show casey at sprite_left, darken
     show govard at sprite_centered, darken
