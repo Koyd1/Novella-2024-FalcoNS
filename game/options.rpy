@@ -11,6 +11,13 @@ define config.autosave_on_choice = False
 
 define config.quit_action = Quit(confirm=False)
 
+## GUI buttons click/hovered sound effects
+## Contains path to sound effects used
+define button_menu_hovered = "/sounds/button_hover_menu.mp3"
+define button_click = "/sounds/button_click.mp3"
+define map_hover_sound = "/sounds/hover_map.mp3"
+define notebook_click = "/sounds/notebook_click.mp3"
+
 ## Basics ######################################################################
 
 ## A human-readable name of the game. This is used to set the default window

@@ -240,14 +240,14 @@ screen map_dot(x, y, name, active, image_path = None, is_accessible_mc = True):
         ypos y 
         if active:
             idle "images/map/dot_idle.png"
-            hovered Show("map_loc", x = x+17, y= y+103, name=name, image_path=image_path)
+            hovered [Play("sound", map_hover_sound), Show("map_loc", x = x+17, y= y+103, name=name, image_path=image_path)]
             unhovered Hide("map_loc")
             hover "images/map/dot_hover.png"
             if not is_accessible_mc:
                 if selected_person != "jaclyn":
-                    action [Function(setLocation, directions, selected_person, name), SetVariable("selected_person", "")]
+                    action [Play("sound", button_click), Function(setLocation, directions, selected_person, name), SetVariable("selected_person", "")]
             else:
-                action [Function(setLocation, directions, selected_person, name), SetVariable("selected_person", "")]
+                action [Play("sound", button_click), Function(setLocation, directions, selected_person, name), SetVariable("selected_person", "")]
             # SetDict(directions, selected_person, name)
             # setLocation(directions, selected_person, name)
         else:
@@ -361,10 +361,10 @@ screen person(name):
         imagebutton:
             if selected_person == name:
                 idle "images/map/" + name + "_selected.png"
-                action SetVariable("selected_person", "")
+                action [Play("sound", button_click), SetVariable("selected_person", "")]
             else:
                 idle "images/map/" + name + "_idle.png"
-            action SetVariable("selected_person", name)
+            action [Play("sound", button_click), SetVariable("selected_person", name)]
             # action NullAction()
         if directions[name] == "":
             image "images/map/not_selected.png":
@@ -383,7 +383,7 @@ screen confirm_map_button(locs):
         idle "images/map/confirm.png"
         action If(
             all_active_locations_assigned(locs, directions),
-            true = [SetVariable("quick_menu", True),Jump(rus_to_eng_locs.get(directions["jaclyn"], "fallback_label"))],
+            true = [SetVariable("quick_menu", True), Jump(rus_to_eng_locs.get(directions["jaclyn"], "fallback_label"))],
             false = Notify("Каждая открытая локация должна быть занята агентом!")
         )
 
@@ -394,7 +394,7 @@ screen notebook_icon():
             ypos 50
             idle "images/map/notebook.png"
             hover "images/map/notebook_selected.png"
-            action ToggleScreen("Notebook")
+            action [Play("sound", button_click), ToggleScreen("Notebook")]
 
 screen Map(locs):
     add "images/map/background.png"
@@ -405,7 +405,9 @@ screen Map(locs):
     imagebutton:
         xpos 15
         ypos 15
-        auto "gui/quickMenu/settings_%s.png" action ShowMenu("preferences")
+        auto "gui/quickMenu/settings_%s.png" 
+        hovered [Play("sound", button_menu_hovered)]
+        action [Play("sound", button_click), ShowMenu("preferences")]
 
     use notebook_icon    
 
@@ -481,7 +483,7 @@ screen Notebook:
             ypos 30
             xsize 60
             ysize 200
-            background Transform("images/notebook/closeNotebookBut.png", zoom=0.75)  action [SetVariable("cur_notebook_screen", "title"), Hide("Notebook")]
+            background Transform("images/notebook/closeNotebookBut.png", zoom=0.75)  action [Play("sound", button_click), SetVariable("cur_notebook_screen", "title"), Hide("Notebook")]
             tooltip "Закрыть дневник"
 
         
@@ -518,11 +520,11 @@ screen Title_notebook():
             ypos 50
             spacing 20
             textbutton _("Досье"):
-                action SetVariable("cur_notebook_screen", "persons")
+                action [Play("sound", notebook_click), SetVariable("cur_notebook_screen", "persons")]
             textbutton _("Улики"):
-                action SetVariable("cur_notebook_screen", "clues")
+                action [Play("sound", notebook_click), SetVariable("cur_notebook_screen", "clues")]
             textbutton _("Напарники"):
-                action SetVariable("cur_notebook_screen", "team")
+                action [Play("sound", notebook_click), SetVariable("cur_notebook_screen", "team")]
 
 screen Persons_notebook():
 
@@ -558,7 +560,7 @@ screen Persons_notebook():
             xsize 60
             ysize 200
             background Transform("images/notebook/closeNotebookBut.png", zoom=0.75)
-            action [SetVariable("cur_notebook_screen", "title"), SetVariable("cur_page", 0), Hide("Notebook")]
+            action [Play("sound", button_click), SetVariable("cur_notebook_screen", "title"), SetVariable("cur_page", 0), Hide("Notebook")]
             tooltip "Закрыть дневник"
 
         # ==== ЛЕВАЯ СТРАНИЦА ====
@@ -574,7 +576,7 @@ screen Persons_notebook():
                 xpos -5
                 ypos -10
                 idle "images/notebook/home.png"
-                action [SetVariable("cur_notebook_screen", "title"), SetVariable("cur_page", 0)]
+                action [Play("sound", notebook_click), SetVariable("cur_notebook_screen", "title"), SetVariable("cur_page", 0)]
 
             text "ДОСЬЕ":
                 color "#000000"
@@ -681,14 +683,14 @@ screen Persons_notebook():
                 xalign 0.18
                 yalign 0.81
                 idle "images/notebook/arrow_left.png"
-                action [SetVariable("cur_page", cur_page - 1), With(dissolve)]
+                action [Play("sound", notebook_click), SetVariable("cur_page", cur_page - 1), With(dissolve)]
 
         if cur_page < max_pages:
             imagebutton:
                 xalign 0.82
                 yalign 0.81
                 idle "images/notebook/arrow_right.png"
-                action [SetVariable("cur_page", cur_page + 1), With(dissolve)]
+                action [Play("sound", notebook_click), SetVariable("cur_page", cur_page + 1), With(dissolve)]
 
 screen Team_notebook():
 
@@ -712,7 +714,7 @@ screen Team_notebook():
             xsize 60
             ysize 200
             background Transform("images/notebook/closeNotebookBut.png", zoom=0.75)
-            action [SetVariable("cur_notebook_screen", "title"), SetVariable("cur_page", 0), Hide("Notebook")]
+            action [Play("sound", button_click), SetVariable("cur_notebook_screen", "title"), SetVariable("cur_page", 0), Hide("Notebook")]
             tooltip "Закрыть дневник"
 
         # ==== ЛЕВАЯ СТРАНИЦА ====
@@ -727,7 +729,7 @@ screen Team_notebook():
                 xpos -5
                 ypos -10
                 idle "images/notebook/home.png"
-                action [SetVariable("cur_notebook_screen", "title"), SetVariable("cur_page", 0)]
+                action [Play("sound", notebook_click), SetVariable("cur_notebook_screen", "title"), SetVariable("cur_page", 0)]
 
             text "НАПАРНИКИ":
                 color "#000000"
@@ -826,14 +828,14 @@ screen Team_notebook():
                 xalign 0.18
                 yalign 0.81
                 idle "images/notebook/arrow_left.png"
-                action [SetVariable("cur_page", cur_page - 1), With(dissolve)]
+                action [Play("sound", notebook_click), SetVariable("cur_page", cur_page - 1), With(dissolve)]
 
         if cur_page < max_pages:
             imagebutton:
                 xalign 0.82
                 yalign 0.81
                 idle "images/notebook/arrow_right.png"
-                action [SetVariable("cur_page", cur_page + 1), With(dissolve)]
+                action [Play("sound", notebook_click), SetVariable("cur_page", cur_page + 1), With(dissolve)]
 
 
 
@@ -867,8 +869,7 @@ screen Clues_notebook():
             xpos -5
             ypos -10
             idle "images/notebook/home.png"
-            action [SetVariable("cur_notebook_screen", "title"), SetVariable("cur_page", 0)]
-
+            action [Play("sound", notebook_click), SetVariable("cur_notebook_screen", "title"), SetVariable("cur_page", 0)]
         
         text "Улики":
             color "#000000"
@@ -936,14 +937,14 @@ screen Clues_notebook():
             xalign 0.18
             yalign 0.81
             idle "images/notebook/arrow_left.png"
-            action SetVariable("cur_page", cur_page-1)
+            action [Play("sound", notebook_click), SetVariable("cur_page", cur_page-1)]
        
     if cur_page < max_pages:
         imagebutton:
             xalign 0.82
             yalign 0.81
             idle "images/notebook/arrow_right.png"
-            action SetVariable("cur_page", cur_page+1)
+            action [Play("sound", notebook_click), SetVariable("cur_page", cur_page+1)]
 
     # use notebook_icon
 
@@ -1197,7 +1198,9 @@ screen quick_menu():
             yalign 0.006
 
             imagebutton:
-                auto "gui/quickMenu/settings_%s.png" action ShowMenu("preferences")
+                auto "gui/quickMenu/settings_%s.png" 
+                hovered [Play("sound", button_menu_hovered)]
+                action [Play("sound", button_click), ShowMenu("preferences")]
         
         hbox:
             style_prefix "quick_right"
@@ -1206,16 +1209,25 @@ screen quick_menu():
             xalign 0.995
 
             imagebutton:
-                auto "gui/quickMenu/back_%s.png" action Rollback()
+                auto "gui/quickMenu/back_%s.png" 
+                hovered [Play("sound", button_menu_hovered)]
+                action [Play("sound", button_click), Rollback()]
+
             imagebutton:
                 ypos -2
                 selected_idle "gui/quickMenu/stop_hover.png"
                 selected_hover "gui/quickMenu/stop_hover.png"
-                auto "gui/quickMenu/stop_%s.png" action Preference("auto-forward", "toggle")
+                auto "gui/quickMenu/stop_%s.png" 
+                hovered [Play("sound", button_menu_hovered)]
+                action [Play("sound", button_click), Preference("auto-forward", "toggle")]
             imagebutton:
-                auto "gui/quickMenu/forward_%s.png" action RollForward()
+                auto "gui/quickMenu/forward_%s.png" 
+                hovered [Play("sound", button_menu_hovered)]
+                action [Play("sound", button_click), RollForward()]
             imagebutton:
-                auto "gui/quickMenu/skip_%s.png" action Skip(fast=False, confirm=False)
+                auto "gui/quickMenu/skip_%s.png" 
+                hovered [Play("sound", button_menu_hovered)]
+                action [Play("sound", button_click), Skip(fast=False, confirm=False)]
 
 
 ## This code ensures that the quick_menu screen is displayed in-game, whenever
@@ -1249,10 +1261,11 @@ screen StartButton(cur_saves):
         selected_hover "gui/menuButtons/start_game/selected.png"
         idle "gui/menuButtons/start_game/idle.png"
         hover "gui/menuButtons/start_game/hover.png"
+        hovered [Play("sound", button_menu_hovered)]
         if cur_saves:
-            action [Show("ContinueOrNewGame"), With(dissolve)]
+            action [Show("ContinueOrNewGame"), With(dissolve), Play("sound", button_menu_hovered)] # Play("sound", button_click)
         else:
-            action Start()
+            action [Start(), Play("sound", button_menu_hovered)]
         # action Start()
         
         # action Start()
@@ -1267,57 +1280,66 @@ screen StartButton(cur_saves):
 screen ContinueStoryButton():
     imagebutton:
         auto "gui/menuButtons/continue_story/%s.png"
-        action Continue(confirm=False)
+        hovered [Play("sound", button_menu_hovered)]
+        action [Continue(confirm=False), Play("sound", button_menu_hovered)]
 
 screen NewGameButton():
     imagebutton:
         auto "gui/menuButtons/new_game/%s.png"
-        action Start()
+        hovered [Play("sound", button_menu_hovered)]
+        action [Start(), Play("sound", button_menu_hovered)]
 
 screen ContinueGameButton():
     imagebutton:
         auto "gui/menuButtons/continue_game/%s.png"
-        action Return()
+        hovered [Play("sound", button_menu_hovered)]
+        action [Return(), Play("sound", button_menu_hovered)]
 
 screen LoadButton():
     imagebutton:
         selected_idle "gui/menuButtons/load/selected.png"
         selected_hover "gui/menuButtons/load/selected.png"
         auto "gui/menuButtons/load/%s.png"
-        action ShowMenu("load")
+        hovered [Play("sound", button_menu_hovered)]
+        action [ShowMenu("load"), Play("sound", button_menu_hovered)]
 
 screen SaveButton():
     imagebutton:
         selected_idle "gui/menuButtons/save/selected.png"
         selected_hover "gui/menuButtons/save/selected.png"
         auto "gui/menuButtons/save/%s.png"
-        action ShowMenu("save")
+        hovered [Play("sound", button_menu_hovered)]
+        action [ShowMenu("save"), Play("sound", button_menu_hovered)]
 
 screen SettingsButton():
     imagebutton:
         selected_idle "gui/menuButtons/settings/selected.png"
         selected_hover "gui/menuButtons/settings/selected.png"
         auto "gui/menuButtons/settings/%s.png"
-        action ShowMenu("preferences")
+        hovered [Play("sound", button_menu_hovered)]
+        action [ShowMenu("preferences"), Play("sound", button_menu_hovered)]
 
 screen ChaptersButton():
     imagebutton:
         selected_idle "gui/menuButtons/chapters/selected.png"
         selected_hover "gui/menuButtons/chapters/selected.png"
         auto "gui/menuButtons/chapters/%s.png"
-        action ShowMenu("chapters")
+        hovered [Play("sound", button_menu_hovered)]
+        action [ShowMenu("chapters"), Play("sound", button_menu_hovered)]
 
 screen AchievementsButton():
     imagebutton:
         selected_idle "gui/menuButtons/achievements/selected.png"
         selected_hover "gui/menuButtons/achievements/selected.png"
         auto "gui/menuButtons/achievements/%s.png"
-        action ShowMenu("achievements_types")
+        hovered [Play("sound", button_menu_hovered)]
+        action [ShowMenu("achievements_types"), Play("sound", button_menu_hovered)]
 
 screen MainMenuButton():
     imagebutton:
         auto "gui/menuButtons/quit/%s.png"
-        action [Show("ToMainScreenConfirm"), With(dissolve)]
+        hovered [Play("sound", button_menu_hovered)]
+        action [Show("ToMainScreenConfirm"), With(dissolve), Play("sound", button_menu_hovered)]
         # action MainMenu()
 
 screen QuitButton():
@@ -1325,13 +1347,15 @@ screen QuitButton():
         selected_idle "gui/menuButtons/quit/selected.png"
         selected_hover "gui/menuButtons/quit/selected.png"
         auto "gui/menuButtons/quit/%s.png"
-        action [Show("QuitConfirm"), With(dissolve)]
+        hovered [Play("sound", button_menu_hovered)]
+        action [Show("QuitConfirm"), With(dissolve), Play("sound", button_menu_hovered)]
         # action Quit(confirm=True)
 
 screen ReturnButton():
     imagebutton:
         auto "gui/menuButtons/return/%s.png"
-        action Return()
+        hovered [Play("sound", button_menu_hovered)]
+        action [Return(), Play("sound", button_menu_hovered)]
 
 
 screen ContinueOrNewGame():    
