@@ -966,6 +966,8 @@ screen Clues_notebook():
 screen say(who, what):
     style_prefix "say"
 
+    on "show" action Play("sound", "sounds/dialogue_click.mp3")
+
     window:
         id "window"
 
@@ -1378,7 +1380,8 @@ screen ContinueOrNewGame():
                 xalign 0.95
                 idle "gui/overlay/close_idle.png"
                 hover "gui/overlay/close_hover.png"
-                action [Hide("ContinueOrNewGame"), With(dissolve)]
+                hovered [Play("sound", button_menu_hovered)]
+                action [Play("sound", button_click), Hide("ContinueOrNewGame"), With(dissolve)]
         
             text _("Хотите продолжить историю?"):
                 color "#D9D9D9"
@@ -1412,7 +1415,8 @@ screen QuitConfirm():
                 xalign 0.95
                 idle "gui/overlay/close_idle.png"
                 hover "gui/overlay/close_hover.png"
-                action [Hide("QuitConfirm"), With(dissolve)]
+                hovered [Play("sound", button_menu_hovered)]
+                action [Play("sound", button_click), Hide("QuitConfirm"), With(dissolve)]
 
             text _("Вы действительно хотите выйти?"):
                 size(45)
@@ -1426,10 +1430,12 @@ screen QuitConfirm():
             
             imagebutton:
                 auto "gui/menuButtons/quit_confirm_return/%s.png"
-                action [Hide("QuitConfirm"), With(dissolve)]
+                hovered [Play("sound", button_menu_hovered)]
+                action [Play("sound", button_click), Hide("QuitConfirm"), With(dissolve)]
 
             imagebutton:
                 auto "gui/menuButtons/quit_confirm_quit/%s.png"
+                hovered [Play("sound", button_menu_hovered)]
                 action Quit()
 
 screen StartChapterConfirm(chapter_label, cur_sel_chapter):
@@ -1451,7 +1457,8 @@ screen StartChapterConfirm(chapter_label, cur_sel_chapter):
                 xalign 0.95
                 idle "gui/overlay/close_idle.png"
                 hover "gui/overlay/close_hover.png"
-                action [SetVariable("cur_sel_chapter", ""), Hide("StartChapterConfirm"), With(dissolve)]
+                hovered [Play("sound", button_menu_hovered)]
+                action [Play("sound", button_click), SetVariable("cur_sel_chapter", ""), Hide("StartChapterConfirm"), With(dissolve)]
 
             text _("Хотите пройти заново данную главу?"):
                 size(45)
@@ -1465,11 +1472,13 @@ screen StartChapterConfirm(chapter_label, cur_sel_chapter):
             
             imagebutton:
                 auto "gui/menuButtons/quit_confirm_return/%s.png"
-                action [SetVariable("cur_sel_chapter", ""), Hide("StartChapterConfirm"), With(dissolve)]
+                hovered [Play("sound", button_menu_hovered)]
+                action [Play("sound", button_click), SetVariable("cur_sel_chapter", ""), Hide("StartChapterConfirm"), With(dissolve)]
 
             imagebutton:
                 auto "gui/menuButtons/replay_chapter/%s.png"
-                action [SetVariable("cur_sel_chapter", ""), Start(label=str(chapter_label))]
+                hovered [Play("sound", button_menu_hovered)]
+                action [Play("sound", button_click), SetVariable("cur_sel_chapter", ""), Start(label=str(chapter_label))]
 
 screen LoadSaveConfirm(slot, chapter, location, cur_sel_save, do_load):
     modal True
@@ -1489,7 +1498,8 @@ screen LoadSaveConfirm(slot, chapter, location, cur_sel_save, do_load):
                 xalign 0.95
                 idle "gui/overlay/close_idle.png"
                 hover "gui/overlay/close_hover.png"
-                action [SetVariable("cur_sel_save", ""), Hide("LoadSaveConfirm"), With(dissolve)]
+                hovered [Play("sound", button_menu_hovered)]
+                action [Play("sound", button_click), SetVariable("cur_sel_save", ""), Hide("LoadSaveConfirm"), With(dissolve)]
 
             if do_load:
                 vbox:
@@ -1523,16 +1533,19 @@ screen LoadSaveConfirm(slot, chapter, location, cur_sel_save, do_load):
             
             imagebutton:
                 auto "gui/menuButtons/quit_confirm_return/%s.png"
-                action [SetVariable("cur_sel_save", ""), Hide("LoadSaveConfirm"), With(dissolve)]
+                hovered [Play("sound", button_menu_hovered)]
+                action [Play("sound", button_click), SetVariable("cur_sel_save", ""), Hide("LoadSaveConfirm"), With(dissolve)]
 
             if do_load:
                 imagebutton:
                     auto "gui/menuButtons/load_confirm/%s.png"
-                    action FileLoad(slot, confirm=False)
+                    hovered [Play("sound", button_menu_hovered)]
+                    action [Play("sound", button_click), FileLoad(slot, confirm=False)]
             else:
                 imagebutton:
                     auto "gui/menuButtons/save_confirm_save/%s.png"
-                    action [FileSave(slot, confirm=False), SetVariable("cur_sel_save", ""), Hide("LoadSaveConfirm"), With(dissolve)]
+                    hovered [Play("sound", button_menu_hovered)]
+                    action [Play("sound", button_click), FileSave(slot, confirm=False), SetVariable("cur_sel_save", ""), Hide("LoadSaveConfirm"), With(dissolve)]
 
 screen DeleteSaveConfirm(slot, cur_sel_save):
     # cur_sel_chapter variable needed for the chapter button to be selected
@@ -1553,7 +1566,8 @@ screen DeleteSaveConfirm(slot, cur_sel_save):
                 xalign 0.95
                 idle "gui/overlay/close_idle.png"
                 hover "gui/overlay/close_hover.png"
-                action [SetVariable("cur_sel_save", ""), Hide("DeleteSaveConfirm"), With(dissolve)]
+                hovered [Play("sound", button_menu_hovered)]
+                action [Play("sound", button_click), SetVariable("cur_sel_save", ""), Hide("DeleteSaveConfirm"), With(dissolve)]
 
             text _("Хотите удалить данное сохранение?"):
                 color "#D9D9D9"
@@ -1567,11 +1581,13 @@ screen DeleteSaveConfirm(slot, cur_sel_save):
             
             imagebutton:
                 auto "gui/menuButtons/quit_confirm_return/%s.png"
-                action [SetVariable("cur_sel_save", ""), Hide("DeleteSaveConfirm"), With(dissolve)]
+                hovered [Play("sound", button_menu_hovered)]
+                action [Play("sound", button_click), Hide("DeleteSaveConfirm"), With(dissolve)]
 
             imagebutton:
                 auto "gui/menuButtons/delete_save/%s.png"
-                action [FileDelete(slot, confirm=False), SetVariable("cur_sel_save", ""), Hide("DeleteSaveConfirm"), With(dissolve)]
+                hovered [Play("sound", button_menu_hovered)]
+                action [Play("sound", button_click), FileDelete(slot, confirm=False), SetVariable("cur_sel_save", ""), Hide("DeleteSaveConfirm"), With(dissolve)]
 
 screen ToMainScreenConfirm():
     modal True
@@ -1591,7 +1607,8 @@ screen ToMainScreenConfirm():
                 xalign 0.95
                 idle "gui/overlay/close_idle.png"
                 hover "gui/overlay/close_hover.png"
-                action [Hide("ToMainScreenConfirm"), With(dissolve)]
+                hovered [Play("sound", button_menu_hovered)]
+                action [Play("sound", button_click), Hide("ToMainScreenConfirm"), With(dissolve)]
 
             vbox:
                 ypos -15
@@ -1616,11 +1633,13 @@ screen ToMainScreenConfirm():
             
             imagebutton:
                 auto "gui/menuButtons/quit_confirm_return/%s.png"
-                action [Hide("ToMainScreenConfirm"), With(dissolve)]
+                hovered [Play("sound", button_menu_hovered)]
+                action [Play("sound", button_click), Hide("ToMainScreenConfirm"), With(dissolve)]
 
             imagebutton:
                 auto "gui/menuButtons/quit_confirm_quit/%s.png"
-                action MainMenu(confirm=False, save=False)
+                hovered [Play("sound", button_menu_hovered)]
+                action [Play("sound", button_click), MainMenu(confirm=False, save=False)]
 
 ### Navigation screen used in game menus (main and in-game)
 init:
@@ -2088,10 +2107,11 @@ screen chapter(title, description, image_path, chapter_label, do_jump):
             ysize 813
             idle_background "gui/chaptersScreen/chapter_frame.png"
             hover_background "gui/chaptersScreen/chapter_frame_selected.png"
+            hovered [Play("sound", button_menu_hovered)]
             if cur_sel_chapter == title:
                 selected_background "gui/chaptersScreen/chapter_frame_selected.png"
             if do_jump: # Jump to chapter label if chapter is unlocked by the player, else do not add button
-                action [SetVariable("cur_sel_chapter", title), Show("StartChapterConfirm", chapter_label=chapter_label, cur_sel_chapter=cur_sel_chapter), With(dissolve)]
+                action [Play("sound", button_click), SetVariable("cur_sel_chapter", title), Show("StartChapterConfirm", chapter_label=chapter_label, cur_sel_chapter=cur_sel_chapter), With(dissolve)]
                 # action Confirm("Желаете повторить данную главу?", yes = Start(chapter_label))
                 # action Start(chapter_label)
             else:
@@ -2268,7 +2288,7 @@ screen folders_grid():
                     
                     imagebutton:
                         idle "gui/achievementsScreen/ach_folders/folder_" + str(i+1) + ".png"
-                        action ShowMenu("achievements", category=category)
+                        action [Play("sound", button_click), ShowMenu("achievements", category=category)]
 
                     text str(sum(1 for ach in persistent.allAchivments[category] if ach["obtained"])) + "/" + str(len(persistent.allAchivments[category])):
                         size 24
@@ -2371,34 +2391,38 @@ screen filter_frame(category):
                 # selected If(category == "standard")
                 idle "gui/achievementsScreen/standard.png"
                 hover "gui/achievementsScreen/standard_selected.png"
+                hovered [Play("sound", button_menu_hovered)] 
                 if cur_sel_ach_type == "standard":
                     selected_idle "gui/achievementsScreen/standard_selected.png"
-                    # selected_hover "gui/achievementsScreen/standard.png"
-                    action [SetVariable("cur_sel_ach_type", "all"), ShowMenu("achievements", category=category)]
-                else:
-                    action [SetVariable("cur_sel_ach_type", "standard"), ShowMenu("achievements", category=category, filter_type="standard")]
+                    # selected_hover "gui/achievementsScreen/standard.png"              
+                    action [Play("sound", button_click), SetVariable("cur_sel_ach_type", "all"), ShowMenu("achievements", category=category)]
+                else:              
+                    action [Play("sound", button_click), SetVariable("cur_sel_ach_type", "standard"), ShowMenu("achievements", category=category, filter_type="standard")]
+                    
                        
             imagebutton:
                 # selected If(category == "rare")
                 idle "gui/achievementsScreen/rare.png"
                 hover "gui/achievementsScreen/rare_selected.png"
+                hovered [Play("sound", button_menu_hovered)]  
                 if cur_sel_ach_type == "rare":
                     selected_idle "gui/achievementsScreen/rare_selected.png"
                     # selected_hover "gui/achievementsScreen/rare.png"
-                    action [SetVariable("cur_sel_ach_type", "all"), ShowMenu("achievements", category=category)]
+                    action [Play("sound", button_click), SetVariable("cur_sel_ach_type", "all"), ShowMenu("achievements", category=category)]
                 else:
-                    action [SetVariable("cur_sel_ach_type", "rare"), ShowMenu("achievements", category=category, filter_type="rare")]
+                    action [Play("sound", button_click), SetVariable("cur_sel_ach_type", "rare"), ShowMenu("achievements", category=category, filter_type="rare")]
                 
             imagebutton:
                 # selected If(category == "legend")
                 idle "gui/achievementsScreen/legend.png"
                 hover "gui/achievementsScreen/legend_selected.png"
+                hovered [Play("sound", button_menu_hovered)] 
                 if cur_sel_ach_type == "legend":
                     selected_idle "gui/achievementsScreen/legend_selected.png"
                     # selected_hover "gui/achievementsScreen/legend.png"
-                    action [SetVariable("cur_sel_ach_type", "all"), ShowMenu("achievements", category=category)]
+                    action [Play("sound", button_click), SetVariable("cur_sel_ach_type", "all"), ShowMenu("achievements", category=category)]
                 else:
-                    action [SetVariable("cur_sel_ach_type", "legend"), ShowMenu("achievements", category=category, filter_type="legend")]
+                    action [Play("sound", button_click), SetVariable("cur_sel_ach_type", "legend"), ShowMenu("achievements", category=category, filter_type="legend")]
 
 
 screen achievements(category, filter_type = None):
@@ -2552,7 +2576,9 @@ screen file_slot(slot, do_load):
         
         if do_load:
             if FileLoadable(slot):
+                hovered [Play("sound", button_menu_hovered)]
                 action [
+                    Play("sound", button_click),
                     SetVariable("cur_sel_save", slot), 
                     Show("LoadSaveConfirm", slot=slot, chapter=FileJson(slot, key="chapter", missing = "Unknown Chapter", empty=""), location=FileJson(slot, key="location", missing="Unknown Location", empty=""), cur_sel_save=cur_sel_save, do_load=do_load), 
                     With(dissolve)
@@ -2561,7 +2587,9 @@ screen file_slot(slot, do_load):
                 hover_background "gui/saveLoadMenu/capsule_frame.png"
                 action NullAction()
         else:  
+            hovered [Play("sound", button_menu_hovered)]
             action [
+                Play("sound", button_click),
                 SetVariable("cur_sel_save", slot),
                 Show("LoadSaveConfirm", slot=slot, chapter=FileJson(slot, key="chapter", missing = "Unknown Chapter", empty=""), location=FileJson(slot, key="location", missing="Unknown Location", empty=""), cur_sel_save=cur_sel_save, do_load=do_load), 
                 # Show("LoadSaveConfirm", slot=slot, time=FileTime(slot, format=_("{#file_time}%d/%m/%Y %H:%M:%S"), empty=_("Empty slot")), cur_sel_save=cur_sel_save, do_load=do_load), 
@@ -2610,9 +2638,9 @@ screen file_slot(slot, do_load):
                     # xalign 0.95
                     idle "gui/overlay/close_idle.png"
                     hover "gui/overlay/close_hover.png"
-                    hovered SetVariable("cur_sel_save", slot)
+                    hovered [Play("sound", button_menu_hovered), SetVariable("cur_sel_save", slot)]
                     unhovered SetVariable("cur_sel_save", "")
-                    action [SetVariable("cur_sel_save", slot), Show("DeleteSaveConfirm", slot=slot, cur_sel_save=cur_sel_save), With(dissolve)]
+                    action [Play("sound", button_click), SetVariable("cur_sel_save", slot), Show("DeleteSaveConfirm", slot=slot, cur_sel_save=cur_sel_save), With(dissolve)]
                     # action NullAction()
 
         if FileLoadable(slot):
@@ -2838,21 +2866,24 @@ screen auto_text():
                 hover "gui/preferencesMenu/auto_1x_selected.png"
                 selected_idle "gui/preferencesMenu/auto_1x_selected.png"
                 selected_hover "gui/preferencesMenu/auto_1x_selected.png" 
-                action Preference("text speed", value=15)
+                hovered [Play("sound", button_menu_hovered)]                
+                action [Play("sound", button_click), Preference("text speed", value=15)]
                 # action NullAction()
             imagebutton:
                 idle "gui/preferencesMenu/auto_1.5x.png"
                 hover "gui/preferencesMenu/auto_1.5x_selected.png"
                 selected_idle "gui/preferencesMenu/auto_1.5x_selected.png"
                 selected_hover "gui/preferencesMenu/auto_1.5x_selected.png"
-                action Preference("text speed", value=25)
+                hovered [Play("sound", button_menu_hovered)]                
+                action [Play("sound", button_click), Preference("text speed", value=25)]
                 # action NullAction()
             imagebutton:
                 idle "gui/preferencesMenu/auto_2x.png"
                 hover "gui/preferencesMenu/auto_2x_selected.png"
                 selected_idle "gui/preferencesMenu/auto_2x_selected.png"
                 selected_hover "gui/preferencesMenu/auto_2x_selected.png"
-                action Preference("text speed", value=35)
+                hovered [Play("sound", button_menu_hovered)]                
+                action [Play("sound", button_click), Preference("text speed", value=35)]
                 # action NullAction()
             # text _("1X")
             # text _("1.5X")
@@ -2887,14 +2918,16 @@ screen display_options():
                 hover "gui/preferencesMenu/fullscreen_selected.png"
                 selected_idle "gui/preferencesMenu/fullscreen_selected.png"
                 selected_hover "gui/preferencesMenu/fullscreen_selected.png"
-                action Preference("display", "fullscreen")
+                hovered [Play("sound", button_menu_hovered)]                
+                action [Play("sound", button_click), Preference("display", "fullscreen")]
                 # action NullAction()
             imagebutton:
                 idle "gui/preferencesMenu/windowed.png"
                 hover "gui/preferencesMenu/windowed_selected.png"
                 selected_idle "gui/preferencesMenu/windowed_selected.png"
                 selected_hover "gui/preferencesMenu/windowed_selected.png"
-                action Preference("display", "window")
+                hovered [Play("sound", button_menu_hovered)]                
+                action [Play("sound", button_click), Preference("display", "window")]
             # image "gui/preferencesMenu/display.png"
 
 screen printer_toggle:
@@ -2926,7 +2959,7 @@ screen printer_toggle:
                 idle "gui/preferencesMenu/ToggleOnBig.png"
                 selected_idle "gui/preferencesMenu/ToggleOffBig.png"
                 selected_hover "gui/preferencesMenu/ToggleOffBig.png"
-                action Preference("text speed", value=0)
+                action [Play("sound", button_click), Preference("text speed", value=0)]
 
 screen skip_options(skip_option):
     frame:
@@ -2959,7 +2992,7 @@ screen skip_options(skip_option):
                 idle "gui/preferencesMenu/ToggleOffBig.png"
                 selected_idle "gui/preferencesMenu/ToggleOnBig.png"
                 selected_hover "gui/preferencesMenu/ToggleOnBig.png"
-                action Preference(skip_option, "toggle")
+                action [Play("sound", button_click), Preference(skip_option, "toggle")]
 
 define languages = ["Русский", "English"]
 default curr_lang = 0
