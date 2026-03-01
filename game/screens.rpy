@@ -948,8 +948,224 @@ screen Clues_notebook():
 
     # use notebook_icon
 
+##Choice screen ################################################################
+      
+default selected_suspect = None
+default hovered_suspect = None
+default suspects_order = ["james", "kyle", "lewis"]
+default show_window = False
+
+default suspects_info = {
+    "james" : {"ПОДОЗРЕВАЕМЫЙ":"Джеймс Майерс","Место проживания":"Армори-стрит, 19", "Краткое описание":"Сожитель Джейн. Внешне живёт легко и беззаботно, но внутренне ощущает опустошённость и пытается заполнить её через отношения, ища подтверждение собственной значимости.", "Отношения с жертвой": "Встречались три месяца, собирался сделать предложение. После скандала с её бывшим оставил Джейн одну в ресторане - последний, кто видел ее живой.","Алиби":"Отсутствует. Утверждает, что после ухода из ресторана его никто не видел и внятного объяснения своего местонахождения не предоставляет."},
+    "kyle" : {"ПОДОЗРЕВАЕМЫЙ":"Кайл Ричардс","Место проживания":"Марч-драйв, 77", "Краткое описание":"Талантливый футболист, нацеленный на профессиональную карьеру. Амбициозен, но внутренне неуверен в себе и остро переживает ощущение финансовой нестабильности.", "Отношения с жертвой": "Бывший парень жертвы. Были вместе четыре года со школьных лет, позже он пытался вернуть её, но она была уже с другим.","Алиби":"Есть частичное. После инцидента в ресторане уехал на озеро Ист-Спринг, однако подтверждений его пребывания там не представлено"},
+    "lewis" : {"ПОДОЗРЕВАЕМЫЙ":"Луис Веласкес","Место проживания":"Неизвестно", "Краткое описание":"Студент, подрабатывает мойкой посуды в ресторане на Блинк-Роуд. С детства имел много прозвищ из-за латинских корней, популярностью никогда не пользовался", "Отношения с жертвой": "Одногруппник жертвы","Алиби":"Неизвестно"}
+}
+
+transform darken:
+    matrixcolor BrightnessMatrix(-0.95)
+
+transform normal_color:
+    matrixcolor BrightnessMatrix(0.0)
+
+transform move_left:
+    zoom 1.0
+    linear 0.5 xalign 0.2 
+    linear 0.3 zoom 1.2
+
+transform fade_in_transform:
+    alpha 0.0
+    linear 0.1 alpha 1.0
+
+init python:
+    def select_and_show_window(clicked):
+        global suspects_order, selected_suspect, hovered_suspect, show_window
+        if clicked not in suspects_order:
+            return
+        suspects_order.remove(clicked)
+        suspects_order.insert(0, clicked)
+        selected_suspect = clicked
+        hovered_suspect = None
+        show_window = True
+        renpy.show_screen("SuspectWindow", suspect=clicked)
+
+screen Choose_suspect():
+    frame:
+        xsize 1925
+        ysize 1085
+        xalign 0.5
+        yalign 0.5
+
+        if selected_suspect:
+            background "images/locations/office_blur.png"
+        else:
+            background "images/locations/office_choice.png"
+
+        imagebutton:
+            xalign 0.999
+            ypos 55
+            idle "images/map/notebook.png"
+            hover "images/map/notebook_selected.png"
+            action [Play("sound", button_click), ToggleScreen("Notebook")]
+
+        hbox:
+            spacing 30
+            xalign 0.5
+            yalign 0.6
+
+            for i, sus in enumerate(suspects_order):
+                $ ypos_offset = 320
+                $ sizes = {
+                    "james": (587, 780),
+                    "kyle": (591, 887),
+                    "lewis": (549, 1098)
+                }
+                $ size = sizes.get(sus, (587, 780))
+                $ img_path = f"images/characters/chapter1/{sus}/{sus}.png" if sus != "lewis" else "images/characters/chapter1/lewis.png"
+
+                if selected_suspect == sus:
+                    $ transform_to_use = move_left
+                else:
+                    $ transform_to_use = None
+                
+                imagebutton:
+                    ypos ypos_offset
+                    idle Transform(img_path, size=size)
+                    if transform_to_use:
+                        at transform_to_use
+
+                    hovered SetVariable("hovered_suspect", sus)
+                    unhovered SetVariable("hovered_suspect", None)
+
+                    action Function(select_and_show_window, sus)
+
+                    if selected_suspect and selected_suspect != sus:
+                        if hovered_suspect == sus:
+                            at normal_color
+                        else:
+                            at darken
+                    elif selected_suspect == sus:
+                        at normal_color
 
 
+screen SuspectWindow(suspect):
+    modal True
+    zorder 100
+
+    frame:
+        xalign 0.85 yalign 0.7
+        xsize 1085 ysize 808
+        background "images/suspect_window/sus_background.png"
+        at fade_in_transform
+
+        # Заголовок с именем подозреваемого
+        hbox:
+            xpos 140
+            ypos 40
+            spacing 30
+            ysize 50
+
+            
+            text "ПОДОЗРЕВАЕМЫЙ:" :
+                size 40
+                color "#000000"
+                bold True
+                yalign 0.5
+                
+            text suspects_info.get(suspect, {}).get("ПОДОЗРЕВАЕМЫЙ", ""):
+                size 48
+                color "#000000"
+                bold True
+                yalign 0.5
+                
+
+        # Основная информация
+        hbox:
+            xpos 100
+            ypos 130
+            spacing 20
+            xsize 850
+
+            # Место проживания
+            vbox:
+                spacing 60
+                yalign 0.0
+                
+                text "Место\nпроживания:" :
+                    size 36
+                    bold True
+                    color "#000000"
+                    xsize 220
+                    text_align 0.0
+                    yalign 0.0
+
+                text "Краткое\nописание:" :
+                    size 36
+                    bold True
+                    color "#000000"
+                    xsize 220
+                    text_align 0.0
+                    yalign 0.0
+                    
+                text "Отношения с\nжертвой:" :
+                    size 36
+                    bold True
+                    color "#000000"
+                    xsize 220
+                    text_align 0.0
+                    yalign 0.0
+                
+                text "Алиби:" :
+                    size 36
+                    bold True
+                    color "#000000"
+                    xsize 220
+                    text_align 0.0
+                    yalign 0.0
+
+
+            vbox:
+                spacing 25
+                ypos 10
+
+                text suspects_info.get(suspect, {}).get("Место проживания", ""):
+                    size 30
+                    color "#000000"
+                    xsize 650
+                    text_align 0.0
+                    ypos 0
+                
+                text suspects_info.get(suspect, {}).get("Краткое описание", ""):
+                    size 30
+                    color "#000000"
+                    xsize 650
+                    text_align 0.0
+                    ypos 40
+                    
+                text suspects_info.get(suspect, {}).get("Отношения с жертвой", ""):
+                    size 30
+                    color "#000000"
+                    xsize 650
+                    text_align 0.0
+                    ypos 80
+                text suspects_info.get(suspect, {}).get("Алиби", ""):
+                    size 30
+                    color "#000000"
+                    xsize 650
+                    text_align 0.0
+                    ypos 140
+                    
+        hbox:
+            xalign 0.5 
+            yalign 0.95
+            spacing -100
+            
+            imagebutton:
+                idle "images/suspect_window/cancel_button.png" 
+                action [Hide("SuspectWindow"), SetVariable("show_window", False), Play("sound", button_click)]
+                
+            imagebutton:
+                idle "images/suspect_window/blame_button.png"
+                action [Show("Choose_suspect"), Play("sound", button_click)]
 ## Say screen ##################################################################
 ##
 ## The say screen is used to display dialogue to the player. It takes two

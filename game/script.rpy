@@ -1325,10 +1325,16 @@ label evidence_second_exchange:
     mc "Так, теперь у нас есть немного времени изучить все улики и составить обвинение. Оно должно быть подкреплено уликами, а не случайно. "
     mc "После этого мы выезжаем к одному из свидетелей, чтобы подтвердить свои догадку и выйти на убийцу. Кто-то из них знает больше, чем сказал. Может, осознанно врёт, может, сам не понимает, что держит ключ к делу. Но именно там мы сможем подтвердить или опровергнуть наши догадки.И этот выбор решит, доберёмся ли мы до убийцы."
 
-    $ quick_menu = False
-    $ renpy.block_rollback()
+    $ quick_menu = True
+    # $ renpy.block_rollback()
     $ clearDict(directions)
-    call screen Map(chapter1_locs2)
+    jump choose_suspect
+    return
+
+label choose_suspect:
+    $ quick_menu = True
+    # $ renpy.block_rollback()
+    call screen Choose_suspect()
     return
 
 

@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/screens.rpy", line 453: 'zorder' is not a keyword argument or valid child of the fixed statement.
-    zorder 1000
+File "game/screens.rpy", line 1066: keyword argument 'yalign' is incompatible with 'ypos'.
+    yalign 0.5
           ^
 
 Ren'Py Version: Ren'Py 8.3.2.24090902
-Mon Dec 15 16:37:25 2025
+Sun Mar  1 21:08:15 2026
