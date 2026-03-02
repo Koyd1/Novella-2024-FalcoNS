@@ -967,6 +967,15 @@ transform darken:
 transform normal_color:
     matrixcolor BrightnessMatrix(0.0)
 
+transform suspect_normal:
+    zoom 1.0
+    anchor (0.0, 0.0)
+
+transform suspect_zoomed:
+    zoom 1.0
+    anchor (0.0, 0.0)
+    ease 0.25 zoom 1.1
+    
 transform move_left:
     zoom 1.0
     linear 0.5 xalign 0.2 
@@ -1007,44 +1016,42 @@ screen Choose_suspect():
             hover "images/map/notebook_selected.png"
             action [Play("sound", button_click), ToggleScreen("Notebook")]
 
-        hbox:
-            spacing 30
+        fixed:
+            # spacing 30
             xalign 0.5
             yalign 0.6
+            $ positions = [0.0, 0.35, 0.7]
 
             for i, sus in enumerate(suspects_order):
-                $ ypos_offset = 320
+
+                $ ypos_offset = 250
                 $ sizes = {
-                    "james": (587, 780),
-                    "kyle": (591, 887),
-                    "lewis": (549, 1098)
+                    "james": (582, 858),
+                    "kyle": (591, 858),
+                    "lewis": (548, 858)
                 }
-                $ size = sizes.get(sus, (587, 780))
+                $ size = sizes.get(sus, (582, 858))
                 $ img_path = f"images/characters/chapter1/{sus}/{sus}.png" if sus != "lewis" else "images/characters/chapter1/lewis.png"
 
-                if selected_suspect == sus:
-                    $ transform_to_use = move_left
-                else:
-                    $ transform_to_use = None
-                
+                $ is_left = show_window and i == 0
+                $ transform_to_use = suspect_zoomed if is_left else suspect_normal
+
                 imagebutton:
+                    xpos positions[i]
                     ypos ypos_offset
+                    anchor (0.5, 0.0)
+
                     idle Transform(img_path, size=size)
-                    if transform_to_use:
-                        at transform_to_use
+                    at transform_to_use
+
+                    if selected_suspect and selected_suspect != sus:
+                        if hovered_suspect != sus:
+                            at darken
 
                     hovered SetVariable("hovered_suspect", sus)
                     unhovered SetVariable("hovered_suspect", None)
 
                     action Function(select_and_show_window, sus)
-
-                    if selected_suspect and selected_suspect != sus:
-                        if hovered_suspect == sus:
-                            at normal_color
-                        else:
-                            at darken
-                    elif selected_suspect == sus:
-                        at normal_color
 
 
 screen SuspectWindow(suspect):
@@ -1085,7 +1092,6 @@ screen SuspectWindow(suspect):
             spacing 20
             xsize 850
 
-            # Место проживания
             vbox:
                 spacing 60
                 yalign 0.0
@@ -1120,12 +1126,10 @@ screen SuspectWindow(suspect):
                     color "#000000"
                     xsize 220
                     text_align 0.0
-                    yalign 0.0
-
 
             vbox:
-                spacing 25
                 ypos 10
+                spacing 1
 
                 text suspects_info.get(suspect, {}).get("Место проживания", ""):
                     size 30
@@ -1139,20 +1143,20 @@ screen SuspectWindow(suspect):
                     color "#000000"
                     xsize 650
                     text_align 0.0
-                    ypos 40
+                    ypos 50
                     
                 text suspects_info.get(suspect, {}).get("Отношения с жертвой", ""):
                     size 30
                     color "#000000"
                     xsize 650
                     text_align 0.0
-                    ypos 80
+                    ypos 110
                 text suspects_info.get(suspect, {}).get("Алиби", ""):
                     size 30
                     color "#000000"
                     xsize 650
                     text_align 0.0
-                    ypos 140
+                    ypos 220
                     
         hbox:
             xalign 0.5 
@@ -1162,10 +1166,15 @@ screen SuspectWindow(suspect):
             imagebutton:
                 idle "images/suspect_window/cancel_button.png" 
                 action [Hide("SuspectWindow"), SetVariable("show_window", False), Play("sound", button_click)]
+
                 
             imagebutton:
                 idle "images/suspect_window/blame_button.png"
-                action [Show("Choose_suspect"), Play("sound", button_click)]
+                action [
+                    Play("sound", button_click),
+                    Hide("SuspectWindow"),
+                    Return(suspect)
+                ]
 ## Say screen ##################################################################
 ##
 ## The say screen is used to display dialogue to the player. It takes two

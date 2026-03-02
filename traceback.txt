@@ -1,64 +1,28 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
-After initialization, but before game start.
-  File "game/screens.rpy", line 1050, in prepare_screen
-    screen SuspectWindow(suspect):
-  File "game/screens.rpy", line 1050, in prepare
-    screen SuspectWindow(suspect):
-  File "game/screens.rpy", line 1054, in prepare
-    frame:
-  File "game/screens.rpy", line 1054, in prepare
-    frame:
-  File "game/screens.rpy", line 1166, in prepare
-    hbox:
-  File "game/screens.rpy", line 1166, in prepare
-    hbox:
-  File "game/screens.rpy", line 1175, in prepare
-    imagebutton:
-  File "game/screens.rpy", line 1175, in prepare
-    imagebutton:
-SyntaxError: invalid syntax (screens.rpy, line 1177)
+While running game code:
+  File "game/script.rpy", line 1347, in script
+    if selected == correct_suspect:
+  File "game/script.rpy", line 1347, in <module>
+    if selected == correct_suspect:
+NameError: name 'correct_suspect' is not defined
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/bootstrap.py", line 359, in bootstrap
-    renpy.main.main()
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/main.py", line 652, in main
-    run(restart)
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/main.py", line 94, in run
-    renpy.display.screen.prepare_screens()
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/display/screen.py", line 1026, in prepare_screens
-    s.ast.prepare_screen()
-  File "game/screens.rpy", line 1050, in prepare_screen
-    screen SuspectWindow(suspect):
-  File "game/screens.rpy", line 1050, in prepare
-    screen SuspectWindow(suspect):
-  File "game/screens.rpy", line 1054, in prepare
-    frame:
-  File "game/screens.rpy", line 1054, in prepare
-    frame:
-  File "game/screens.rpy", line 1166, in prepare
-    hbox:
-  File "game/screens.rpy", line 1166, in prepare
-    hbox:
-  File "game/screens.rpy", line 1175, in prepare
-    imagebutton:
-  File "game/screens.rpy", line 1175, in prepare
-    imagebutton:
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/py3analysis.py", line 803, in ast_eval
-    return self.ast_eval_literal(expr)[0]
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/py3analysis.py", line 785, in ast_eval_literal
-    expr = py_compile(expr, 'eval', ast_node=True)
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/python.py", line 1144, in py_compile
-    raise e
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/python.py", line 1081, in py_compile
-    raise orig_e
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/python.py", line 1073, in py_compile
-    tree = compile(source, filename, py_mode, ast.PyCF_ONLY_AST | flags, 1)
-SyntaxError: invalid syntax (screens.rpy, line 1177)
+  File "game/script.rpy", line 1347, in script
+    if selected == correct_suspect:
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/ast.py", line 1843, in execute
+    if renpy.python.py_eval(condition):
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/python.py", line 1209, in py_eval
+    return py_eval_bytecode(code, globals, locals)
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/python.py", line 1202, in py_eval_bytecode
+    return eval(bytecode, globals, locals)
+  File "game/script.rpy", line 1347, in <module>
+    if selected == correct_suspect:
+NameError: name 'correct_suspect' is not defined
 
 macOS-14.5-arm64-arm-64bit arm64
 Ren'Py 8.3.2.24090902
 NovellaProj 1.0
-Sun Mar  1 18:51:31 2026
+Mon Mar  2 12:29:35 2026

@@ -1328,16 +1328,47 @@ label evidence_second_exchange:
     $ quick_menu = True
     # $ renpy.block_rollback()
     $ clearDict(directions)
+    hide casey
+    hide govard
+    hide phil
     jump choose_suspect
     return
 
+
 label choose_suspect:
     $ quick_menu = True
-    # $ renpy.block_rollback()
+    $ renpy.block_rollback()
+    # $ selected = call screen Choose_suspect()
+
+    $ selected = None
     call screen Choose_suspect()
+    $ selected = _return
+    if selected == "lewis":
+        jump chapter1_good_end
+    else:
+        jump chapter1_wrong_end
+
+label chapter1_good_end:
+
+    scene expression im.Scale("images/locations/right_end.png",
+        config.screen_width, config.screen_height) with dissolve
+
+    "Ещё со школы Луис Веласкес был влюблён в Джейн и следил за ней - об этом писала сама Джейн в дневнике. «Вечно где-то рядом: у колледжа, у дома, даже когда я с подругами иду за кофе. Он думает, что если будет везде появляться, то я “передумаю”»"
+    "Он устроился помощником к матери в ресторан, где позже Джейн ужинала с Джеймсом Майерсом. Когда увидел её вместе с другим - в тот день, когда Майерс готовил предложение, - в нём сорвало предохранитель. Он украл из материнской шкатулки копию фамильного кольца и отправился за Джейн. "
+    "После ухода Майерса он перехватил её у чёрного входа ресторана, встал на одно колено и в третий раз за день предложил ей выйти замуж. Получив отказ, он сорвал кольцо ей с пальца, поцарапав безымянный, и шепнул: «Теперь шрам останется навсегда». Когда Джейн закричала, он задушил её шарфом и сбросил тело в реку. Задолго до этого родители Джейн получили звонок: «Стань моей… я буду тебя любить…». Голос с испанским акцентом записался на автоответчик."
+    "Его нашли через сравнение показаний в дневнике и университетских фотоальбомов: кучерявый «Велик» из списка сотрудников совпал с одноклассником Джейн. При задержании в кармане нашли украденное кольцо и мобильник с несколькими черновиками звонков на номер Лоуренсов. Дело Джейн Лоуренс закрыто. Наконец найден тот, кому Джуди просила передать “привет”."
+    "Справедливость восторжествовала."
+
     return
 
 
+label chapter1_wrong_end:
+
+    scene expression im.Scale("images/locations/wrong_end.png",
+        config.screen_width, config.screen_height) with dissolve
+
+    "Обвинение оказалось ошибочным."
+    return
 
 label chapter_2:
     $ chapter = "Chapter Two"

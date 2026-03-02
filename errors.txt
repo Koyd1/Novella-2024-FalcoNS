@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/screens.rpy", line 1066: keyword argument 'yalign' is incompatible with 'ypos'.
-    yalign 0.5
+File "game/screens.rpy", line 1056: keyword argument 'yalign' appears more than once in a hbox statement.
+    yalign 1.0
           ^
 
 Ren'Py Version: Ren'Py 8.3.2.24090902
-Sun Mar  1 21:08:15 2026
+Mon Mar  2 12:55:29 2026
