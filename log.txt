@@ -1,10 +1,10 @@
-2026-03-02 10:43:37 UTC
+2026-03-03 12:56:17 UTC
 macOS-14.5-arm64-arm-64bit
 Ren'Py 8.3.2.24090902
 
 Early init took 0.05s
-Loading error handling took 0.04s
-Loading script took 0.19s
+Loading error handling took 0.05s
+Loading script took 0.52s
 Loading save slot metadata took 0.03s
 Loading persistent took 0.00s
 Running init code took 0.05s
@@ -12,7 +12,8 @@ Loading analysis data took 0.02s
 Analyze and compile ATL took 0.00s
 Reloading save slot metadata took 0.02s
 Index archives took 0.00s
-Dump and make backups took 0.04s
+Backing up script files to '/Users/rima/Library/RenPy/backups/Novella-2024-FalcoNS':
+Dump and make backups took 0.05s
 Cleaning cache took 0.00s
 Making clean stores took 0.00s
 Initial gc took 0.03s
@@ -21,14 +22,14 @@ Creating interface object took 0.00s
 Cleaning stores took 0.00s
 Init translation took 0.03s
 Build styles took 0.00s
-Load screen analysis took 0.04s
-Analyze screens took 0.00s
-Save screen analysis took 0.00s
-Prepare screens took 0.08s
+Load screen analysis took 0.00s
+Analyze screens took 0.01s
+Save screen analysis took 0.03s
+Prepare screens took 0.09s
 Save pyanalysis. took 0.00s
 Save bytecode. took 0.04s
 Running _start took 0.00s
-Interface start took 0.42s
+Interface start took 2.16s
 
 Initializing gl2 renderer:
 primary display bounds: (0, 0, 1440, 900)
@@ -78,17 +79,34 @@ casey
 govard
 phil
 Resetting cache.
-Early init took 119.72s
+Early init took 123.01s
 Loading error handling took 0.03s
-Loading script took 0.37s
+Loading script took 0.47s
 Loading save slot metadata took 0.02s
 Loading persistent took 0.00s
-
-File "game/screens.rpy", line 974: Line is indented, but the preceding ATL statement does not expect a block. Please check this line's indentation. You may have forgotten a colon (:).
-    ease 0.25 zoom 1.15
-    ^
+Running init code took 0.03s
+Loading analysis data took 0.02s
+Analyze and compile ATL took 0.00s
+Reloading save slot metadata took 0.02s
+Index archives took 0.00s
+Backing up script files to '/Users/rima/Library/RenPy/backups/Novella-2024-FalcoNS':
+Dump and make backups took 0.04s
+Cleaning cache took 0.00s
+Making clean stores took 0.00s
+Initial gc took 0.05s
 DPI scale factor: 1.000000
-Interface start took 0.11s
+Creating interface object took 0.00s
+Cleaning stores took 0.00s
+Init translation took 0.03s
+Build styles took 0.00s
+Load screen analysis took 0.00s
+Analyze screens took 0.02s
+Save screen analysis took 0.03s
+Prepare screens took 0.12s
+Save pyanalysis. took 0.03s
+Save bytecode. took 0.03s
+Running _start took 0.00s
+Interface start took 0.08s
 
 Initializing gl2 renderer:
 primary display bounds: (0, 0, 1440, 900)
@@ -103,41 +121,33 @@ Maximum texture size: 4096x4096
 Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
 Maximum texture size: 4096x4096
 Resetting cache.
-Early init took 148.55s
-Loading error handling took 0.04s
-Loading script took 0.29s
+Early init took 143.17s
+Loading error handling took 0.02s
+Loading script took 0.40s
 Loading save slot metadata took 0.02s
 Loading persistent took 0.00s
-
-File "game/screens.rpy", line 974: Line is indented, but the preceding ATL statement does not expect a block. Please check this line's indentation. You may have forgotten a colon (:).
-    ease 0.25 zoom 1.15
-    ^
+Running init code took 0.03s
+Loading analysis data took 0.02s
+Analyze and compile ATL took 0.00s
+Reloading save slot metadata took 0.02s
+Index archives took 0.00s
+Backing up script files to '/Users/rima/Library/RenPy/backups/Novella-2024-FalcoNS':
+Dump and make backups took 0.04s
+Cleaning cache took 0.00s
+Making clean stores took 0.00s
+Initial gc took 0.05s
 DPI scale factor: 1.000000
-Interface start took 0.10s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1440, 900)
-swap interval: 1 frames
-Windowed mode.
-Vendor: "b'Apple'"
-Renderer: b'Apple M1'
-Version: b'2.1 Metal - 88.1'
-Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Resetting cache.
-Early init took 151.06s
-Loading error handling took 0.03s
-Loading script took 0.27s
-Loading save slot metadata took 0.02s
-Loading persistent took 0.00s
-
-File "game/screens.rpy", line 974: Line is indented, but the preceding ATL statement does not expect a block. Please check this line's indentation. You may have forgotten a colon (:).
-    ease 0.25 zoom 1.15
-    ^
-DPI scale factor: 1.000000
+Creating interface object took 0.00s
+Cleaning stores took 0.00s
+Init translation took 0.03s
+Build styles took 0.00s
+Load screen analysis took 0.00s
+Analyze screens took 0.01s
+Save screen analysis took 0.03s
+Prepare screens took 0.08s
+Save pyanalysis. took 0.03s
+Save bytecode. took 0.02s
+Running _start took 0.00s
 Interface start took 0.07s
 
 Initializing gl2 renderer:
@@ -153,201 +163,9 @@ Maximum texture size: 4096x4096
 Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
 Maximum texture size: 4096x4096
 Resetting cache.
-Early init took 151.85s
-Loading error handling took 0.03s
-Loading script took 0.27s
-Loading save slot metadata took 0.02s
-Loading persistent took 0.00s
-
-File "game/screens.rpy", line 974: Line is indented, but the preceding ATL statement does not expect a block. Please check this line's indentation. You may have forgotten a colon (:).
-    ease 0.25 zoom 1.15
-    ^
-DPI scale factor: 1.000000
-Interface start took 0.08s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1440, 900)
-swap interval: 1 frames
-Windowed mode.
-Vendor: "b'Apple'"
-Renderer: b'Apple M1'
-Version: b'2.1 Metal - 88.1'
-Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Resetting cache.
-Early init took 176.16s
-Loading error handling took 0.03s
-Loading script took 0.35s
-Loading save slot metadata took 0.02s
-Loading persistent took 0.00s
-
-File "game/screens.rpy", line 975: Line is indented, but the preceding ATL statement does not expect a block. Please check this line's indentation. You may have forgotten a colon (:).
-    ease 0.25 zoom 1.15
-    ^
-DPI scale factor: 1.000000
-Interface start took 0.10s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1440, 900)
-swap interval: 1 frames
-Windowed mode.
-Vendor: "b'Apple'"
-Renderer: b'Apple M1'
-Version: b'2.1 Metal - 88.1'
-Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Resetting cache.
-Early init took 178.37s
-Loading error handling took 0.03s
-Loading script took 0.27s
-Loading save slot metadata took 0.02s
-Loading persistent took 0.00s
-
-File "game/screens.rpy", line 975: Line is indented, but the preceding ATL statement does not expect a block. Please check this line's indentation. You may have forgotten a colon (:).
-    ease 0.25 zoom 1.15
-    ^
-DPI scale factor: 1.000000
-Interface start took 0.08s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1440, 900)
-swap interval: 1 frames
-Windowed mode.
-Vendor: "b'Apple'"
-Renderer: b'Apple M1'
-Version: b'2.1 Metal - 88.1'
-Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Resetting cache.
-Early init took 178.96s
-Loading error handling took 0.03s
-Loading script took 0.27s
-Loading save slot metadata took 0.02s
-Loading persistent took 0.00s
-
-File "game/screens.rpy", line 975: Line is indented, but the preceding ATL statement does not expect a block. Please check this line's indentation. You may have forgotten a colon (:).
-    ease 0.25 zoom 1.15
-    ^
-DPI scale factor: 1.000000
-Interface start took 0.08s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1440, 900)
-swap interval: 1 frames
-Windowed mode.
-Vendor: "b'Apple'"
-Renderer: b'Apple M1'
-Version: b'2.1 Metal - 88.1'
-Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Resetting cache.
-Early init took 179.67s
-Loading error handling took 0.03s
-Loading script took 0.27s
-Loading save slot metadata took 0.02s
-Loading persistent took 0.00s
-
-File "game/screens.rpy", line 975: Line is indented, but the preceding ATL statement does not expect a block. Please check this line's indentation. You may have forgotten a colon (:).
-    ease 0.25 zoom 1.15
-    ^
-DPI scale factor: 1.000000
-Interface start took 0.08s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1440, 900)
-swap interval: 1 frames
-Windowed mode.
-Vendor: "b'Apple'"
-Renderer: b'Apple M1'
-Version: b'2.1 Metal - 88.1'
-Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Resetting cache.
-Early init took 180.74s
-Loading error handling took 0.03s
-Loading script took 0.27s
-Loading save slot metadata took 0.02s
-Loading persistent took 0.00s
-
-File "game/screens.rpy", line 975: Line is indented, but the preceding ATL statement does not expect a block. Please check this line's indentation. You may have forgotten a colon (:).
-    ease 0.25 zoom 1.15
-    ^
-DPI scale factor: 1.000000
-Interface start took 0.08s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1440, 900)
-swap interval: 1 frames
-Windowed mode.
-Vendor: "b'Apple'"
-Renderer: b'Apple M1'
-Version: b'2.1 Metal - 88.1'
-Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Resetting cache.
-Early init took 327.02s
-Loading error handling took 0.04s
-Loading script took 0.48s
-Loading save slot metadata took 0.02s
-Loading persistent took 0.00s
-Running init code took 0.03s
-Loading analysis data took 0.02s
-Analyze and compile ATL took 0.00s
-Reloading save slot metadata took 0.02s
-Index archives took 0.00s
-Backing up script files to '/Users/rima/Library/RenPy/backups/Novella-2024-FalcoNS':
-Dump and make backups took 0.04s
-Cleaning cache took 0.00s
-Making clean stores took 0.00s
-Initial gc took 0.04s
-DPI scale factor: 1.000000
-Creating interface object took 0.00s
-Cleaning stores took 0.00s
-Init translation took 0.03s
-Build styles took 0.00s
-Load screen analysis took 0.00s
-Analyze screens took 0.02s
-Save screen analysis took 0.03s
-Prepare screens took 0.12s
-Save pyanalysis. took 0.03s
-Save bytecode. took 0.03s
-Running _start took 0.00s
-Interface start took 0.09s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1440, 900)
-swap interval: 1 frames
-Windowed mode.
-Vendor: "b'Apple'"
-Renderer: b'Apple M1'
-Version: b'2.1 Metal - 88.1'
-Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Resetting cache.
-Early init took 588.78s
-Loading error handling took 0.03s
-Loading script took 0.40s
+Early init took 151.15s
+Loading error handling took 0.02s
+Loading script took 0.39s
 Loading save slot metadata took 0.02s
 Loading persistent took 0.00s
 Running init code took 0.03s
@@ -369,10 +187,10 @@ Load screen analysis took 0.00s
 Analyze screens took 0.01s
 Save screen analysis took 0.03s
 Prepare screens took 0.08s
-Save pyanalysis. took 0.02s
+Save pyanalysis. took 0.03s
 Save bytecode. took 0.02s
 Running _start took 0.00s
-Interface start took 0.08s
+Interface start took 0.07s
 
 Initializing gl2 renderer:
 primary display bounds: (0, 0, 1440, 900)
@@ -387,7 +205,7 @@ Maximum texture size: 4096x4096
 Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
 Maximum texture size: 4096x4096
 Resetting cache.
-Early init took 643.68s
+Early init took 162.17s
 Loading error handling took 0.02s
 Loading script took 0.40s
 Loading save slot metadata took 0.02s
@@ -402,153 +220,19 @@ Dump and make backups took 0.04s
 Cleaning cache took 0.00s
 Making clean stores took 0.00s
 Initial gc took 0.05s
-DPI scale factor: 1.000000
-Creating interface object took 0.00s
-Cleaning stores took 0.00s
-Init translation took 0.03s
-Build styles took 0.00s
-Load screen analysis took 0.00s
-Analyze screens took 0.01s
-Save screen analysis took 0.03s
-Prepare screens took 0.08s
-Save pyanalysis. took 0.02s
-Save bytecode. took 0.02s
-Running _start took 0.00s
-Interface start took 0.09s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1440, 900)
-swap interval: 1 frames
-Windowed mode.
-Vendor: "b'Apple'"
-Renderer: b'Apple M1'
-Version: b'2.1 Metal - 88.1'
-Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Resetting cache.
-Early init took 692.48s
-Loading error handling took 0.02s
-Loading script took 0.35s
-Loading save slot metadata took 0.02s
-Loading persistent took 0.00s
-
-File "game/screens.rpy", line 1060: 'yalign' is not a keyword argument or valid child of the for statement.
-    yalign 1.0
-          ^
-DPI scale factor: 1.000000
-Interface start took 0.11s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1440, 900)
-swap interval: 1 frames
-Windowed mode.
-Vendor: "b'Apple'"
-Renderer: b'Apple M1'
-Version: b'2.1 Metal - 88.1'
-Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Resetting cache.
-Early init took 712.24s
-Loading error handling took 0.02s
-Loading script took 0.28s
-Loading save slot metadata took 0.02s
-Loading persistent took 0.00s
-
-File "game/screens.rpy", line 1056: keyword argument 'yalign' appears more than once in a hbox statement.
-    yalign 1.0
-          ^
-DPI scale factor: 1.000000
-Interface start took 0.08s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1440, 900)
-swap interval: 1 frames
-Windowed mode.
-Vendor: "b'Apple'"
-Renderer: b'Apple M1'
-Version: b'2.1 Metal - 88.1'
-Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Resetting cache.
-Early init took 732.06s
-Loading error handling took 0.02s
-Loading script took 0.49s
-Loading save slot metadata took 0.02s
-Loading persistent took 0.00s
-Running init code took 0.04s
-Loading analysis data took 0.02s
-Analyze and compile ATL took 0.00s
-Reloading save slot metadata took 0.02s
-Index archives took 0.00s
-Backing up script files to '/Users/rima/Library/RenPy/backups/Novella-2024-FalcoNS':
-Dump and make backups took 0.04s
-Cleaning cache took 0.00s
-Making clean stores took 0.00s
-Initial gc took 0.04s
 DPI scale factor: 1.000000
 Creating interface object took 0.00s
 Cleaning stores took 0.00s
 Init translation took 0.04s
 Build styles took 0.00s
 Load screen analysis took 0.00s
-Analyze screens took 0.02s
-Save screen analysis took 0.03s
-Prepare screens took 0.12s
-Save pyanalysis. took 0.04s
-Save bytecode. took 0.03s
-Running _start took 0.00s
-Interface start took 0.09s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1440, 900)
-swap interval: 1 frames
-Windowed mode.
-Vendor: "b'Apple'"
-Renderer: b'Apple M1'
-Version: b'2.1 Metal - 88.1'
-Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Resetting cache.
-Early init took 749.18s
-Loading error handling took 0.03s
-Loading script took 0.40s
-Loading save slot metadata took 0.02s
-Loading persistent took 0.00s
-Running init code took 0.03s
-Loading analysis data took 0.02s
-Analyze and compile ATL took 0.00s
-Reloading save slot metadata took 0.02s
-Index archives took 0.00s
-Backing up script files to '/Users/rima/Library/RenPy/backups/Novella-2024-FalcoNS':
-Dump and make backups took 0.04s
-Cleaning cache took 0.00s
-Making clean stores took 0.00s
-Initial gc took 0.05s
-DPI scale factor: 1.000000
-Creating interface object took 0.00s
-Cleaning stores took 0.00s
-Init translation took 0.03s
-Build styles took 0.00s
-Load screen analysis took 0.00s
 Analyze screens took 0.01s
 Save screen analysis took 0.03s
 Prepare screens took 0.08s
 Save pyanalysis. took 0.02s
 Save bytecode. took 0.02s
 Running _start took 0.00s
-Interface start took 0.09s
+Interface start took 0.07s
 
 Initializing gl2 renderer:
 primary display bounds: (0, 0, 1440, 900)
@@ -563,7 +247,7 @@ Maximum texture size: 4096x4096
 Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
 Maximum texture size: 4096x4096
 Resetting cache.
-Early init took 758.64s
+Early init took 189.79s
 Loading error handling took 0.02s
 Loading script took 0.39s
 Loading save slot metadata took 0.02s
@@ -590,7 +274,7 @@ Prepare screens took 0.08s
 Save pyanalysis. took 0.02s
 Save bytecode. took 0.02s
 Running _start took 0.00s
-Interface start took 0.09s
+Interface start took 0.07s
 
 Initializing gl2 renderer:
 primary display bounds: (0, 0, 1440, 900)
@@ -605,931 +289,7 @@ Maximum texture size: 4096x4096
 Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
 Maximum texture size: 4096x4096
 Resetting cache.
-Early init took 818.16s
-Loading error handling took 0.02s
-Loading script took 0.42s
-Loading save slot metadata took 0.02s
-Loading persistent took 0.00s
-Running init code took 0.03s
-Loading analysis data took 0.02s
-Analyze and compile ATL took 0.00s
-Reloading save slot metadata took 0.02s
-Index archives took 0.00s
-Backing up script files to '/Users/rima/Library/RenPy/backups/Novella-2024-FalcoNS':
-Dump and make backups took 0.04s
-Cleaning cache took 0.00s
-Making clean stores took 0.00s
-Initial gc took 0.05s
-DPI scale factor: 1.000000
-Creating interface object took 0.00s
-Cleaning stores took 0.00s
-Init translation took 0.04s
-Build styles took 0.00s
-Load screen analysis took 0.00s
-Analyze screens took 0.01s
-Save screen analysis took 0.03s
-Prepare screens took 0.08s
-Save pyanalysis. took 0.02s
-Save bytecode. took 0.02s
-Running _start took 0.00s
-Interface start took 0.09s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1440, 900)
-swap interval: 1 frames
-Windowed mode.
-Vendor: "b'Apple'"
-Renderer: b'Apple M1'
-Version: b'2.1 Metal - 88.1'
-Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Resetting cache.
-Early init took 832.19s
-Loading error handling took 0.02s
-Loading script took 0.40s
-Loading save slot metadata took 0.02s
-Loading persistent took 0.00s
-Running init code took 0.03s
-Loading analysis data took 0.02s
-Analyze and compile ATL took 0.00s
-Reloading save slot metadata took 0.02s
-Index archives took 0.00s
-Backing up script files to '/Users/rima/Library/RenPy/backups/Novella-2024-FalcoNS':
-Dump and make backups took 0.04s
-Cleaning cache took 0.00s
-Making clean stores took 0.00s
-Initial gc took 0.07s
-DPI scale factor: 1.000000
-Creating interface object took 0.00s
-Cleaning stores took 0.00s
-Init translation took 0.04s
-Build styles took 0.00s
-Load screen analysis took 0.00s
-Analyze screens took 0.01s
-Save screen analysis took 0.03s
-Prepare screens took 0.08s
-Save pyanalysis. took 0.02s
-Save bytecode. took 0.02s
-Running _start took 0.00s
-Interface start took 0.09s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1440, 900)
-swap interval: 1 frames
-Windowed mode.
-Vendor: "b'Apple'"
-Renderer: b'Apple M1'
-Version: b'2.1 Metal - 88.1'
-Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Resetting cache.
-Early init took 971.50s
-Loading error handling took 0.02s
-Loading script took 0.42s
-Loading save slot metadata took 0.02s
-Loading persistent took 0.00s
-Running init code took 0.03s
-Loading analysis data took 0.02s
-Analyze and compile ATL took 0.00s
-Reloading save slot metadata took 0.02s
-Index archives took 0.00s
-Backing up script files to '/Users/rima/Library/RenPy/backups/Novella-2024-FalcoNS':
-Dump and make backups took 0.04s
-Cleaning cache took 0.00s
-Making clean stores took 0.00s
-Initial gc took 0.08s
-DPI scale factor: 1.000000
-Creating interface object took 0.00s
-Cleaning stores took 0.00s
-Init translation took 0.04s
-Build styles took 0.00s
-Load screen analysis took 0.00s
-Analyze screens took 0.02s
-Save screen analysis took 0.03s
-Prepare screens took 0.08s
-Save pyanalysis. took 0.02s
-Save bytecode. took 0.02s
-Running _start took 0.00s
-Interface start took 0.10s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1440, 900)
-swap interval: 1 frames
-Windowed mode.
-Vendor: "b'Apple'"
-Renderer: b'Apple M1'
-Version: b'2.1 Metal - 88.1'
-Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Resetting cache.
-Early init took 982.46s
-Loading error handling took 0.02s
-Loading script took 0.46s
-Loading save slot metadata took 0.02s
-Loading persistent took 0.00s
-Running init code took 0.04s
-Loading analysis data took 0.03s
-Analyze and compile ATL took 0.00s
-Reloading save slot metadata took 0.02s
-Index archives took 0.00s
-Backing up script files to '/Users/rima/Library/RenPy/backups/Novella-2024-FalcoNS':
-Dump and make backups took 0.04s
-Cleaning cache took 0.00s
-Making clean stores took 0.00s
-Initial gc took 0.06s
-DPI scale factor: 1.000000
-Creating interface object took 0.00s
-Cleaning stores took 0.00s
-Init translation took 0.04s
-Build styles took 0.00s
-Load screen analysis took 0.00s
-Analyze screens took 0.01s
-Save screen analysis took 0.03s
-Prepare screens took 0.08s
-Save pyanalysis. took 0.03s
-Save bytecode. took 0.02s
-Running _start took 0.00s
-Interface start took 0.09s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1440, 900)
-swap interval: 1 frames
-Windowed mode.
-Vendor: "b'Apple'"
-Renderer: b'Apple M1'
-Version: b'2.1 Metal - 88.1'
-Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Resetting cache.
-Early init took 990.40s
-Loading error handling took 0.02s
-Loading script took 0.39s
-Loading save slot metadata took 0.02s
-Loading persistent took 0.00s
-Running init code took 0.03s
-Loading analysis data took 0.02s
-Analyze and compile ATL took 0.00s
-Reloading save slot metadata took 0.02s
-Index archives took 0.00s
-Backing up script files to '/Users/rima/Library/RenPy/backups/Novella-2024-FalcoNS':
-Dump and make backups took 0.04s
-Cleaning cache took 0.00s
-Making clean stores took 0.00s
-Initial gc took 0.05s
-DPI scale factor: 1.000000
-Creating interface object took 0.00s
-Cleaning stores took 0.00s
-Init translation took 0.04s
-Build styles took 0.00s
-Load screen analysis took 0.00s
-Analyze screens took 0.01s
-Save screen analysis took 0.03s
-Prepare screens took 0.08s
-Save pyanalysis. took 0.02s
-Save bytecode. took 0.02s
-Running _start took 0.00s
-Interface start took 0.08s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1440, 900)
-swap interval: 1 frames
-Windowed mode.
-Vendor: "b'Apple'"
-Renderer: b'Apple M1'
-Version: b'2.1 Metal - 88.1'
-Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Resetting cache.
-Early init took 1072.80s
-Loading error handling took 0.02s
-Loading script took 0.47s
-Loading save slot metadata took 0.02s
-Loading persistent took 0.00s
-Running init code took 0.03s
-Loading analysis data took 0.02s
-Analyze and compile ATL took 0.00s
-Reloading save slot metadata took 0.02s
-Index archives took 0.00s
-Backing up script files to '/Users/rima/Library/RenPy/backups/Novella-2024-FalcoNS':
-Dump and make backups took 0.04s
-Cleaning cache took 0.00s
-Making clean stores took 0.00s
-Initial gc took 0.05s
-DPI scale factor: 1.000000
-Creating interface object took 0.00s
-Cleaning stores took 0.00s
-Init translation took 0.03s
-Build styles took 0.00s
-Load screen analysis took 0.00s
-Analyze screens took 0.02s
-Save screen analysis took 0.03s
-Prepare screens took 0.12s
-Save pyanalysis. took 0.03s
-Save bytecode. took 0.03s
-Running _start took 0.00s
-Interface start took 0.09s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1440, 900)
-swap interval: 1 frames
-Windowed mode.
-Vendor: "b'Apple'"
-Renderer: b'Apple M1'
-Version: b'2.1 Metal - 88.1'
-Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Resetting cache.
-Early init took 1176.00s
-Loading error handling took 0.02s
-Loading script took 0.40s
-Loading save slot metadata took 0.02s
-Loading persistent took 0.00s
-Running init code took 0.03s
-Loading analysis data took 0.02s
-Analyze and compile ATL took 0.00s
-Reloading save slot metadata took 0.02s
-Index archives took 0.00s
-Backing up script files to '/Users/rima/Library/RenPy/backups/Novella-2024-FalcoNS':
-Dump and make backups took 0.04s
-Cleaning cache took 0.00s
-Making clean stores took 0.00s
-Initial gc took 0.05s
-DPI scale factor: 1.000000
-Creating interface object took 0.00s
-Cleaning stores took 0.00s
-Init translation took 0.03s
-Build styles took 0.00s
-Load screen analysis took 0.00s
-Analyze screens took 0.01s
-Save screen analysis took 0.03s
-Prepare screens took 0.08s
-Save pyanalysis. took 0.03s
-Save bytecode. took 0.02s
-Running _start took 0.00s
-Interface start took 0.09s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1440, 900)
-swap interval: 1 frames
-Windowed mode.
-Vendor: "b'Apple'"
-Renderer: b'Apple M1'
-Version: b'2.1 Metal - 88.1'
-Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Resetting cache.
-Early init took 1285.46s
-Loading error handling took 0.02s
-Loading script took 0.40s
-Loading save slot metadata took 0.02s
-Loading persistent took 0.00s
-Running init code took 0.03s
-Loading analysis data took 0.02s
-Analyze and compile ATL took 0.00s
-Reloading save slot metadata took 0.02s
-Index archives took 0.00s
-Backing up script files to '/Users/rima/Library/RenPy/backups/Novella-2024-FalcoNS':
-Dump and make backups took 0.04s
-Cleaning cache took 0.00s
-Making clean stores took 0.00s
-Initial gc took 0.05s
-DPI scale factor: 1.000000
-Creating interface object took 0.00s
-Cleaning stores took 0.00s
-Init translation took 0.03s
-Build styles took 0.00s
-Load screen analysis took 0.00s
-Analyze screens took 0.01s
-Save screen analysis took 0.03s
-Prepare screens took 0.08s
-Save pyanalysis. took 0.02s
-Save bytecode. took 0.02s
-Running _start took 0.00s
-Interface start took 0.09s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1440, 900)
-swap interval: 1 frames
-Windowed mode.
-Vendor: "b'Apple'"
-Renderer: b'Apple M1'
-Version: b'2.1 Metal - 88.1'
-Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Resetting cache.
-Early init took 1299.50s
-Loading error handling took 0.02s
-Loading script took 0.40s
-Loading save slot metadata took 0.02s
-Loading persistent took 0.00s
-Running init code took 0.03s
-Loading analysis data took 0.02s
-Analyze and compile ATL took 0.00s
-Reloading save slot metadata took 0.02s
-Index archives took 0.00s
-Backing up script files to '/Users/rima/Library/RenPy/backups/Novella-2024-FalcoNS':
-Dump and make backups took 0.04s
-Cleaning cache took 0.00s
-Making clean stores took 0.00s
-Initial gc took 0.06s
-DPI scale factor: 1.000000
-Creating interface object took 0.00s
-Cleaning stores took 0.00s
-Init translation took 0.04s
-Build styles took 0.00s
-Load screen analysis took 0.00s
-Analyze screens took 0.01s
-Save screen analysis took 0.03s
-Prepare screens took 0.08s
-Save pyanalysis. took 0.02s
-Save bytecode. took 0.02s
-Running _start took 0.00s
-Interface start took 0.09s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1440, 900)
-swap interval: 1 frames
-Windowed mode.
-Vendor: "b'Apple'"
-Renderer: b'Apple M1'
-Version: b'2.1 Metal - 88.1'
-Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Resetting cache.
-Early init took 1306.00s
-Loading error handling took 0.02s
-Loading script took 0.40s
-Loading save slot metadata took 0.02s
-Loading persistent took 0.00s
-Running init code took 0.03s
-Loading analysis data took 0.03s
-Analyze and compile ATL took 0.00s
-Reloading save slot metadata took 0.02s
-Index archives took 0.00s
-Backing up script files to '/Users/rima/Library/RenPy/backups/Novella-2024-FalcoNS':
-Dump and make backups took 0.04s
-Cleaning cache took 0.00s
-Making clean stores took 0.00s
-Initial gc took 0.05s
-DPI scale factor: 1.000000
-Creating interface object took 0.00s
-Cleaning stores took 0.00s
-Init translation took 0.03s
-Build styles took 0.00s
-Load screen analysis took 0.00s
-Analyze screens took 0.01s
-Save screen analysis took 0.03s
-Prepare screens took 0.09s
-Save pyanalysis. took 0.02s
-Save bytecode. took 0.02s
-Running _start took 0.00s
-Interface start took 0.09s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1440, 900)
-swap interval: 1 frames
-Windowed mode.
-Vendor: "b'Apple'"
-Renderer: b'Apple M1'
-Version: b'2.1 Metal - 88.1'
-Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Resetting cache.
-Early init took 1321.75s
-Loading error handling took 0.02s
-Loading script took 0.40s
-Loading save slot metadata took 0.02s
-Loading persistent took 0.00s
-Running init code took 0.03s
-Loading analysis data took 0.02s
-Analyze and compile ATL took 0.00s
-Reloading save slot metadata took 0.02s
-Index archives took 0.00s
-Backing up script files to '/Users/rima/Library/RenPy/backups/Novella-2024-FalcoNS':
-Dump and make backups took 0.04s
-Cleaning cache took 0.00s
-Making clean stores took 0.00s
-Initial gc took 0.05s
-DPI scale factor: 1.000000
-Creating interface object took 0.00s
-Cleaning stores took 0.00s
-Init translation took 0.04s
-Build styles took 0.00s
-Load screen analysis took 0.00s
-Analyze screens took 0.01s
-Save screen analysis took 0.03s
-Prepare screens took 0.08s
-Save pyanalysis. took 0.02s
-Save bytecode. took 0.02s
-Running _start took 0.00s
-Interface start took 0.09s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1440, 900)
-swap interval: 1 frames
-Windowed mode.
-Vendor: "b'Apple'"
-Renderer: b'Apple M1'
-Version: b'2.1 Metal - 88.1'
-Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Resetting cache.
-Early init took 1376.77s
-Loading error handling took 0.02s
-Loading script took 0.41s
-Loading save slot metadata took 0.02s
-Loading persistent took 0.00s
-Running init code took 0.03s
-Loading analysis data took 0.02s
-Analyze and compile ATL took 0.00s
-Reloading save slot metadata took 0.02s
-Index archives took 0.00s
-Backing up script files to '/Users/rima/Library/RenPy/backups/Novella-2024-FalcoNS':
-Dump and make backups took 0.04s
-Cleaning cache took 0.00s
-Making clean stores took 0.00s
-Initial gc took 0.06s
-DPI scale factor: 1.000000
-Creating interface object took 0.00s
-Cleaning stores took 0.00s
-Init translation took 0.04s
-Build styles took 0.00s
-Load screen analysis took 0.00s
-Analyze screens took 0.01s
-Save screen analysis took 0.03s
-Prepare screens took 0.08s
-Save pyanalysis. took 0.02s
-Save bytecode. took 0.02s
-Running _start took 0.00s
-Interface start took 0.09s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1440, 900)
-swap interval: 1 frames
-Windowed mode.
-Vendor: "b'Apple'"
-Renderer: b'Apple M1'
-Version: b'2.1 Metal - 88.1'
-Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Resetting cache.
-Early init took 1390.72s
-Loading error handling took 0.03s
-Loading script took 0.41s
-Loading save slot metadata took 0.02s
-Loading persistent took 0.00s
-Running init code took 0.03s
-Loading analysis data took 0.02s
-Analyze and compile ATL took 0.00s
-Reloading save slot metadata took 0.02s
-Index archives took 0.00s
-Backing up script files to '/Users/rima/Library/RenPy/backups/Novella-2024-FalcoNS':
-Dump and make backups took 0.04s
-Cleaning cache took 0.00s
-Making clean stores took 0.00s
-Initial gc took 0.05s
-DPI scale factor: 1.000000
-Creating interface object took 0.00s
-Cleaning stores took 0.00s
-Init translation took 0.04s
-Build styles took 0.00s
-Load screen analysis took 0.00s
-Analyze screens took 0.01s
-Save screen analysis took 0.03s
-Prepare screens took 0.08s
-Save pyanalysis. took 0.03s
-Save bytecode. took 0.02s
-Running _start took 0.00s
-Interface start took 0.09s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1440, 900)
-swap interval: 1 frames
-Windowed mode.
-Vendor: "b'Apple'"
-Renderer: b'Apple M1'
-Version: b'2.1 Metal - 88.1'
-Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Resetting cache.
-Early init took 1575.67s
-Loading error handling took 0.02s
-Loading script took 0.47s
-Loading save slot metadata took 0.02s
-Loading persistent took 0.00s
-Running init code took 0.03s
-Loading analysis data took 0.02s
-Analyze and compile ATL took 0.00s
-Reloading save slot metadata took 0.02s
-Index archives took 0.00s
-Backing up script files to '/Users/rima/Library/RenPy/backups/Novella-2024-FalcoNS':
-Dump and make backups took 0.04s
-Cleaning cache took 0.00s
-Making clean stores took 0.00s
-Initial gc took 0.05s
-DPI scale factor: 1.000000
-Creating interface object took 0.00s
-Cleaning stores took 0.00s
-Init translation took 0.03s
-Build styles took 0.00s
-Load screen analysis took 0.00s
-Analyze screens took 0.02s
-Save screen analysis took 0.03s
-Prepare screens took 0.12s
-Save pyanalysis. took 0.03s
-Save bytecode. took 0.03s
-Running _start took 0.00s
-Interface start took 0.09s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1440, 900)
-swap interval: 1 frames
-Windowed mode.
-Vendor: "b'Apple'"
-Renderer: b'Apple M1'
-Version: b'2.1 Metal - 88.1'
-Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Resetting cache.
-Early init took 1687.88s
-Loading error handling took 0.03s
-Loading script took 0.46s
-Loading save slot metadata took 0.02s
-Loading persistent took 0.00s
-Running init code took 0.03s
-Loading analysis data took 0.02s
-Analyze and compile ATL took 0.00s
-Reloading save slot metadata took 0.02s
-Index archives took 0.00s
-Backing up script files to '/Users/rima/Library/RenPy/backups/Novella-2024-FalcoNS':
-Dump and make backups took 0.04s
-Cleaning cache took 0.00s
-Making clean stores took 0.00s
-Initial gc took 0.05s
-DPI scale factor: 1.000000
-Creating interface object took 0.00s
-Cleaning stores took 0.00s
-Init translation took 0.04s
-Build styles took 0.00s
-Load screen analysis took 0.00s
-Analyze screens took 0.02s
-Save screen analysis took 0.03s
-Prepare screens took 0.12s
-Save pyanalysis. took 0.03s
-Save bytecode. took 0.02s
-Running _start took 0.00s
-Interface start took 0.10s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1440, 900)
-swap interval: 1 frames
-Windowed mode.
-Vendor: "b'Apple'"
-Renderer: b'Apple M1'
-Version: b'2.1 Metal - 88.1'
-Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Resetting cache.
-Early init took 1730.94s
-Loading error handling took 0.02s
-Loading script took 0.41s
-Loading save slot metadata took 0.02s
-Loading persistent took 0.00s
-Running init code took 0.03s
-Loading analysis data took 0.02s
-Analyze and compile ATL took 0.00s
-Reloading save slot metadata took 0.02s
-Index archives took 0.00s
-Backing up script files to '/Users/rima/Library/RenPy/backups/Novella-2024-FalcoNS':
-Dump and make backups took 0.04s
-Cleaning cache took 0.00s
-Making clean stores took 0.00s
-Initial gc took 0.05s
-DPI scale factor: 1.000000
-Creating interface object took 0.00s
-Cleaning stores took 0.00s
-Init translation took 0.04s
-Build styles took 0.00s
-Load screen analysis took 0.00s
-Analyze screens took 0.01s
-Save screen analysis took 0.03s
-Prepare screens took 0.08s
-Save pyanalysis. took 0.03s
-Save bytecode. took 0.02s
-Running _start took 0.00s
-Interface start took 0.09s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1440, 900)
-swap interval: 1 frames
-Windowed mode.
-Vendor: "b'Apple'"
-Renderer: b'Apple M1'
-Version: b'2.1 Metal - 88.1'
-Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Resetting cache.
-Early init took 1740.46s
-Loading error handling took 0.02s
-Loading script took 0.40s
-Loading save slot metadata took 0.02s
-Loading persistent took 0.00s
-Running init code took 0.03s
-Loading analysis data took 0.02s
-Analyze and compile ATL took 0.00s
-Reloading save slot metadata took 0.02s
-Index archives took 0.00s
-Backing up script files to '/Users/rima/Library/RenPy/backups/Novella-2024-FalcoNS':
-Dump and make backups took 0.04s
-Cleaning cache took 0.00s
-Making clean stores took 0.00s
-Initial gc took 0.06s
-DPI scale factor: 1.000000
-Creating interface object took 0.00s
-Cleaning stores took 0.00s
-Init translation took 0.04s
-Build styles took 0.00s
-Load screen analysis took 0.00s
-Analyze screens took 0.01s
-Save screen analysis took 0.03s
-Prepare screens took 0.08s
-Save pyanalysis. took 0.02s
-Save bytecode. took 0.02s
-Running _start took 0.00s
-Interface start took 0.09s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1440, 900)
-swap interval: 1 frames
-Windowed mode.
-Vendor: "b'Apple'"
-Renderer: b'Apple M1'
-Version: b'2.1 Metal - 88.1'
-Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Resetting cache.
-Early init took 1863.14s
-Loading error handling took 0.02s
-Loading script took 0.40s
-Loading save slot metadata took 0.02s
-Loading persistent took 0.00s
-Running init code took 0.03s
-Loading analysis data took 0.02s
-Analyze and compile ATL took 0.00s
-Reloading save slot metadata took 0.02s
-Index archives took 0.00s
-Backing up script files to '/Users/rima/Library/RenPy/backups/Novella-2024-FalcoNS':
-Dump and make backups took 0.04s
-Cleaning cache took 0.00s
-Making clean stores took 0.00s
-Initial gc took 0.05s
-DPI scale factor: 1.000000
-Creating interface object took 0.00s
-Cleaning stores took 0.00s
-Init translation took 0.03s
-Build styles took 0.00s
-Load screen analysis took 0.00s
-Analyze screens took 0.01s
-Save screen analysis took 0.03s
-Prepare screens took 0.08s
-Save pyanalysis. took 0.00s
-Save bytecode. took 0.02s
-Running _start took 0.00s
-Interface start took 0.09s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1440, 900)
-swap interval: 1 frames
-Windowed mode.
-Vendor: "b'Apple'"
-Renderer: b'Apple M1'
-Version: b'2.1 Metal - 88.1'
-Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Resetting cache.
-Early init took 1908.90s
-Loading error handling took 0.02s
-Loading script took 0.47s
-Loading save slot metadata took 0.02s
-Loading persistent took 0.00s
-Running init code took 0.03s
-Loading analysis data took 0.02s
-Analyze and compile ATL took 0.00s
-Reloading save slot metadata took 0.02s
-Index archives took 0.00s
-Backing up script files to '/Users/rima/Library/RenPy/backups/Novella-2024-FalcoNS':
-Dump and make backups took 0.04s
-Cleaning cache took 0.00s
-Making clean stores took 0.00s
-Initial gc took 0.05s
-DPI scale factor: 1.000000
-Creating interface object took 0.00s
-Cleaning stores took 0.00s
-Init translation took 0.04s
-Build styles took 0.00s
-Load screen analysis took 0.00s
-Analyze screens took 0.02s
-Save screen analysis took 0.03s
-Prepare screens took 0.12s
-Save pyanalysis. took 0.03s
-Save bytecode. took 0.03s
-Running _start took 0.00s
-Interface start took 0.11s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1440, 900)
-swap interval: 1 frames
-Windowed mode.
-Vendor: "b'Apple'"
-Renderer: b'Apple M1'
-Version: b'2.1 Metal - 88.1'
-Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Resetting cache.
-Early init took 1930.60s
-Loading error handling took 0.03s
-Loading script took 0.40s
-Loading save slot metadata took 0.02s
-Loading persistent took 0.00s
-Running init code took 0.03s
-Loading analysis data took 0.03s
-Analyze and compile ATL took 0.00s
-Reloading save slot metadata took 0.02s
-Index archives took 0.00s
-Backing up script files to '/Users/rima/Library/RenPy/backups/Novella-2024-FalcoNS':
-Dump and make backups took 0.04s
-Cleaning cache took 0.00s
-Making clean stores took 0.00s
-Initial gc took 0.05s
-DPI scale factor: 1.000000
-Creating interface object took 0.00s
-Cleaning stores took 0.00s
-Init translation took 0.04s
-Build styles took 0.00s
-Load screen analysis took 0.00s
-Analyze screens took 0.01s
-Save screen analysis took 0.03s
-Prepare screens took 0.08s
-Save pyanalysis. took 0.02s
-Save bytecode. took 0.02s
-Running _start took 0.00s
-Interface start took 0.09s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1440, 900)
-swap interval: 1 frames
-Windowed mode.
-Vendor: "b'Apple'"
-Renderer: b'Apple M1'
-Version: b'2.1 Metal - 88.1'
-Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Resetting cache.
-Early init took 1950.68s
-Loading error handling took 0.02s
-Loading script took 0.41s
-Loading save slot metadata took 0.02s
-Loading persistent took 0.00s
-Running init code took 0.03s
-Loading analysis data took 0.02s
-Analyze and compile ATL took 0.00s
-Reloading save slot metadata took 0.02s
-Index archives took 0.00s
-Backing up script files to '/Users/rima/Library/RenPy/backups/Novella-2024-FalcoNS':
-Dump and make backups took 0.04s
-Cleaning cache took 0.00s
-Making clean stores took 0.00s
-Initial gc took 0.05s
-DPI scale factor: 1.000000
-Creating interface object took 0.00s
-Cleaning stores took 0.00s
-Init translation took 0.04s
-Build styles took 0.00s
-Load screen analysis took 0.00s
-Analyze screens took 0.01s
-Save screen analysis took 0.03s
-Prepare screens took 0.08s
-Save pyanalysis. took 0.03s
-Save bytecode. took 0.02s
-Running _start took 0.00s
-Interface start took 0.09s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1440, 900)
-swap interval: 1 frames
-Windowed mode.
-Vendor: "b'Apple'"
-Renderer: b'Apple M1'
-Version: b'2.1 Metal - 88.1'
-Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Resetting cache.
-Early init took 1973.70s
-Loading error handling took 0.02s
-Loading script took 0.40s
-Loading save slot metadata took 0.02s
-Loading persistent took 0.00s
-Running init code took 0.03s
-Loading analysis data took 0.02s
-Analyze and compile ATL took 0.00s
-Reloading save slot metadata took 0.02s
-Index archives took 0.00s
-Backing up script files to '/Users/rima/Library/RenPy/backups/Novella-2024-FalcoNS':
-Dump and make backups took 0.04s
-Cleaning cache took 0.00s
-Making clean stores took 0.00s
-Initial gc took 0.05s
-DPI scale factor: 1.000000
-Creating interface object took 0.00s
-Cleaning stores took 0.00s
-Init translation took 0.03s
-Build styles took 0.00s
-Load screen analysis took 0.00s
-Analyze screens took 0.01s
-Save screen analysis took 0.03s
-Prepare screens took 0.08s
-Save pyanalysis. took 0.02s
-Save bytecode. took 0.02s
-Running _start took 0.00s
-Interface start took 0.09s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1440, 900)
-swap interval: 1 frames
-Windowed mode.
-Vendor: "b'Apple'"
-Renderer: b'Apple M1'
-Version: b'2.1 Metal - 88.1'
-Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Resetting cache.
-Early init took 1993.94s
+Early init took 229.63s
 Loading error handling took 0.02s
 Loading script took 0.41s
 Loading save slot metadata took 0.02s
@@ -1556,7 +316,7 @@ Prepare screens took 0.08s
 Save pyanalysis. took 0.02s
 Save bytecode. took 0.02s
 Running _start took 0.00s
-Interface start took 0.09s
+Interface start took 0.06s
 
 Initializing gl2 renderer:
 primary display bounds: (0, 0, 1440, 900)
@@ -1570,87 +330,10 @@ Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
 Maximum texture size: 4096x4096
 Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
 Maximum texture size: 4096x4096
-Resetting cache.
-Early init took 2007.96s
-Loading error handling took 0.02s
-Loading script took 0.40s
-Loading save slot metadata took 0.02s
-Loading persistent took 0.00s
-Running init code took 0.03s
-Loading analysis data took 0.03s
-Analyze and compile ATL took 0.00s
-Reloading save slot metadata took 0.02s
-Index archives took 0.00s
-Backing up script files to '/Users/rima/Library/RenPy/backups/Novella-2024-FalcoNS':
-Dump and make backups took 0.04s
-Cleaning cache took 0.00s
-Making clean stores took 0.00s
-Initial gc took 0.05s
-DPI scale factor: 1.000000
-Creating interface object took 0.00s
 Cleaning stores took 0.00s
-Init translation took 0.03s
+Init translation took 0.00s
 Build styles took 0.00s
-Load screen analysis took 0.00s
-Analyze screens took 0.01s
-Save screen analysis took 0.03s
-Prepare screens took 0.08s
-Save pyanalysis. took 0.02s
-Save bytecode. took 0.02s
+Load screen analysis took 0.04s
+Analyze screens took 0.00s
+Prepare screens took 0.00s
 Running _start took 0.00s
-Interface start took 0.09s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1440, 900)
-swap interval: 1 frames
-Windowed mode.
-Vendor: "b'Apple'"
-Renderer: b'Apple M1'
-Version: b'2.1 Metal - 88.1'
-Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Resetting cache.
-Early init took 2040.05s
-Loading error handling took 0.02s
-Loading script took 0.46s
-Loading save slot metadata took 0.02s
-Loading persistent took 0.00s
-Running init code took 0.03s
-Loading analysis data took 0.02s
-Analyze and compile ATL took 0.00s
-Reloading save slot metadata took 0.02s
-Index archives took 0.00s
-Backing up script files to '/Users/rima/Library/RenPy/backups/Novella-2024-FalcoNS':
-Dump and make backups took 0.04s
-Cleaning cache took 0.00s
-Making clean stores took 0.00s
-Initial gc took 0.05s
-DPI scale factor: 1.000000
-Creating interface object took 0.00s
-Cleaning stores took 0.00s
-Init translation took 0.04s
-Build styles took 0.00s
-Load screen analysis took 0.00s
-Analyze screens took 0.02s
-Save screen analysis took 0.03s
-Prepare screens took 0.12s
-Save pyanalysis. took 0.03s
-Save bytecode. took 0.03s
-Running _start took 0.00s
-Interface start took 0.09s
-
-Initializing gl2 renderer:
-primary display bounds: (0, 0, 1440, 900)
-swap interval: 1 frames
-Windowed mode.
-Vendor: "b'Apple'"
-Renderer: b'Apple M1'
-Version: b'2.1 Metal - 88.1'
-Display Info: None
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
-Screen sizes: virtual=(1920, 1080) physical=(1440, 784) drawable=(2880, 1568)
-Maximum texture size: 4096x4096
