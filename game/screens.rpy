@@ -1868,7 +1868,8 @@ screen ToMainScreenConfirm():
 screen AccuseConfirm(suspect):
     modal True
     zorder 101
-
+    add Solid("#00000080")
+    
     frame:
         xsize 992
         ysize 330 # 315
@@ -1898,12 +1899,12 @@ screen AccuseConfirm(suspect):
             xalign 0.5
             
             imagebutton:
-                auto "gui/menuButtons/quit_confirm_return/%s.png"
+                auto "gui/menuButtons/accuse_confirm_button/back/%s.png"
                 hovered [Play("sound", button_menu_hovered)]
                 action [Play("sound", button_click), Hide("AccuseConfirm"), With(dissolve)]
 
             imagebutton:
-                auto "gui/menuButtons/accuse_confirm_button/%s.png"
+                auto "gui/menuButtons/accuse_confirm_button/accuse/%s.png"
                 hovered [Play("sound", button_menu_hovered)]
                 action [
                     Hide("Choose_suspect"),
