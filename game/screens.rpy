@@ -1171,8 +1171,8 @@ screen SuspectWindow(suspect):
                 idle "images/suspect_window/blame_button.png"
                 action [
                     Play("sound", button_click),
-                    Hide("SuspectWindow"),
-                    Return(suspect)
+                    Show("AccuseConfirm", suspect=suspect),
+                    # Return(suspect)
                 ]
 ## Say screen ##################################################################
 ##
@@ -1864,6 +1864,55 @@ screen ToMainScreenConfirm():
                 auto "gui/menuButtons/quit_confirm_quit/%s.png"
                 hovered [Play("sound", button_menu_hovered)]
                 action [Play("sound", button_click), MainMenu(confirm=False, save=False)]
+
+screen AccuseConfirm(suspect):
+    modal True
+    zorder 101
+
+    frame:
+        xsize 992
+        ysize 330 # 315
+        xalign 0.8
+        yalign 0.5
+        background "gui/overlay/confirm.png"
+        
+        vbox:
+            xsize 992
+            spacing 30
+            imagebutton:
+                ypos 10
+                xalign 0.95
+                idle "gui/overlay/close_idle.png"
+                hover "gui/overlay/close_hover.png"
+                hovered [Play("sound", button_menu_hovered)]
+                action [Play("sound", button_click), Hide("AccuseConfirm"), With(dissolve)]
+
+            text _("Вы действительно хотите обвинить этого подозреваемого?"):
+                size(45)
+                color "#D9D9D9"
+                xalign 0.5
+
+        hbox:
+            yalign 0.85
+            spacing 10
+            xalign 0.5
+            
+            imagebutton:
+                auto "gui/menuButtons/quit_confirm_return/%s.png"
+                hovered [Play("sound", button_menu_hovered)]
+                action [Play("sound", button_click), Hide("AccuseConfirm"), With(dissolve)]
+
+            imagebutton:
+                auto "gui/menuButtons/accuse_confirm_button/%s.png"
+                hovered [Play("sound", button_menu_hovered)]
+                action [
+                    Hide("Choose_suspect"),
+                    Hide("AccuseConfirm"),
+                    Hide("SuspectWindow"),
+                    Return(suspect) 
+                ]
+
+
 
 ### Navigation screen used in game menus (main and in-game)
 init:

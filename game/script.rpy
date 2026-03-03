@@ -1370,6 +1370,9 @@ label chapter1_wrong_end:
     "Обвинение оказалось ошибочным."
     return
 
+
+
+
 label chapter_2:
     $ chapter = "Chapter Two"
     $ location = "3rd Location"
