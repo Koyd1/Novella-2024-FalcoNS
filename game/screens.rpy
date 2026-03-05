@@ -390,8 +390,8 @@ screen confirm_map_button(locs):
 
 screen notebook_icon():
     imagebutton:
-            xalign 0.975
-            ypos 50
+            xalign 0.998
+            ypos 56
             idle "images/map/notebook.png"
             hover "images/map/notebook_selected.png"
             action [Play("sound", button_click), ToggleScreen("Notebook")]
@@ -1009,15 +1009,7 @@ screen Choose_suspect():
         else:
             background "images/locations/office_choice.png"
 
-        imagebutton:
-            xalign 0.999
-            ypos 55
-            idle "images/map/notebook.png"
-            hover "images/map/notebook_selected.png"
-            action [Play("sound", button_click), ToggleScreen("Notebook")]
-
         fixed:
-            # spacing 30
             xalign 0.5
             yalign 0.6
             $ positions = [0.0, 0.35, 0.7]
@@ -1414,6 +1406,7 @@ screen quick_menu():
 
     ## Ensure this appears on top of other screens.
     zorder 100
+    use notebook_icon
 
     if quick_menu:
 
@@ -1952,6 +1945,7 @@ screen navigation_main_menu(cur_saves):
         use ChaptersButton
         use AchievementsButton
         use SettingsButton
+        
         # textbutton _("Load") action ShowMenu("load")
         # use ShowMenuButton("load", "Load")
 
@@ -4317,6 +4311,7 @@ screen quick_menu():
             textbutton _("Skip") action Skip(confirm=False) alternate Skip(fast=True, confirm=True)
             textbutton _("Auto") action Preference("auto-forward", "toggle")
             textbutton _("Menu") action ShowMenu()
+            
 
 
 style window:
