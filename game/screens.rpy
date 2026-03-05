@@ -2496,12 +2496,13 @@ default persistent.allAchivments = {
         {"id": "2.2","name": "Achievement 2.2", "image": "images/achievements/ach2_2.png", "type": "rare", "obtained": False, "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit."},
         {"id": "2.3","name": "Achievement 2.3", "image": "images/achievements/ach2_3.png", "type": "standard", "obtained": False, "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit."},
     ],
-    "locations": [
-        {"id": "3.1","name": "Achievement 3.1", "image": "images/achievements/ach3_1.png", "type": "legend", "obtained": False, "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit."},
-        {"id": "3.2","name": "Achievement 3.2", "image": "images/achievements/ach3_2.png", "type": "rare", "obtained": False, "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit."},
+    "case": [
+        {"id": "3.1","name": "Ты — убийца!", "image": "images/achievements/ach3_1.png", "type": "standard", "obtained": False, "description":"Обвинить настоящего преступника."},
+        {"id": "3.2","name": "Фальстарт", "image": "images/achievements/ach3_2.png", "type": "standard", "obtained": False, "description":"Обвинить невиновного персонажа."},
         {"id": "3.3","name": "Achievement 3.3", "image": "images/achievements/ach3_3.png", "type": "standard", "obtained": False, "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. "},
     ],
-    "Case": [
+    "locations": [
+        {"id": "4.1","name": "Ты — убийца!", "image": "images/achievements/ach4_1.png", "type": "legend", "obtained": False, "description":"Обвинить настоящего преступника."}
     ],
     "Category 5": [
     ]

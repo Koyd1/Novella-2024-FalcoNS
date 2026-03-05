@@ -1,28 +1,86 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script.rpy", line 1347, in script
-    if selected == correct_suspect:
-  File "game/script.rpy", line 1347, in <module>
-    if selected == correct_suspect:
-NameError: name 'correct_suspect' is not defined
+  File "game/script.rpy", line 1231, in script
+    call screen Map(chapter1_locs2)
+  File "renpy/common/000statements.rpy", line 671, in execute_call_screen
+    store._return = renpy.call_screen(name, *args, **kwargs)
+  File "game/screens.rpy", line 399, in execute
+    screen Map(locs):
+  File "game/screens.rpy", line 399, in execute
+    screen Map(locs):
+  File "game/screens.rpy", line 414, in execute
+    hbox:
+  File "game/screens.rpy", line 420, in execute
+    use person("govard")
+  File "game/screens.rpy", line 359, in execute
+    screen person(name):
+  File "game/screens.rpy", line 359, in execute
+    screen person(name):
+  File "game/screens.rpy", line 360, in execute
+    hbox:
+  File "game/screens.rpy", line 369, in execute
+    if directions[name] == "":
+  File "game/screens.rpy", line 369, in <module>
+    if directions[name] == "":
+KeyError: 'govard'
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 1347, in script
-    if selected == correct_suspect:
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/ast.py", line 1843, in execute
-    if renpy.python.py_eval(condition):
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/python.py", line 1209, in py_eval
-    return py_eval_bytecode(code, globals, locals)
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/python.py", line 1202, in py_eval_bytecode
-    return eval(bytecode, globals, locals)
-  File "game/script.rpy", line 1347, in <module>
-    if selected == correct_suspect:
-NameError: name 'correct_suspect' is not defined
+  File "game/script.rpy", line 1231, in script
+    call screen Map(chapter1_locs2)
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/ast.py", line 1974, in execute
+    self.call("execute")
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/ast.py", line 1953, in call
+    return renpy.statements.call(method, parsed, *args, **kwargs)
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/statements.py", line 374, in call
+    return method(parsed, *args, **kwargs)
+  File "renpy/common/000statements.rpy", line 671, in execute_call_screen
+    store._return = renpy.call_screen(name, *args, **kwargs)
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/exports/statementexports.py", line 345, in call_screen
+    rv = renpy.ui.interact(mouse="screen", type="screen", roll_forward=roll_forward)
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/ui.py", line 301, in interact
+    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/display/core.py", line 2215, in interact
+    repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, pause=pause, pause_start=pause_start, pause_modal=pause_modal, **kwargs) # type: ignore
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/display/core.py", line 2745, in interact_core
+    root_widget.visit_all(lambda d : d.per_interact())
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/display/displayable.py", line 434, in visit_all
+    d.visit_all(callback, seen)
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/display/displayable.py", line 434, in visit_all
+    d.visit_all(callback, seen)
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/display/displayable.py", line 434, in visit_all
+    d.visit_all(callback, seen)
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/display/screen.py", line 480, in visit_all
+    callback(self)
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/display/core.py", line 2745, in <lambda>
+    root_widget.visit_all(lambda d : d.per_interact())
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/display/screen.py", line 491, in per_interact
+    self.update()
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/display/screen.py", line 697, in update
+    self.screen.function(**self.scope)
+  File "game/screens.rpy", line 399, in execute
+    screen Map(locs):
+  File "game/screens.rpy", line 399, in execute
+    screen Map(locs):
+  File "game/screens.rpy", line 414, in execute
+    hbox:
+  File "game/screens.rpy", line 420, in execute
+    use person("govard")
+  File "game/screens.rpy", line 359, in execute
+    screen person(name):
+  File "game/screens.rpy", line 359, in execute
+    screen person(name):
+  File "game/screens.rpy", line 360, in execute
+    hbox:
+  File "game/screens.rpy", line 369, in execute
+    if directions[name] == "":
+  File "game/screens.rpy", line 369, in <module>
+    if directions[name] == "":
+KeyError: 'govard'
 
 macOS-14.5-arm64-arm-64bit arm64
 Ren'Py 8.3.2.24090902
 NovellaProj 1.0
-Mon Mar  2 12:29:35 2026
+Thu Mar  5 22:54:18 2026

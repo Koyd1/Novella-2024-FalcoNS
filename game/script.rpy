@@ -1360,8 +1360,9 @@ label chapter1_good_end:
     
     scene expression im.Scale("images/locations/right_end_busted.jpg",
         config.screen_width, config.screen_height) with dissolve
-
+    $ unlock_achievement( "case", "3.1", "Вы получили достижение!")
     "Справедливость восторжествовала."
+    
 
     return
 
@@ -1372,6 +1373,7 @@ label chapter1_wrong_end:
         config.screen_width, config.screen_height) with dissolve
 
     "Обвинение оказалось ошибочным."
+    $ unlock_achievement( "case", "3.2", "Вы получили достижение!")
 
     scene expression im.Scale("images/locations/wrong_end.png",
         config.screen_width, config.screen_height) with dissolve
