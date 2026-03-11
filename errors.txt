@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/screens.rpy", line 1056: keyword argument 'yalign' appears more than once in a hbox statement.
-    yalign 1.0
-          ^
+File "game/screens.rpy", line 2612: ATL statement contains two expressions in a row; is one of them a misspelled property? If not, separate them with pass.
+    add_mask "gui/rounded_10_mask.png"
+                                      ^
 
 Ren'Py Version: Ren'Py 8.3.2.24090902
-Mon Mar  2 12:55:29 2026
+Wed Mar 11 22:19:28 2026

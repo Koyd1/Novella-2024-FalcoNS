@@ -1023,7 +1023,7 @@ screen Choose_suspect():
                     "lewis": (548, 858)
                 }
                 $ size = sizes.get(sus, (582, 858))
-                $ img_path = f"images/characters/chapter1/{sus}/{sus}.png" if sus != "lewis" else "images/characters/chapter1/lewis.png"
+                $ img_path = f"images/characters/chapter1/suspects/{sus}.png" if sus != "lewis" else "images/characters/chapter1/lewis.png"
 
                 $ is_left = show_window and i == 0
                 $ transform_to_use = suspect_zoomed if is_left else suspect_normal
@@ -2523,9 +2523,9 @@ transform notify_achieve_appear:
 
 default persistent.allAchivments = {
     "acquaintances": [
-        {"id": "1.1","name": "Achievement 1.1", "image": "images/achievements/ach1.png", "type": "standard", "obtained": False, "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit.asdasdasdasdasdasd"},
-        {"id": "1.2","name": "Achievement 1.2", "image": "images/achievements/ach1.png", "type": "rare", "obtained": False, "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit."},
-        {"id": "1.3","name": "Achievement 1.3", "image": "images/achievements/ach1.png", "type": "legend", "obtained": False, "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit."},
+        {"id": "1.1","name": "Дела любовные", "image": "images/achievements/ach1.png", "type": "standard", "obtained": False, "description":"допросить свидетеля, состоявшего в отношениях с жертвой. "},
+        {"id": "1.2","name": "Ты — убийца!", "image": "images/achievements/ach2.png", "type": "standard", "obtained": False, "description":"Обвинить настоящего преступника."},
+        {"id": "1.3","name": "Фальстарт", "image": "images/achievements/ach3.png", "type": "standard", "obtained": False, "description":"Обвинить невиновного персонажа."},
     ],
     "objects": [
         {"id": "2.1","name": "Achievement 2.1", "image": "images/achievements/ach2_1.png", "type": "standard", "obtained": False, "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit."},
@@ -2533,14 +2533,23 @@ default persistent.allAchivments = {
         {"id": "2.3","name": "Achievement 2.3", "image": "images/achievements/ach2_3.png", "type": "standard", "obtained": False, "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit."},
     ],
     "case": [
-        {"id": "3.1","name": "Ты — убийца!", "image": "images/achievements/ach3_1.png", "type": "standard", "obtained": False, "description":"Обвинить настоящего преступника."},
-        {"id": "3.2","name": "Фальстарт", "image": "images/achievements/ach3_2.png", "type": "standard", "obtained": False, "description":"Обвинить невиновного персонажа."},
+        # {"id": "3.1","name": "Ты — убийца!", "image": "images/achievements/ach3_1.png", "type": "standard", "obtained": False, "description":"Обвинить настоящего преступника."},
+        # {"id": "3.2","name": "Фальстарт", "image": "images/achievements/ach3_2.png", "type": "standard", "obtained": False, "description":"Обвинить невиновного персонажа."},
         {"id": "3.3","name": "Achievement 3.3", "image": "images/achievements/ach3_3.png", "type": "standard", "obtained": False, "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. "},
     ],
     "locations": [
-        {"id": "4.1","name": "Ты — убийца!", "image": "images/achievements/ach4_1.png", "type": "legend", "obtained": False, "description":"Обвинить настоящего преступника."}
+        {"id": "4.1","name": "Примерный семьянин", "image": "images/achievements/ach4_1.png", "type": "legend", "obtained": False, "description":"побывать в доме родственников жертвы."},
+        {"id": "4.2","name": "Вечный студент", "image": "images/achievements/ach4_2.png", "type": "legend", "obtained": False, "description":" побывать в учебном заведении с допросом."},
+        {"id": "4.3","name": "Праздник желудка", "image": "images/achievements/ach4_3.png", "type": "legend", "obtained": False, "description":" побывать в кафе или ресторане с допросом."},
+        {"id": "4.4","name": "Внеплановое обследование", "image": "images/achievements/ach4_4.png", "type": "legend", "obtained": False, "description":" побывать в медицинском учреждении с допросом."}
+
     ],
-    "Category 5": [
+    "leadership": [
+        {"id": "5.1","name": "Давление с толком", "image": "images/achievements/ach5_1.png", "type": "legend", "obtained": False, "description":"выбрать вариант диалога с насмешкой"},
+        {"id": "5.2","name": "Секретное оружие - сарказм", "image": "images/achievements/ach5_2.png", "type": "legend", "obtained": False, "description":"получить информацию, надавив на подозреваемого. "},
+        {"id": "5.3","name": "Время - деньги", "image": "images/achievements/ach5_3.png", "type": "legend", "obtained": False, "description":"не упустить возможность опросить еще свидетелей. "},
+        {"id": "5.4","name": "Вдох, выдох", "image": "images/achievements/ach5_4.png", "type": "legend", "obtained": False, "description":"получить информацию, надавив на подозреваемого. "},
+        {"id": "5.5","name": "Психотерапия", "image": "images/achievements/ach5_5.png", "type": "legend", "obtained": False, "description":"разблокировать воспоминание.  "},
     ]
     # "Category 6": [
     # ],
@@ -2553,11 +2562,14 @@ default persistent.allAchivments = {
 }
 
 init python:
+    import time
+
     def unlock_achievement(category, ach_id, message):
         for ach in persistent.allAchivments[category]:
             if ach["id"] == ach_id:
-                if ach["obtained"] == False:
+                if not ach["obtained"]:
                     ach["obtained"] = True
+                    ach["obtained_time"] = time.time()
                     renpy.show_screen("notifyAchieve", message, ach["name"], ach["image"])
     
     def get_achievements_by_category(category, filter_type=None, all=False):
@@ -2632,10 +2644,6 @@ screen achievements_types():
         xalign 0.9
         background None
 
-        # text "Всего Достижений " + str(sum(1 for category in persistent.allAchivments.values() for ach in category if ach["obtained"])) + "/" + str(sum(len(category) for category in persistent.allAchivments.values())):
-        #     size(48)
-        #     xalign 0.5
-        #     ypos 25
         
         use folders_grid
 
@@ -2656,33 +2664,20 @@ screen achievement(name, ach_image_path, ach_type, desc):
 
         hbox:
             image str(ach_image_path):
-            # image "images/achievements/" + str(ach_image_path):
                 pos(25, 25)
             vbox:
-                pos(25, 25)
+                pos(50, 50)
+                xmaximum 750
+
                 text _(name):
-                    xpos 30
-                    size(48)
+                    size 48
+                    xmaximum 750
+                    # layout "subtitle"
+
                 text _(desc):
-                    xpos 30
-                    ypos 30
-
-# screen achievement_filter()
-
-# screen standard_button:
-#     imagebutton:
-#         idle "gui/achievementsScreen/standard.png"
-#         action NullAction()
-
-# screen rare_button:
-#     imagebutton:
-#         idle "gui/achievementsScreen/rare.png"
-#         action NullAction()
-
-# screen legend_button:
-#     imagebutton:
-#         idle "gui/achievementsScreen/legend.png"
-#         action NullAction()
+                    ypos 20
+                    xmaximum 750
+                    # layout "subtitle"
 
 default cur_sel_ach_type = "all"
 
@@ -2770,12 +2765,20 @@ screen achievements(category, filter_type = None):
 
             $ achievements_obtained = get_achievements_by_category(category, filter_type=filter_type, all=False)
             $ achievements_all = get_achievements_by_category(category, filter_type=filter_type, all=True)
+
+            $ achievements_all = sorted(
+                achievements_all,
+                key=lambda ach: (
+                    not ach["obtained"],
+                    -(ach.get("obtained_time", 0))
+                )
+            )
             $ n_achievements = len(achievements_all)
 
             $ n_ach_obtained = len(achievements_obtained)
 
-            for i, ach in enumerate(achievements_all):
-                if i < n_ach_obtained and achievements_obtained[i]["id"] == ach["id"]:
+            for ach in achievements_all:
+                if ach["obtained"]:
                     use achievement(ach["name"], ach["image"], ach["type"], ach["description"])
                 else:
                     if ach["type"] == "rare":
@@ -2784,36 +2787,6 @@ screen achievements(category, filter_type = None):
                         use achievement(ach["name"], "gui/achievementsScreen/locked_legend.png", ach["type"], "Вы еще не октрыли данное достижение")
                     else: # standard
                         use achievement(ach["name"], "gui/achievementsScreen/locked_standard.png", ach["type"], "Вы еще не октрыли данное достижение")
-
-                    
-# screen achievements_1():
-#     tag menu
-
-#     add "gui/menu_background.png"
-
-#     if main_menu:
-#         use navigation_menu
-#     else:
-#         use navigation_game
-
-#     frame:
-#         xsize 1346
-#         ysize 990
-#         yalign 0.5
-#         xalign 0.9
-#         background "gui/achievementsScreen/achievements_holder.png"
-
-#         has viewport:
-#             draggable True
-#             scrollbars "vertical"
-
-#         vbox:
-#             spacing 20
-
-#             use filter_frame
-
-#             for i in range(achs_1_num):
-#                 use achievement(achs_1_name[i], achs_1_desc[i], achs_1_image[i], achs_1_rarity[i])
 
 
 
@@ -2903,20 +2876,13 @@ screen file_slot(slot, do_load):
                 Play("sound", button_click),
                 SetVariable("cur_sel_save", slot),
                 Show("LoadSaveConfirm", slot=slot, chapter=FileJson(slot, key="chapter", missing = "Unknown Chapter", empty=""), location=FileJson(slot, key="location", missing="Unknown Location", empty=""), cur_sel_save=cur_sel_save, do_load=do_load), 
-                # Show("LoadSaveConfirm", slot=slot, time=FileTime(slot, format=_("{#file_time}%d/%m/%Y %H:%M:%S"), empty=_("Empty slot")), cur_sel_save=cur_sel_save, do_load=do_load), 
                 With(dissolve)
             ]
-        # action Confirm("Хотите загрузить данное сохранение?", yes = FileAction(slot))
 
         has hbox
 
         # Скриншот сохранения
         add FileScreenshot(slot, empty="gui/saveLoadMenu/empty_save.png") xsize 326 ysize 195 xalign 0.0 # Empty.png !!!!
-        ## Here should be None.png
-
-        # frame:
-        #     background "gui/mask/mask_image.png"
-        #     add FileScreenshot(slot) xsize 326 ysize 195
 
         # Информация о сохранении
         hbox:
@@ -2956,25 +2922,13 @@ screen file_slot(slot, do_load):
 
         if FileLoadable(slot):
             key "save_delete" action [SetVariable("cur_sel_save", slot), Show("DeleteSaveConfirm", slot=slot, cur_sel_save=cur_sel_save), With(dissolve)]
-        
-        # key "save_delete" action FileDelete(slot)
+
 
 default cur_sel_save = "asasd;adm"
 
 screen file_slots(title, do_load):
 
     default page_name_value = FilePageNameInputValue(pattern=_("Page {}"), auto=_("Automatic saves"), quick=_("Quick saves"))
-
-    # use game_menu(title):
-
-    #     fixed:
-    #         order_reverse True
-    #         button:
-    #             style "page_label"
-
-    #             key_events True
-    #             xalign 0
-    #             action page_name_value.Toggle()
 
     if main_menu:
         use navigation_menu
@@ -3029,9 +2983,7 @@ style window_background:
     xsize 1334
     ysize 1000
     background "gui/chaptersScreen/transparent.png"
-    # background "gui/saveLoadMenu/save_holder.png"
-    # background "gui/slot_capsule/window_background.png"
-    # right_padding 30
+
 
 
 style slot_capsule_button:
@@ -3042,19 +2994,19 @@ style slot_capsule_button:
     left_padding 18
     left_margin 63
     right_margin 57
-    # background "gui/slot_capsule/slot_capsule_background.png"
+
 
 
 style slot_capsule_button_text:
     textalign 0.5
 
 style slot_time_text:
-    # font "gui/Philosopher-Regular.ttf"
+
     size 40
     color "#D9D9D9"
 
 style page_name_text:
-    # font "gui/Philosopher-Bold.ttf"
+
     size 60
     color "#D9D9D9"
     xalign 0.5
@@ -3065,8 +3017,7 @@ style page_name_frame:
     xsize 897
     ysize 71
     xalign 0.5
-    # background "gui/saveLoadMenu/page_name_frame.png"
-    # background "gui/slot_capsule/slot_page_name_back.png"
+
 
 style slot_chapter_text:
     font gui.text_font
