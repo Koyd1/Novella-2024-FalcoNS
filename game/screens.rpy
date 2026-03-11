@@ -399,8 +399,8 @@ screen notebook_icon():
 screen Map(locs):
     add "images/map/background.png"
 
-    text (selected_person)
-    text (directions["casey"])
+    # text (selected_person)
+    # text (directions["casey"])
 
     imagebutton:
         xpos 15
@@ -1906,7 +1906,49 @@ screen AccuseConfirm(suspect):
                     Return(suspect) 
                 ]
 
+screen SuspectAccuseRetryConfirm():
+    modal True
+    zorder 101
+    add Solid("#00000080")
+    
+    frame:
+        xsize 992
+        ysize 330 # 315
+        xalign 0.5
+        yalign 0.5
+        background "gui/overlay/confirm.png"
+        
+        # vbox:
+        #     xsize 992
+        #     spacing 30
+            # imagebutton:
+            #     ypos 10
+            #     xalign 0.95
+            #     idle "gui/overlay/close_idle.png"
+            #     hover "gui/overlay/close_hover.png"
+            #     hovered [Play("sound", button_menu_hovered)]
+            #     action [Play("sound", button_click), Hide("AccuseConfirm"), With(dissolve)]
 
+        text _("Попробовать еще раз?"):
+            size(45)
+            color "#D9D9D9"
+            xalign 0.5
+            yalign 0.345
+
+        hbox:
+            yalign 0.85
+            spacing 10
+            xalign 0.5
+            
+            imagebutton:
+                auto "gui/menuButtons/quit_confirm_quit/%s.png"
+                hovered [Play("sound", button_menu_hovered)]
+                action [Play("sound", button_click), Hide("SuspectAccuseRetryConfirm"), With(dissolve), MainMenu(confirm=False, save=False)]
+
+            imagebutton:
+                auto "gui/menuButtons/accuse_confirm_button/accuse/%s.png"
+                hovered [Play("sound", button_menu_hovered)]
+                action [Hide("SuspectAccuseRetryConfirm"), Jump("choose_suspect")]
 
 ### Navigation screen used in game menus (main and in-game)
 init:

@@ -1346,9 +1346,15 @@ label choose_suspect:
     if selected == "lewis":
         jump chapter1_good_end
     else:
+        $ suspects_order = ["james", "kyle", "lewis"]
+        $ show_window = False
+        $ transform_to_use = None
+        $ selected = None
+        $ selected_suspect = None
         jump chapter1_wrong_end
 
 label chapter1_good_end:
+    $ renpy.block_rollback()
 
     scene expression im.Scale("images/locations/right_end.png",
         config.screen_width, config.screen_height) with dissolve
@@ -1368,17 +1374,20 @@ label chapter1_good_end:
 
 
 label chapter1_wrong_end:
+    $ renpy.block_rollback()
 
     scene expression im.Scale("images/locations/right_end.png",
         config.screen_width, config.screen_height) with dissolve
 
     "Обвинение оказалось ошибочным."
-    $ unlock_achievement( "case", "3.2", "Вы получили достижение!")
+    # $ unlock_achievement( "case", "3.2", "Вы получили достижение!")
 
     scene expression im.Scale("images/locations/wrong_end.png",
         config.screen_width, config.screen_height) with dissolve
 
     "Убийца все еще на свободе."
+
+    call screen SuspectAccuseRetryConfirm
     return
 
 
