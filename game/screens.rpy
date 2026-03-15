@@ -106,10 +106,10 @@ screen unlock_notification(name, image_path):
         hbox:
             spacing 20
             add Transform(image_path, xysize=(70, 70), fit="contain")
-            text f"Добавлена информация: {name}!":
+            text f"Добавлена информация: {{b}}{name}!{{/b}}":
                 color "#ffffff"
                 size 26
-                bold True
+                # bold True
                 xalign 0.5
                 yalign 0.5
                 outlines [(1, "#000", 0, 0)]
@@ -123,6 +123,32 @@ transform notif_slide:
     easein 0.4 yoffset 0 alpha 1.0
     pause 2.0
     easeout 0.4 alpha 0.0
+
+screen unlock_notification_achievement(message, title, currentImage):
+    zorder 200  # поверх всего
+    frame:
+        at notif_slide
+        xalign 0.5
+        yalign 0.01  # сверху по центру
+        background Frame("gui/button/1111choice_idle_background.png", 10, 10)
+        padding (20, 20)
+        xmaximum 700
+        yminimum 0
+        xfill False
+
+        hbox:
+            spacing 20
+            add Transform(currentImage, xysize=(70, 70), fit="contain")
+            text f"Получено достижение: {{b}}{title}{{/b}}!":
+                color "#ffffff"
+                size 26
+                # bold True
+                xalign 0.5
+                yalign 0.5
+                outlines [(1, "#000", 0, 0)]
+
+    # автоматическое скрытие через 2.5 секунды
+    timer 2.5 action Hide("unlock_notification")
 
 init python:
     def unlock_person(key, from_ch=""):
@@ -1969,7 +1995,7 @@ screen SuspectAccuseRetryConfirm():
             xalign 0.5
             
             imagebutton:
-                auto "gui/menuButtons/quit_confirm_quit/%s.png"
+                auto "gui/menuButtons/retry_confirm/%s.png"
                 hovered [Play("sound", button_menu_hovered)]
                 action [Play("sound", button_click), Hide("SuspectAccuseRetryConfirm"), With(dissolve), MainMenu(confirm=False, save=False)]
 
@@ -2549,6 +2575,14 @@ transform notify_achieve_appear:
     on hide:
         linear .5 yalign -0.5
 
+default achievements_category_to_rus = {
+    "acquaintances" : "Знакомства",
+    "objects" : "Предметы",
+    "case" : "Дела",
+    "locations" : "Места",
+    "leadership" : "Лидерство"
+}
+
 default persistent.allAchivments = {
     "acquaintances": [
         {"id": "1.1","name": "Дела любовные", "image": "images/achievements/ach1.png", "type": "standard", "obtained": False, "description":"допросить свидетеля, состоявшего в отношениях с жертвой. "},
@@ -2598,7 +2632,8 @@ init python:
                 if not ach["obtained"]:
                     ach["obtained"] = True
                     ach["obtained_time"] = time.time()
-                    renpy.show_screen("notifyAchieve", message, ach["name"], ach["image"])
+                    # renpy.show_screen("notifyAchieve", message, ach["name"], ach["image"])
+                    renpy.show_screen("unlock_notification_achievement", message, ach["name"], ach["image"])
     
     def check_clues_count():
         collected = 0
@@ -2798,7 +2833,7 @@ screen achievements(category, filter_type = None):
             xsize 1300
             spacing 20
 
-            text _(str(category)):
+            text achievements_category_to_rus[str(category)]:
                 size(48)
                 xalign 0.5
 
