@@ -1,26 +1,30 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script.rpy", line 691, in script
-    $ unlock_achievement( "locations", "Вы получили достижение!")
-  File "game/script.rpy", line 691, in <module>
-    $ unlock_achievement( "locations", "Вы получили достижение!")
-TypeError: unlock_achievement() missing 1 required positional argument: 'message'
+  File "game/script.rpy", line 1405, in script
+    $togle_first_try()
+  File "game/script.rpy", line 1405, in <module>
+    $togle_first_try()
+  File "game/screens.rpy", line 976, in togle_first_try
+    if first_try:
+UnboundLocalError: local variable 'first_try' referenced before assignment
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 691, in script
-    $ unlock_achievement( "locations", "Вы получили достижение!")
+  File "game/script.rpy", line 1405, in script
+    $togle_first_try()
   File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/ast.py", line 821, in execute
     renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
   File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/python.py", line 1178, in py_exec_bytecode
     exec(bytecode, globals, locals)
-  File "game/script.rpy", line 691, in <module>
-    $ unlock_achievement( "locations", "Вы получили достижение!")
-TypeError: unlock_achievement() missing 1 required positional argument: 'message'
+  File "game/script.rpy", line 1405, in <module>
+    $togle_first_try()
+  File "game/screens.rpy", line 976, in togle_first_try
+    if first_try:
+UnboundLocalError: local variable 'first_try' referenced before assignment
 
 macOS-14.5-arm64-arm-64bit arm64
 Ren'Py 8.3.2.24090902
 NovellaProj 1.0
-Mon Mar  9 21:29:08 2026
+Sun Mar 15 14:27:10 2026

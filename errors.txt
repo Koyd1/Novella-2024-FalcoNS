@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/screens.rpy", line 2612: ATL statement contains two expressions in a row; is one of them a misspelled property? If not, separate them with pass.
-    add_mask "gui/rounded_10_mask.png"
-                                      ^
+File "game/screens.rpy", line 975: invalid syntax
+    def togle_first_try:
+                        ^
 
 Ren'Py Version: Ren'Py 8.3.2.24090902
-Wed Mar 11 22:19:28 2026
+Sun Mar 15 14:24:54 2026

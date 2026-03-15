@@ -960,6 +960,34 @@ default suspects_info = {
     "kyle" : {"ПОДОЗРЕВАЕМЫЙ":"Кайл Ричардс","Место проживания":"Марч-драйв, 77", "Краткое описание":"Были вместе четыре года. Расстались из-за уезда Кайла на чемпионат - попытался вернуть её, но она была уже с другим.", "Отношения с жертвой": "Бывший парень жертвы.","Алиби":"Не подтверждено: после инцидента в ресторане уехал на озеро Ист-Спринг"},
     "lewis" : {"ПОДОЗРЕВАЕМЫЙ":"Луис Веласкес","Место проживания":"Неизвестно", "Краткое описание":"Студент, подрабатывает мойкой посуды в ресторане на Блинк-Роуд. С детства имел много прозвищ из-за латинских корней, популярностью никогда не пользовался", "Отношения с жертвой": "Одногруппник жертвы","Алиби":"Неизвестно"}
 }
+default persistent.first_try = True
+default persistent.characters = {
+    "judy":False,
+    "mr_lawrence": False,
+    "mrs_lawrence":False,
+    "dr_andrews":False,
+    "mrs_velaskez":False,
+    "lisa":False,
+    "james":False,
+    "kyle":False
+}
+init python:
+    def togle_first_try(correct_suspect = False):
+        if persistent.first_try and correct_suspect:
+            unlock_achievement("case", "3.1", "Вы получили достижение!")
+        persistent.first_try = False
+        renpy.save_persistent()
+    def character_interviewed(pers):
+        persistent.characters[pers] = True
+        for value in persistent.characters.values():
+            if not value:
+                return
+        unlock_achievement("case", "3.3", "Вы получили достижение!")
+        renpy.save_persistent()
+
+
+    
+
 
 transform darken:
     matrixcolor BrightnessMatrix(-0.95)
@@ -2524,31 +2552,31 @@ transform notify_achieve_appear:
 default persistent.allAchivments = {
     "acquaintances": [
         {"id": "1.1","name": "Дела любовные", "image": "images/achievements/ach1.png", "type": "standard", "obtained": False, "description":"допросить свидетеля, состоявшего в отношениях с жертвой. "},
-        {"id": "1.2","name": "Ты — убийца!", "image": "images/achievements/ach2.png", "type": "standard", "obtained": False, "description":"Обвинить настоящего преступника."},
-        {"id": "1.3","name": "Фальстарт", "image": "images/achievements/ach3.png", "type": "standard", "obtained": False, "description":"Обвинить невиновного персонажа."},
+        {"id": "1.2","name": "Ты — убийца!", "image": "images/achievements/ach2.png", "type": "rare", "obtained": False, "description":"Обвинить настоящего преступника."},
+        {"id": "1.3","name": "Фальстарт", "image": "images/achievements/ach3.png", "type": "rare", "obtained": False, "description":"Обвинить невиновного персонажа."},
     ],
     "objects": [
-        {"id": "2.1","name": "Achievement 2.1", "image": "images/achievements/ach2_1.png", "type": "standard", "obtained": False, "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit."},
-        {"id": "2.2","name": "Achievement 2.2", "image": "images/achievements/ach2_2.png", "type": "rare", "obtained": False, "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit."},
-        {"id": "2.3","name": "Achievement 2.3", "image": "images/achievements/ach2_3.png", "type": "standard", "obtained": False, "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit."},
+        {"id": "2.1","name": "Переодевание", "image": "images/achievements/ach2_1.png", "type": "standard", "obtained": False, "description":"осмотреть одежду жертвы."},
+        {"id": "2.2","name": "Коллекция", "image": "images/achievements/ach2_2.png", "type": "standard", "obtained": False, "description":"собрать 5 улик за главу."},
+        {"id": "2.3","name": "Дорогой дневник…", "image": "images/achievements/ach2_3.png", "type": "rare", "obtained": False, "description":"получить личный предмет жертвы."},
     ],
     "case": [
-        # {"id": "3.1","name": "Ты — убийца!", "image": "images/achievements/ach3_1.png", "type": "standard", "obtained": False, "description":"Обвинить настоящего преступника."},
-        # {"id": "3.2","name": "Фальстарт", "image": "images/achievements/ach3_2.png", "type": "standard", "obtained": False, "description":"Обвинить невиновного персонажа."},
-        {"id": "3.3","name": "Achievement 3.3", "image": "images/achievements/ach3_3.png", "type": "standard", "obtained": False, "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. "},
+        {"id": "3.1","name": "Один шанс", "image": "images/achievements/ach3_1.png", "type": "legend", "obtained": False, "description":"сделать правильный вывод с первой попытки."},
+        {"id": "3.2","name": "Вдоль и поперек", "image": "images/achievements/ach3_2.png", "type": "rare", "obtained": False, "description":"Обвинить невиновного персонажа."},
+        {"id": "3.3","name": "Допрос", "image": "images/achievements/ach3_3.png", "type": "rare", "obtained": False, "description":" лично допросить всех персонажей главы. "},
     ],
     "locations": [
-        {"id": "4.1","name": "Примерный семьянин", "image": "images/achievements/ach4_1.png", "type": "legend", "obtained": False, "description":"побывать в доме родственников жертвы."},
-        {"id": "4.2","name": "Вечный студент", "image": "images/achievements/ach4_2.png", "type": "legend", "obtained": False, "description":" побывать в учебном заведении с допросом."},
-        {"id": "4.3","name": "Праздник желудка", "image": "images/achievements/ach4_3.png", "type": "legend", "obtained": False, "description":" побывать в кафе или ресторане с допросом."},
-        {"id": "4.4","name": "Внеплановое обследование", "image": "images/achievements/ach4_4.png", "type": "legend", "obtained": False, "description":" побывать в медицинском учреждении с допросом."}
+        {"id": "4.1","name": "Примерный семьянин", "image": "images/achievements/ach4_1.png", "type": "standard", "obtained": False, "description":"побывать в доме родственников жертвы."},
+        {"id": "4.2","name": "Вечный студент", "image": "images/achievements/ach4_2.png", "type": "standard", "obtained": False, "description":" побывать в учебном заведении с допросом."},
+        {"id": "4.3","name": "Праздник желудка", "image": "images/achievements/ach4_3.png", "type": "standard", "obtained": False, "description":" побывать в кафе или ресторане с допросом."},
+        {"id": "4.4","name": "Внеплановое обследование", "image": "images/achievements/ach4_4.png", "type": "standard", "obtained": False, "description":" побывать в медицинском учреждении с допросом."}
 
     ],
     "leadership": [
-        {"id": "5.1","name": "Давление с толком", "image": "images/achievements/ach5_1.png", "type": "legend", "obtained": False, "description":"выбрать вариант диалога с насмешкой"},
-        {"id": "5.2","name": "Секретное оружие - сарказм", "image": "images/achievements/ach5_2.png", "type": "legend", "obtained": False, "description":"получить информацию, надавив на подозреваемого. "},
-        {"id": "5.3","name": "Время - деньги", "image": "images/achievements/ach5_3.png", "type": "legend", "obtained": False, "description":"не упустить возможность опросить еще свидетелей. "},
-        {"id": "5.4","name": "Вдох, выдох", "image": "images/achievements/ach5_4.png", "type": "legend", "obtained": False, "description":"получить информацию, надавив на подозреваемого. "},
+        {"id": "5.1","name": "Давление с толком", "image": "images/achievements/ach5_1.png", "type": "rare", "obtained": False, "description":"выбрать вариант диалога с насмешкой"},
+        {"id": "5.2","name": "Секретное оружие - сарказм", "image": "images/achievements/ach5_2.png", "type": "standard", "obtained": False, "description":"получить информацию, надавив на подозреваемого. "},
+        {"id": "5.3","name": "Время - деньги", "image": "images/achievements/ach5_3.png", "type": "rare", "obtained": False, "description":"не упустить возможность опросить еще свидетелей. "},
+        {"id": "5.4","name": "Вдох, выдох", "image": "images/achievements/ach5_4.png", "type": "standard", "obtained": False, "description":"получить информацию, надавив на подозреваемого. "},
         {"id": "5.5","name": "Психотерапия", "image": "images/achievements/ach5_5.png", "type": "legend", "obtained": False, "description":"разблокировать воспоминание.  "},
     ]
     # "Category 6": [
@@ -2572,6 +2600,19 @@ init python:
                     ach["obtained_time"] = time.time()
                     renpy.show_screen("notifyAchieve", message, ach["name"], ach["image"])
     
+    def check_clues_count():
+        collected = 0
+        for clue in clues.values():
+            if not clue["locked"]:
+                collected += 1
+        if collected >= 5:
+            unlock_achievement("objects", "2.2", "Вы получили достижение!")
+        for clue in clues.values():
+            if clue["locked"]:
+                return
+        unlock_achievement("case", "3.2", "Вы получили достижение!")
+    
+
     def get_achievements_by_category(category, filter_type=None, all=False):
         if category not in persistent.allAchivments:
             return []

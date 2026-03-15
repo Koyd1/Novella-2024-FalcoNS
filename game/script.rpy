@@ -393,6 +393,7 @@ label univ_rs:
             $ unlock_achievement( "leadership", "5.4", "Вы получили достижение!")
             mc "Спасибо за помощь следствию, мисс."
             judy "Не забудьте передать привет."
+            $character_interviewed("judy")
             hide judy
             $unlock_person("judy") 
             jump evidence_exchange
@@ -400,6 +401,7 @@ label univ_rs:
         "Я еще успею с ним общаться в более подходящей обстановке":
             mc "Спасибо за помощь следствию, мисс."
             judy "Не забудьте передать привет."
+            $character_interviewed("judy")
             hide judy
             $unlock_person("judy")
             jump evidence_exchange
@@ -516,8 +518,9 @@ label par_house_wuc: # Вы были близки с ней
 
     show mrs_lawrence at halfed_right, lighten
     mrs_lawrence "Я даже никогда не заглядывала в ее личный дневник, хотя знала, где он лежит. Он даже сейчас у нас дома. Джейн его оставила у нас, когда неделю здесь жила. Но он очень древний, вряд ли он Вам поможет."
-
+    
     # *Получить записи дневника*
+    $ unlock_achievement( "objects", "2.3", "Вы получили достижение!")
     "(В личном дневнике записи о маме-тиране и многолетнем сталкерстве)"
 
     mc "Кто-то мог желать ей зла?"
@@ -537,6 +540,8 @@ label par_house_wuc: # Вы были близки с ней
 
     hide mr_lawrence
     hide mrs_lawrence
+    $character_interviewed("mr_lawrence")
+    $character_interviewed("mrs_lawrence")
     
     $unlock_person("mr_lawrence")
     jump evidence_exchange
@@ -546,6 +551,7 @@ label par_house_whss: # С кем делилась переживаниями
     mrs_lawrence "Она держала какую-то тетрадку под кроватью. Полагаю, что это ее личный дневник, она его оставила у нас, когда неделю здесь жила. Но он очень древний, вряд ли он Вам поможет."
 
     # *Получить записи дневника*
+    $ unlock_achievement( "objects", "2.3", "Вы получили достижение!")
     "(В личном дневнике записи о маме-тиране и многолетнем сталкерстве)"
 
     mc "Кто-то мог желать ей зла?"
@@ -566,6 +572,8 @@ label par_house_whss: # С кем делилась переживаниями
     hide mr_lawrence
     hide mrs_lawrence
     $unlock_person("mrs_lawrence")
+    $character_interviewed("mr_lawrence")
+    $character_interviewed("mrs_lawrence")
     jump evidence_exchange
 
 label par_house_tthah: # Вы говорили с ним после случившегося
@@ -662,9 +670,11 @@ label hosp_lm: # Узнать больше
             mc "Спасибо, Эндрюс."
             hide dr_andrews
             $unlock_person("dr_andrews")
+            $character_interviewed("dr_andrews")
             jump evidence_exchange
         "Я не хочу об этом говорить":
             hide dr_andrews
+            $character_interviewed("dr_andrews")
             $unlock_person("dr_andrews")
             jump evidence_exchange
 
@@ -677,10 +687,12 @@ label hosp_lc: # Взглянуть на веши
             dr_andrews "Она сильная как ее мама, она справится. Если я смогу чем-то помочь, Жаклин, всегда можешь на меня рассчитывать"
             mc "Спасибо, Эндрюс."
             hide dr_andrews
+            $character_interviewed("dr_andrews")
             $unlock_person("dr_andrews")
             jump evidence_exchange
         "Я не хочу об этом говорить":
             hide dr_andrews
+            $character_interviewed("dr_andrews")
             $unlock_person("dr_andrews")
             jump evidence_exchange
 
@@ -736,6 +748,7 @@ label rest_am: # Распросить еще
     mc "С кем я могу поговорить из официантов, кто видел пару в тот вечер?"
     mrs_velaskez "Сейчас позову Лизу, она их обслуживала. Единственный толковый человек, который здесь работает."
     hide mrs_velaskez with dissolve
+    $character_interviewed("mrs_velaskez")
     $unlock_person("mrs_velaskez")
     show lisa at halfed
     with dissolve
@@ -772,10 +785,12 @@ label rest_whn: # # Что произошло после
     lisa "Сейчас напишу."
     hide lisa
     $unlock_person("lisa")
+    $character_interviewed("lisa")
     jump evidence_second_exchange
 
 label rest_cwl2: # пообщаться с Лизой v2
     hide mrs_velaskez with dissolve
+    $character_interviewed("mrs_velaskez")
     $unlock_person("mrs_velaskez")
     show lisa at halfed
     with dissolve
@@ -956,6 +971,7 @@ label jhouse_wawhd: # Есть кто-то, кто мог желать ей см
     mc_thoughts "Я тоже."
     mc "Спасибо за помощь, мистер Майерс."
     $unlock_person("james")
+    $character_interviewed("james")
     jump evidence_second_exchange
 
 
@@ -1136,6 +1152,7 @@ label khouse_whir: # Что произошло в ресторане?
             mc "Ясно, спасибо за помощь следствию, мистер Ричардс."
             kyle "Рад помочь."
             $unlock_person("kyle")
+            $character_interviewed("kyle")
             jump evidence_second_exchange
         "Где находится это 'ваше место'?":
             kyle "Озеро Ист-Спринг в 15 милях отсюда."
@@ -1144,7 +1161,8 @@ label khouse_whir: # Что произошло в ресторане?
             mc "Ясно, спасибо за помощь следствию, мистер Ричардс."
             kyle "Рад помочь."
             $unlock_person("kyle")
-            jump evidence_exchange
+            $character_interviewed("kyle")
+            jump evidence_second_exchange
 
 label evidence_exchange:
     play music "music/solving_the_crime.mp3" fadein 1.0 fadeout 1.0 loop
@@ -1378,12 +1396,14 @@ label chapter1_good_end:
     "Ещё со школы Луис Веласкес был влюблён в Джейн и следил за ней - об этом писала сама Джейн в дневнике. «Вечно где-то рядом: у колледжа, у дома, даже когда я с подругами иду за кофе. Он думает, что если будет везде появляться, то я “передумаю”»"
     "Он устроился помощником к матери в ресторан, где позже Джейн ужинала с Джеймсом Майерсом. Когда увидел её вместе с другим - в тот день, когда Майерс готовил предложение, - в нём сорвало предохранитель. Он украл из материнской шкатулки копию фамильного кольца и отправился за Джейн. "
     "После ухода Майерса он перехватил её у чёрного входа ресторана, встал на одно колено и в третий раз за день предложил ей выйти замуж. Получив отказ, он сорвал кольцо ей с пальца, поцарапав безымянный, и шепнул: «Теперь шрам останется навсегда». Когда Джейн закричала, он задушил её шарфом и сбросил тело в реку. Задолго до этого родители Джейн получили звонок: «Стань моей… я буду тебя любить…». Голос с испанским акцентом записался на автоответчик."
-    "Его нашли через сравнение показаний в дневнике и университетских фотоальбомов: кучерявый «Велик» из списка сотрудников совпал с одноклассником Джейн. При задержании в кармане нашли украденное кольцо и мобильник с несколькими черновиками звонков на номер Лоуренсов. Дело Джейн Лоуренс закрыто. Наконец найден тот, кому Джуди просила передать “привет”."
     
+    "Его нашли через сравнение показаний в дневнике и университетских фотоальбомов: кучерявый «Велик» из списка сотрудников совпал с одноклассником Джейн. При задержании в кармане нашли украденное кольцо и мобильник с несколькими черновиками звонков на номер Лоуренсов. Дело Джейн Лоуренс закрыто. Наконец найден тот, кому Джуди просила передать “привет”."
+    $ togle_first_try(True)
     scene expression im.Scale("images/locations/right_end_busted.jpg",
         config.screen_width, config.screen_height) with dissolve
-    $ unlock_achievement( "acquaintances", "1.2", "Вы получили достижение!")
     "Справедливость восторжествовала."
+    $ unlock_achievement( "acquaintances", "1.2", "Вы получили достижение!")
+    
     
 
     return
@@ -1402,7 +1422,7 @@ label chapter1_wrong_end:
         config.screen_width, config.screen_height) with dissolve
 
     "Убийца все еще на свободе."
-
+    $togle_first_try()
     call screen SuspectAccuseRetryConfirm
     return
 
