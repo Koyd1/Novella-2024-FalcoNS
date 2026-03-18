@@ -611,6 +611,8 @@ label hospital:
             jump hosp_oc
 
 label hosp_lms: # Давайте посмотрю
+    scene corpse_hospital
+    with dissolve
     dr_andrews "Смерть наступила около полуночи вследствие убийства. Следов сескуального насилия не обнаружено."
     dr_andrews "Но вот с отпечатками я помочь не смогу - вода все смыла."    
     mc "Убийством называешь из-за порезов на руках?"
@@ -620,6 +622,9 @@ label hosp_lms: # Давайте посмотрю
         " "
         "В легких нет воды?":
             dr_andrews "Бинго, агент Картер! Приятно иметь с Вами дело."
+            scene hospital
+            with dissolve 
+            show dr_andrews at halfed
             jump hosp_lm
         "Ближе к делу, Эндрюс":
             $ unlock_achievement( "leadership", "5.4", "Вы получили достижение!")
@@ -627,6 +632,9 @@ label hosp_lms: # Давайте посмотрю
             mc "Мне не до шуток."
             dr_andrews "А зря, с такой работой без шуток долго не прожить."
             mc "Дальше?"
+            scene hospital
+            with dissolve 
+            show dr_andrews at halfed
             jump hosp_lm
 
 label hosp_oc: # Только заключение
