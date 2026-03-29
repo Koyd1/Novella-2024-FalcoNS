@@ -180,6 +180,7 @@ init python:
             clue["locked"] = False
             clue_name = clue.get("name", key)
             image_path = clue.get("image_path", None)
+            unlocked_clues.append(clue)
 
             if image_path:
                 renpy.show_screen("unlock_notification", name=clue_name, image_path=image_path)
@@ -314,7 +315,7 @@ default clues = {
     "victim_photo" : {
         "name": "Фото Жертвы", 
         "image_path": "images/clues/victim_photo.png",
-        "description": "Фотография победительницы конкурса «Мисс Университет»: жертва с короной, именным кольцом и короной, подтверждающими главный приз и право участия в «Мисс Штат», при этом победу многие считали купленной и незаслуженной.",
+        "description": "Победительница конкурса «Мисс Университет»: жертва с именным кольцом и короной, подтверждающими главный приз и право участия в «Мисс Штат». Победу многие считали купленной и незаслуженной.",
         "locked": True
     },
     "corpse" : {
@@ -353,8 +354,8 @@ default clues = {
         "description": "Одежда, в которой была найдена жертва. Сумка с личными вещами, которая была при жертве в день убийства, так и не была найдена.",
         "locked": True
     }
-
 }
+default unlocked_clues = [] # List of unlocked clues, for sorting in notebook
 
 default selected_person = ""
 default directions = {
@@ -873,12 +874,13 @@ screen Team_notebook():
 
 
 screen Clues_notebook():
-    default max_pages = 0
-    default unlocked_clues = [c for c in clues.values() if not c.get("locked", True)]
+    # default unlocked_clues = [c for c in clues.values() if not c.get("locked", True)]
     # default unlocked_clues = [c for c in clues.values()]
+    # default unlocked_clues = [c for c in unlocked_clues.values() if not c.get("locked", True)]
     default clues_count_per_page = 3
     default total_clues = len(unlocked_clues)
-    default max_pages = max(0, (total_clues - 1) // max_persons_per_page)
+    # default max_pages = max(0, (total_clues - 1) // max_persons_per_page)
+    default max_pages = max(0, (total_clues - 1) // clues_count_per_page)
     $ max_left_box_height = 650
     $ max_right_box_height = 675
 
@@ -920,14 +922,15 @@ screen Clues_notebook():
                     spacing 20
                     text clue["name"]:
                         color "#000000"
-                        size 28
+                        size 20 #28
                         bold True
                     text clue["description"]:
                         color "#000000"
                         size 22
                         xmaximum 410
-                    image "images/notebook/clue_line.png":
-                        xsize 390
+                    if clue != clues_dict_per_page[-1]:
+                        image "images/notebook/clue_line.png":
+                            xsize 390
                     
 
     # Right Page
