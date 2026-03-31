@@ -353,6 +353,150 @@ default clues = {
         "image_path": "images/clues/clothes.jpg",
         "description": "Одежда, в которой была найдена жертва. Сумка с личными вещами, которая была при жертве в день убийства, так и не была найдена.",
         "locked": True
+    },
+    "hospital1" : {
+        "name": "Запись из больницы",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Смерть наступила от удушения, но в легких нет воды.\nШарф жертвы - орудие убийства.\nТолько один из порезов на руках был сделан при жизни девушки - тот, что на безымянном пальце.\nНет следов сексуального насилия.",
+        "locked": True
+    },
+    "parents_house1" : {
+        "name": "Запись из дома родителей",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Родители Джейн получали странные звонки после расставания 'Стань моей, я буду тебя любить' от парня с иностранным говором\nДжейн выиграла кольцо мисс Университет, с которым должна была пройти на конкурс мисс Штат, который когда-то не выиграла ее мать",
+        "locked": True
+    },
+    "parents_house2" : {
+        "name": "Запись из дома родителей",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Родители сказали, что со своего совершеннолетия Джейн жила с парнем Кайлом на Марч-драйв 77\nДжейн часто ругалась со своим парнем и даже однажды уехала от него к родителям, но уже через неделю вернулась",
+        "locked": True
+    },
+    "parents_house_black" : {
+        "name": "Запись из дома родителей",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Мистер и Миссис Лоуренс сожалеют о невыигранных конкурсах, а не о потере дочери.",
+        "locked": True
+    },
+    "university1" : {
+        "name": "Запись из университета",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Леони Джонс стала вице-мисс Университет, и теперь титул и награда перейдут ей",
+        "locked": True
+    },
+    "university2" : {
+        "name": "Запись из университета",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Цитата Джуди - 'Собиралась со своим хахалем в ресторан на Блинк-роуд. Наследник папиного бизнеса - всё как она любит. Велик ей не нравится, подавай Роллс-Ройс.'",
+        "locked": True
+    },
+    "university3" : {
+        "name": "Запись из университета",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Джейн была в вечер смерти на свидании в ресторане на Блинк-роуд со своим парнем, который живет на Армори-стрит 19”",
+        "locked": True
+    },
+    "university4" : {
+        "name": "Запись из университета",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Парня, которому Джуди хотела передать привет, видели в университете, но он ускорил шаг и ушел.",
+        "locked": True
+    },
+    "university_phil" : {
+        "name": "Запись из университета",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Семья девушки покупала ей места на конкурсах красоты для удовлетворения амбиций матери",
+        "locked": True
+    },
+    "university_casey" : {
+        "name": "Запись из университета",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Цитата Джуди - 'Будь у меня побольше свободного времени, повод и хорошее алиби, я бы тоже с ней расправилась'",
+        "locked": True
+    },
+    "restaurant1" : {
+        "name": "Запись из ресторана",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Джейн собирались сделать предложение, но оно сорвалось\nЧеловек, который сорвал предложение, тоже был с кольцом",
+        "locked": True
+    },
+    "restaurant2" : {
+        "name": "Запись из ресторана",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "У владелицы ресторана Миссис Веласкес украли кольцо - копию семейной реликвии, но даже ее сын не знает, что это копия.",
+        "locked": True
+    },
+    "restaurant_casey" : {
+        "name": "Запись из ресторана",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Спутник ушел один сразу после скандала.",
+        "locked": True
+    },
+    "restaurant_phil" : {
+        "name": "Запись из ресторана",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Недавно был уволен работник кухни за воровство, хотя он так и не признал это.",
+        "locked": True
+    },
+    "james_house1" : {
+        "name": "Запись из дома Джеймса",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Джеймс собирался сделать предложение, но после скандала оставил ее одну в ресторане",
+        "locked": True
+    },
+    "james_house2" : {
+        "name": "Запись из дома Джеймса",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "После недели жизни у родителей она уехала не к бывшему, а к Джеймсу\nДжейн и Джеймс встречались 3 месяца\nДжеймс не знает Джуди",
+        "locked": True
+    },
+    "james_house_govard" : {
+        "name": "Запись из дома Джеймса",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "У Джеймса отсутствует алиби.",
+        "locked": True
+    },
+    "james_house_casey" : {
+        "name": "Запись из дома Джеймса",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Джейн не хотела знакомить Джеймса с родителями.",
+        "locked": True
+    },
+    "james_house_phil" : {
+        "name": "Запись из дома Джеймса",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Джеймс выгорел от жизни и просто искал новых ощущений и тепла от молоденькой девочки.",
+        "locked": True
+    },
+    "kyle_house1" : {
+        "name": "Запись из дома Кайла",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Бывший парень Джейн поехал на озеро Ист-Спринг после инцидента в ресторане, но никто не может это подтвердить\n3-4 месяца назад Кайл уехал на чемпионат по футболу и Джейн восприняла это как предательство",
+        "locked": True
+    },
+    "kyle_house2" : {
+        "name": "Запись из дома Кайла",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Кайл смог найти Джейн с помощью Джуди и поехал делать ей предложение - тогда они увиделись впервые после его отъезда\nУ Кайла нет контактов родителей Джейн",
+        "locked": True
+    },
+    "kyle_house_govard" : {
+        "name": "Запись из дома Кайла",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Кайл был защитником безопасности Джейн от многолетнего сталкерства со стороны парней.",
+        "locked": True
+    },
+    "kyle_house_casey" : {
+        "name": "Запись из дома Кайла",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "У Джейн был нервный срыв из-за конкурса красоты в отсутствие Кайла.",
+        "locked": True
+    },
+    "kyle_house_phil" : {
+        "name": "Запись из дома Кайла",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Джейн с детства терпела тиранию и контроль со стороны матери.",
+        "locked": True
     }
 }
 default unlocked_clues = [] # List of unlocked clues, for sorting in notebook
@@ -960,6 +1104,13 @@ screen Clues_notebook():
                             ysize 192
                             background Frame("images/notebook/photo_frame.png", 10, 10)
                             add Transform(clue["image_path"], xysize=(140,192), fit="contain", align=(0.5,0.5))
+                            button:
+                                xfill True
+                                yfill True
+                                background None
+                                hover_background None
+                                # hovered [Play("sound", button_menu_hovered)]
+                                action[Play("sound", button_click), Show("clue_large", image_path=clue["image_path"]), With(dissolve)]
                     else:
                         frame:
                             xpos 1.0
@@ -967,6 +1118,13 @@ screen Clues_notebook():
                             ysize 192
                             background Frame("images/notebook/photo_frame.png", 10, 10)
                             add Transform(clue["image_path"], xysize=(140,200), fit="contain", align=(0.5,0.5))
+                            button:
+                                xfill True
+                                yfill True
+                                background None
+                                hover_background None
+                                # hovered [Play("sound", button_menu_hovered)]
+                                action[Play("sound", button_click), Show("clue_large", image_path=clue["image_path"]), With(dissolve)]
                             
     if cur_page > 0:
         imagebutton:
@@ -983,6 +1141,32 @@ screen Clues_notebook():
             action [Play("sound", notebook_click), SetVariable("cur_page", cur_page+1)]
 
     # use notebook_icon
+
+##
+screen clue_large(image_path):
+    modal True
+    zorder 101
+    add Solid("#00000080")
+
+    frame:
+        xalign 0.5
+        yalign 0.5
+        background Frame("images/notebook/photo_frame.png", 10, 10)
+
+        fixed:
+            fit_first True
+            add image_path:
+                xsize int(config.screen_width * 0.4)
+                ysize int(config.screen_height * 0.4)
+                fit "contain"
+
+            imagebutton:
+                    ypos 5
+                    xalign 0.98
+                    idle "gui/overlay/close_idle.png"
+                    hover "gui/overlay/close_hover.png"
+                    hovered [Play("sound", button_menu_hovered)]
+                    action [Play("sound", button_click), Hide("clue_large"), With(dissolve)]
 
 ##Choice screen ################################################################
       
