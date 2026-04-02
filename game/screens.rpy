@@ -497,6 +497,216 @@ default clues = {
         "image_path" : "images/clues/pencil.jpg",
         "description" : "Джейн с детства терпела тиранию и контроль со стороны матери.",
         "locked": True
+    },
+    "hospital_mc1" : {
+        "name": "Запись из больницы",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Смерть наступила от удушения, но в легких нет воды.",
+        "locked": True
+    },
+    "hospital_mc2" : {
+        "name": "Запись из больницы",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Шарф жертвы - орудие убийства.",
+        "locked": True
+    },
+    "hospital_mc3" : {
+        "name": "Запись из больницы",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Только один из порезов на руках был сделан при жизни девушки - тот, что на безымянном пальце.",
+        "locked": True
+    },
+    "hospital_mc4" : {
+        "name": "Запись из больницы",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Нет следов сексуального насилия.",
+        "locked": True
+    },
+    "parents_house_mc1" : {
+        "name": "Запись из дома родителей",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Родители Джейн получали странные звонки после расставания 'Стань моей, я буду тебя любить' от парня с иностранным говором.",
+        "locked": True
+    },
+    "parents_house_mc2" : {
+        "name": "Запись из дома родителей",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Джейн выиграла кольцо мисс Университет, с которым должна была пройти на конкурс мисс Штат, который когда-то не выиграла ее мать.",
+        "locked": True
+    },
+    "parents_house_mc3" : {
+        "name": "Запись из дома родителей",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Родители сказали, что со своего совершеннолетия Джейн жила с парнем Кайлом на Марч-драйв 77.",
+        "locked": True
+    },
+    "parents_house_mc4" : {
+        "name": "Запись из дома родителей",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Джейн часто ругалась со своим парнем и даже однажды уехала от него к родителям, но уже через неделю вернулась.",
+        "locked": True
+    },
+    "parents_house_mc5" : {
+        "name": "Запись из дома родителей",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Мистер и Миссис Лоуренс сожалеют о невыигранных конкурсах, а не о потере дочери.",
+        "locked": True
+    },
+    "university_mc1" : {
+        "name": "Запись из университета",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Семья девушки покупала ей места на конкурсах красоты для удовлетворения амбиций матери.",
+        "locked": True
+    },
+    "university_mc2" : {
+        "name": "Запись из университета",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Цитата Джуди - “Будь у меня побольше свободного времени, повод и хорошее алиби, я бы тоже с ней расправилась”",
+        "locked": True
+    },
+    "university_mc3" : {
+        "name": "Запись из университета",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "О Джейн ходит слава доступной девушки.",
+        "locked": True
+    },
+    "university_mc4" : {
+        "name": "Запись из университета",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Леони Джонс стала вице-мисс Университет, и теперь титул и награда перейдут ей.",
+        "locked": True
+    },
+    "university_mc5" : {
+        "name": "Запись из университета",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Джейн была в вечер смерти на свидании в ресторане на Блинк-роуд со своим парнем, который живет на Армори-стрит 19”",
+        "locked": True
+    },
+    "university_mc6" : {
+        "name": "Запись из университета",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Цитата Джуди - 'Собиралась со своим хахалем в ресторан на Блинк-роуд. Наследник папиного бизнеса - всё как она любит. Велик ей не нравится, подавай Роллс-Ройс. Жалко парня, передайте ему привет, если будете допрашивать.'",
+        "locked": True
+    },
+    "university_mc7" : {
+        "name": "Запись из университета",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Парня, которому Джуди хотела передать привет, видели в университете, но он ускорил шаг и ушел.",
+        "locked": True
+    },
+    "restaurant_mc1" : {
+        "name": "Запись из ресторана",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Спутник ушел один сразу после скандала.",
+        "locked": True
+    },
+    "restaurant_mc2" : {
+        "name": "Запись из ресторана",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Человек, который сорвал предложение, тоже был с кольцом.",
+        "locked": True
+    },
+    "restaurant_mc3" : {
+        "name": "Запись из ресторана",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Недавно был уволен работник кухни за воровство, хотя он так и не признал это.",
+        "locked": True
+    },
+    "restaurant_mc4" : {
+        "name": "Запись из ресторана",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Джейн собирались сделать предложение, но оно сорвалось.",
+        "locked": True
+    },
+    "restaurant_mc5" : {
+        "name": "Запись из ресторана",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "У владелицы ресторана Миссис Веласкес украли кольцо - копию семейной реликвии, но даже ее сын не знает, что это копия.",
+        "locked": True
+    },
+    "kyle_house_mc1" : {
+        "name": "Запись из дома Кайла",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Кайл был защитником безопасности Джейн от многолетнего сталкерства со стороны парней.",
+        "locked": True
+    },
+    "kyle_house_mc2" : {
+        "name": "Запись из дома Кайла",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "У Джейн был нервный срыв из-за конкурса красоты в отсутствие Кайла.",
+        "locked": True
+    },
+    "kyle_house_mc3" : {
+        "name": "Запись из дома Кайла",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Джейн с детства терпела тиранию и контроль со стороны матери.",
+        "locked": True
+    },
+    "kyle_house_mc4" : {
+        "name": "Запись из дома Кайла",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Бывший парень Джейн поехал на озеро Ист-Спринг после инцидента в ресторане, но никто не может это подтвердить.",
+        "locked": True
+    },
+    "kyle_house_mc5" : {
+        "name": "Запись из дома Кайла",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "3-4 месяца назад Кайл уехал на чемпионат по футболу и Джейн восприняла это как предательство.",
+        "locked": True
+    },
+    "kyle_house_mc6" : {
+        "name": "Запись из дома Кайла",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Кайл смог найти Джейн с помощью Джуди и поехал делать ей предложение - тогда они увиделись впервые после его отъезда.",
+        "locked": True
+    },
+    "kyle_house_mc7" : {
+        "name": "Запись из дома Кайла",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "У Кайла нет контактов родителей Джейн.",
+        "locked": True
+    },
+    "james_house_mc1" : {
+        "name": "Запись из дома Джеймса",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "У Джеймса отсутствует алиби.",
+        "locked": True
+    },
+    "james_house_mc2" : {
+        "name": "Запись из дома Джеймса",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Джейн не хотела знакомить Джеймса с родителями.",
+        "locked": True
+    },
+    "james_house_mc3" : {
+        "name": "Запись из дома Джеймса",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Джеймс выгорел от жизни и просто искал новых ощущений и тепла от молоденькой девочки.",
+        "locked": True
+    },
+    "james_house_mc4" : {
+        "name": "Запись из дома Джеймса",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Джеймс собирался сделать предложение, но после скандала оставил ее одну в ресторане.",
+        "locked": True
+    },
+    "james_house_mc5" : {
+        "name": "Запись из дома Джеймса",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "После недели жизни у родителей она уехала не к бывшему, а к новому парню.",
+        "locked": True
+    },
+    "james_house_mc6" : {
+        "name": "Запись из дома Джеймса",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Джейн и Джеймс встречались 3 месяца.",
+        "locked": True
+    },
+    "james_house_mc7" : {
+        "name": "Запись из дома Джеймса",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Джеймс не знает Джуди.",
+        "locked": True
     }
 }
 default unlocked_clues = [] # List of unlocked clues, for sorting in notebook
@@ -1156,8 +1366,8 @@ screen clue_large(image_path):
         fixed:
             fit_first True
             add image_path:
-                xsize int(config.screen_width * 0.4)
-                ysize int(config.screen_height * 0.4)
+                xsize int(config.screen_width * 0.6)
+                ysize int(config.screen_height * 0.6)
                 fit "contain"
 
             imagebutton:
