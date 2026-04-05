@@ -4,6 +4,19 @@
 ## them. Lines beginning with a single '#' mark are commented-out code, and you
 ## may want to uncomment them when appropriate.
 
+define config.has_autosave = False
+define config.has_quicksave = False
+define config.autosave_on_quit = False
+define config.autosave_on_choice = False
+
+define config.quit_action = Quit(confirm=False)
+
+## GUI buttons click/hovered sound effects
+## Contains path to sound effects used
+define button_menu_hovered = "/sounds/button_hover_menu.mp3"
+define button_click = "/sounds/button_click.mp3"
+define map_hover_sound = "/sounds/hover_map.mp3"
+define notebook_click = "/sounds/notebook_click.mp3"
 
 ## Basics ######################################################################
 
@@ -48,7 +61,7 @@ define build.name = "NovellaProj"
 
 define config.has_sound = True
 define config.has_music = True
-define config.has_voice = True
+# define config.has_voice = True
 
 
 ## To allow the user to play a test sound on the sound or voice channel,
@@ -62,7 +75,7 @@ define config.has_voice = True
 ## the player is at the main menu. This file will continue playing into the
 ## game, until it is stopped or another file is played.
 
-# define config.main_menu_music = "main-menu-theme.ogg"
+define config.main_menu_music = "music/preview.mp3"
 
 
 ## Transitions #################################################################
@@ -195,6 +208,9 @@ init python:
     build.documentation('*.html')
     build.documentation('*.txt')
 
+## Customize the keymap
+init python:
+    config.keymap["hide_windows"].remove("mouseup_2")
 
 ## A Google Play license key is required to perform in-app purchases. It can be
 ## found in the Google Play developer console, under "Monetize" > "Monetization

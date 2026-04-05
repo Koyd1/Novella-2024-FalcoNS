@@ -28,7 +28,9 @@ define config.check_conflicting_properties = True
 define gui.accent_color = u'#003366'
 
 ## The color used for a text button when it is neither selected nor hovered.
-define gui.idle_color = u'#707070'
+# define gui.idle_color = u'#707070'
+# define gui.idle_color = u"#D9D9D9"
+define gui.idle_color = u"#131212"
 
 ## The small color is used for small text, which needs to be brighter/darker to
 ## achieve the same effect.
@@ -50,20 +52,23 @@ define gui.muted_color = u'#6684a3'
 define gui.hover_muted_color = u'#99adc1'
 
 ## The colors used for dialogue and menu choice text.
-define gui.text_color = u'#404040'
+# define gui.text_color = u'#404040'
+define gui.text_color = u"#FFFFFF"
 define gui.interface_text_color = u'#404040'
 
 
 ## Fonts and Font Sizes ########################################################
 
 ## The font used for in-game text.
-define gui.text_font = "DejaVuSans.ttf"
+# define gui.text_font = "DejaVuSans.ttf"
+define gui.text_font = "fonts/Philosopher-Regular.ttf"
 
 ## The font used for character names.
-define gui.name_text_font = "DejaVuSans.ttf"
+# define gui.name_text_font = "DejaVuSans.ttf"
+define gui.name_text_font = "fonts/Philosopher-Bold.ttf"
 
 ## The font used for out-of-game text.
-define gui.interface_text_font = "DejaVuSans.ttf"
+define gui.interface_text_font = "fonts/Philosopher-Bold.ttf"
 
 ## The size of normal dialogue text.
 define gui.text_size = 33
@@ -204,15 +209,23 @@ define gui.quick_button_text_selected_color = gui.accent_color
 ##
 ## Choice buttons are used in the in-game menus.
 
-define gui.choice_button_width = 1185
-define gui.choice_button_height = None
+# define gui.choice_button_width = 500
+# define gui.choice_button_height = None
+# define gui.choice_button_text_idle_color = u'#ffffff'
+# define gui.choice_button_text_hover_color = "#ffffff"
+
+# define gui.choice_button_width = 759
+define gui.choice_button_width = 759
+# define gui.choice_button_height = 64
+define gui.choice_button_height = 94
 define gui.choice_button_tile = False
-define gui.choice_button_borders = Borders(150, 8, 150, 8)
-define gui.choice_button_text_font = gui.text_font
-define gui.choice_button_text_size = gui.text_size
+# define gui.choice_button_borders = Borders(150, 8, 150, 8)
+define gui.choice_button_text_font = gui.name_text_font
+define gui.choice_button_text_size = 46
 define gui.choice_button_text_xalign = 0.5
-define gui.choice_button_text_idle_color = u'#707070'
-define gui.choice_button_text_hover_color = "#ffffff"
+define gui.choice_button_text_yalign = 0.5
+define gui.choice_button_text_idle_color = "#0E0C0F"
+define gui.choice_button_text_hover_color = "#0E0C0F"
 define gui.choice_button_text_insensitive_color = u'#7070707f'
 
 
@@ -248,10 +261,12 @@ define gui.file_slot_rows = 2
 
 ## The position of the left side of the navigation buttons, relative to the left
 ## side of the screen.
-define gui.navigation_xpos = 60
+define gui.navigation_xpos = 200
 
 ## The vertical position of the skip indicator.
-define gui.skip_ypos = 15
+# define gui.skip_ypos = 15
+define gui.skip_xpos = 15
+define gui.skip_ypos = 90
 
 ## The vertical position of the notify screen.
 define gui.notify_ypos = 68
@@ -310,7 +325,7 @@ define gui.frame_tile = False
 ## bars, scrollbars, and sliders.
 define gui.bar_size = 38
 define gui.scrollbar_size = 18
-define gui.slider_size = 38
+define gui.slider_size = 60
 
 ## True if bar images should be tiled. False if they should be linearly scaled.
 define gui.bar_tile = False
