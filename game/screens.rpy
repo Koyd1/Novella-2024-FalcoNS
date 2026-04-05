@@ -104,7 +104,7 @@ screen unlock_notification(name, image_path):
         xfill False
 
         hbox:
-            spacing 20
+            spacing 10
             add Transform(image_path, xysize=(70, 70), fit="contain")
             text f"Добавлена информация: {{b}}{name}!{{/b}}":
                 color "#ffffff"
@@ -357,19 +357,37 @@ default clues = {
     "hospital1" : {
         "name": "Запись из больницы",
         "image_path" : "images/clues/pencil.jpg",
-        "description" : "Смерть наступила от удушения, но в легких нет воды.\nШарф жертвы - орудие убийства.\nТолько один из порезов на руках был сделан при жизни девушки - тот, что на безымянном пальце.\nНет следов сексуального насилия.",
+        "description" : "Смерть наступила от удушения, но в легких нет воды.\nШарф жертвы - орудие убийства.",
         "locked": True
     },
-    "parents_house1" : {
-        "name": "Запись из дома родителей",
+    "hospital2" : {
+        "name": "Запись из больницы",
         "image_path" : "images/clues/pencil.jpg",
-        "description" : "Родители Джейн получали странные звонки после расставания 'Стань моей, я буду тебя любить' от парня с иностранным говором\nДжейн выиграла кольцо мисс Университет, с которым должна была пройти на конкурс мисс Штат, который когда-то не выиграла ее мать",
+        "description" : "Только один из порезов на руках был сделан при жизни девушки - тот, что на безымянном пальце.\nНет следов сексуального насилия.",
         "locked": True
     },
-    "parents_house2" : {
+    "parents_house1_1" : {
         "name": "Запись из дома родителей",
         "image_path" : "images/clues/pencil.jpg",
-        "description" : "Родители сказали, что со своего совершеннолетия Джейн жила с парнем Кайлом на Марч-драйв 77\nДжейн часто ругалась со своим парнем и даже однажды уехала от него к родителям, но уже через неделю вернулась",
+        "description" : "Родители Джейн получали странные звонки после расставания 'Стань моей, я буду тебя любить' от парня с иностранным говором",
+        "locked": True
+    },
+    "parents_house1_2" : {
+        "name": "Запись из дома родителей",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Джейн выиграла кольцо мисс Университет, с которым должна была пройти на конкурс мисс Штат, который когда-то не выиграла ее мать",
+        "locked": True
+    },
+    "parents_house2_1" : {
+        "name": "Запись из дома родителей",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Родители сказали, что со своего совершеннолетия Джейн жила с парнем Кайлом на Марч-драйв 77",
+        "locked": True
+    },
+    "parents_house2_2" : {
+        "name": "Запись из дома родителей",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Джейн часто ругалась со своим парнем и даже однажды уехала от него к родителям, но уже через неделю вернулась",
         "locked": True
     },
     "parents_house_black" : {
@@ -384,10 +402,16 @@ default clues = {
         "description" : "Леони Джонс стала вице-мисс Университет, и теперь титул и награда перейдут ей",
         "locked": True
     },
-    "university2" : {
+    "university2_1" : {
         "name": "Запись из университета",
         "image_path" : "images/clues/pencil.jpg",
-        "description" : "Цитата Джуди - 'Собиралась со своим хахалем в ресторан на Блинк-роуд. Наследник папиного бизнеса - всё как она любит. Велик ей не нравится, подавай Роллс-Ройс.'",
+        "description" : "Цитата Джуди - 'Собиралась со своим хахалем в ресторан на Блинк-роуд. Наследник папиного бизнеса - всё как она любит.'",
+        "locked": True
+    },
+    "university2_2" : {
+        "name": "Запись из университета",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "'Велик ей не нравится, подавай Роллс-Ройс.'",
         "locked": True
     },
     "university3" : {
@@ -420,10 +444,16 @@ default clues = {
         "description" : "Джейн собирались сделать предложение, но оно сорвалось\nЧеловек, который сорвал предложение, тоже был с кольцом",
         "locked": True
     },
-    "restaurant2" : {
+    "restaurant2_1" : {
         "name": "Запись из ресторана",
         "image_path" : "images/clues/pencil.jpg",
-        "description" : "У владелицы ресторана Миссис Веласкес украли кольцо - копию семейной реликвии, но даже ее сын не знает, что это копия.",
+        "description" : "У владелицы ресторана Миссис Веласкес украли кольцо - копию семейной реликвии,",
+        "locked": True
+    },
+    "restaurant2_2" : {
+        "name": "Запись из ресторана",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "но даже ее сын не знает, что это копия.",
         "locked": True
     },
     "restaurant_casey" : {
@@ -444,10 +474,16 @@ default clues = {
         "description" : "Джеймс собирался сделать предложение, но после скандала оставил ее одну в ресторане",
         "locked": True
     },
-    "james_house2" : {
+    "james_house2_1" : {
         "name": "Запись из дома Джеймса",
         "image_path" : "images/clues/pencil.jpg",
-        "description" : "После недели жизни у родителей она уехала не к бывшему, а к Джеймсу\nДжейн и Джеймс встречались 3 месяца\nДжеймс не знает Джуди",
+        "description" : "После недели жизни у родителей она уехала не к бывшему, а к Джеймсу\nДжейн и Джеймс встречались 3 месяца",
+        "locked": True
+    },
+    "james_house2_2" : {
+        "name": "Запись из дома Джеймса",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Джеймс не знает Джуди",
         "locked": True
     },
     "james_house_govard" : {
@@ -468,16 +504,28 @@ default clues = {
         "description" : "Джеймс выгорел от жизни и просто искал новых ощущений и тепла от молоденькой девочки.",
         "locked": True
     },
-    "kyle_house1" : {
+    "kyle_house1_1" : {
         "name": "Запись из дома Кайла",
         "image_path" : "images/clues/pencil.jpg",
-        "description" : "Бывший парень Джейн поехал на озеро Ист-Спринг после инцидента в ресторане, но никто не может это подтвердить\n3-4 месяца назад Кайл уехал на чемпионат по футболу и Джейн восприняла это как предательство",
+        "description" : "Бывший парень Джейн поехал на озеро Ист-Спринг после инцидента в ресторане, но никто не может это подтвердить",
         "locked": True
     },
-    "kyle_house2" : {
+    "kyle_house1_2" : {
         "name": "Запись из дома Кайла",
         "image_path" : "images/clues/pencil.jpg",
-        "description" : "Кайл смог найти Джейн с помощью Джуди и поехал делать ей предложение - тогда они увиделись впервые после его отъезда\nУ Кайла нет контактов родителей Джейн",
+        "description" : "3-4 месяца назад Кайл уехал на чемпионат по футболу и Джейн восприняла это как предательство",
+        "locked": True
+    },
+    "kyle_house2_1" : {
+        "name": "Запись из дома Кайла",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "Кайл смог найти Джейн с помощью Джуди и поехал делать ей предложение - тогда они увиделись впервые после его отъезда",
+        "locked": True
+    },
+    "kyle_house2_2" : {
+        "name": "Запись из дома Кайла",
+        "image_path" : "images/clues/pencil.jpg",
+        "description" : "У Кайла нет контактов родителей Джейн",
         "locked": True
     },
     "kyle_house_govard" : {
@@ -501,7 +549,7 @@ default clues = {
     "hospital_mc1" : {
         "name": "Запись из больницы",
         "image_path" : "images/clues/pencil.jpg",
-        "description" : "Смерть наступила от удушения, но в легких нет воды.",
+        "description" : "Смерть наступила от удушения, но в легких нет воды.\nШарф жертвы - орудие убийства.",
         "locked": True
     },
     "hospital_mc2" : {
@@ -1267,13 +1315,13 @@ screen Clues_notebook():
 
         vbox:
             ypos 50
-            spacing 20
+            spacing 15
             $ start_index = cur_page * clues_count_per_page
             $ clues_dict_per_page = unlocked_clues[start_index:start_index + clues_count_per_page]
             
             for clue in clues_dict_per_page:
                 vbox:
-                    spacing 20
+                    spacing 10
                     text clue["name"]:
                         color "#000000"
                         size 20 #28
