@@ -125,7 +125,7 @@ transform notif_slide:
     easeout 0.4 alpha 0.0
 
 screen unlock_notification_achievement(message, title, currentImage):
-    zorder 200  # поверх всего
+    zorder 1100  # поверх всего
     frame:
         at notif_slide
         xalign 0.5
