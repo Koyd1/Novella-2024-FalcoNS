@@ -1,35 +1,34 @@
-2026-04-06 12:48:59 UTC
+2026-04-06 18:51:33 UTC
 macOS-14.5-arm64-arm-64bit
 Ren'Py 8.3.2.24090902
 
-Early init took 0.06s
-Loading error handling took 0.04s
-Loading script took 0.45s
-Loading save slot metadata took 0.03s
+Early init took 0.05s
+Loading error handling took 0.03s
+Loading script took 0.10s
+Loading save slot metadata took 0.01s
 Loading persistent took 0.00s
 Running init code took 0.04s
 Loading analysis data took 0.02s
 Analyze and compile ATL took 0.00s
-Reloading save slot metadata took 0.02s
+Reloading save slot metadata took 0.00s
 Index archives took 0.00s
-Backing up script files to '/Users/rima/Library/RenPy/backups/Novella-2024-FalcoNS':
 Dump and make backups took 0.04s
 Cleaning cache took 0.00s
 Making clean stores took 0.00s
-Initial gc took 0.04s
+Initial gc took 0.03s
 DPI scale factor: 1.000000
 Creating interface object took 0.00s
 Cleaning stores took 0.00s
 Init translation took 0.03s
 Build styles took 0.00s
-Load screen analysis took 0.00s
-Analyze screens took 0.01s
-Save screen analysis took 0.03s
+Load screen analysis took 0.04s
+Analyze screens took 0.00s
+Save screen analysis took 0.00s
 Prepare screens took 0.08s
 Save pyanalysis. took 0.00s
-Save bytecode. took 0.04s
+Save bytecode. took 0.00s
 Running _start took 0.00s
-Interface start took 0.29s
+Interface start took 0.33s
 
 Initializing gl2 renderer:
 primary display bounds: (0, 0, 1440, 900)
@@ -56,23 +55,43 @@ jaclyn
 casey
 govard
 phil
+Resetting cache.
+Early init took 115.62s
+Loading error handling took 0.04s
+Loading script took 0.31s
+Loading save slot metadata took 0.02s
+Loading persistent took 0.00s
+Running init code took 0.03s
+Loading analysis data took 0.02s
+Analyze and compile ATL took 0.00s
+Reloading save slot metadata took 0.02s
+Index archives took 0.00s
+Backing up script files to '/Users/rima/Library/RenPy/backups/Novella-2024-FalcoNS':
+Dump and make backups took 0.04s
+Cleaning cache took 0.00s
+Making clean stores took 0.00s
+Initial gc took 0.05s
+DPI scale factor: 1.000000
+Creating interface object took 0.00s
+Cleaning stores took 0.00s
+Init translation took 0.04s
+Build styles took 0.00s
+Load screen analysis took 0.00s
+Analyze screens took 0.01s
+Save screen analysis took 0.03s
+Prepare screens took 0.08s
+Save pyanalysis. took 0.00s
+Save bytecode. took 0.02s
+Running _start took 0.00s
+Interface start took 0.09s
 
-Full traceback:
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/bootstrap.py", line 359, in bootstrap
-    renpy.main.main()
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/main.py", line 652, in main
-    run(restart)
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/main.py", line 148, in run
-    renpy.execution.run_context(True)
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/execution.py", line 958, in run_context
-    context.run()
-  File "game/script.rpy", line 321, in script
-    call screen Map(chapter1_locs1)
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/script.py", line 1103, in lookup
-    raise ScriptError("could not find label '%s'." % str(original))
-ScriptError: could not find label 'fallback_label'.
-
-While running game code:
-  File "game/script.rpy", line 321, in script
-    call screen Map(chapter1_locs1)
-ScriptError: could not find label 'fallback_label'.
+Initializing gl2 renderer:
+primary display bounds: (0, 0, 1440, 900)
+swap interval: 1 frames
+Windowed mode.
+Vendor: "b'Apple'"
+Renderer: b'Apple M1'
+Version: b'2.1 Metal - 88.1'
+Display Info: None
+Screen sizes: virtual=(1920, 1080) physical=(1338, 753) drawable=(2676, 1506)
+Maximum texture size: 4096x4096

@@ -1,28 +1,26 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script.rpy", line 321, in script
-    call screen Map(chapter1_locs1)
-ScriptError: could not find label 'fallback_label'.
+  File "game/script.rpy", line 504, in script
+    $unlock_clues("parents_house_mc1")
+  File "game/script.rpy", line 504, in <module>
+    $unlock_clues("parents_house_mc1")
+NameError: name 'unlock_clues' is not defined
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/bootstrap.py", line 359, in bootstrap
-    renpy.main.main()
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/main.py", line 652, in main
-    run(restart)
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/main.py", line 148, in run
-    renpy.execution.run_context(True)
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/execution.py", line 958, in run_context
-    context.run()
-  File "game/script.rpy", line 321, in script
-    call screen Map(chapter1_locs1)
-  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/script.py", line 1103, in lookup
-    raise ScriptError("could not find label '%s'." % str(original))
-ScriptError: could not find label 'fallback_label'.
+  File "game/script.rpy", line 504, in script
+    $unlock_clues("parents_house_mc1")
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/ast.py", line 821, in execute
+    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
+  File "/Users/rima/dev/renpy/renpy-8.3.2-sdk/renpy/python.py", line 1178, in py_exec_bytecode
+    exec(bytecode, globals, locals)
+  File "game/script.rpy", line 504, in <module>
+    $unlock_clues("parents_house_mc1")
+NameError: name 'unlock_clues' is not defined
 
 macOS-14.5-arm64-arm-64bit arm64
 Ren'Py 8.3.2.24090902
 NovellaProj 1.0
-Mon Apr  6 15:49:21 2026
+Mon Apr  6 21:47:26 2026
