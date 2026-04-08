@@ -1523,9 +1523,8 @@ label chapter1_good_end:
     $ togle_first_try(True)
     scene expression im.Scale("images/locations/right_end_busted.jpg",
         config.screen_width, config.screen_height) with dissolve
-    "Справедливость восторжествовала."
     $ unlock_achievement( "acquaintances", "1.2", "Вы получили достижение!")
-    
+    "Справедливость восторжествовала."
     
 
     return

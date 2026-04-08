@@ -818,9 +818,13 @@ screen confirm_map_button(locs):
         yalign 0.97
         idle "images/map/confirm.png"
         action If(
-            all_active_locations_assigned(locs, directions),
-            true = [SetVariable("quick_menu", True), Jump(rus_to_eng_locs.get(directions["jaclyn"], "fallback_label"))],
-            false = Notify("Каждая открытая локация должна быть занята агентом!")
+            directions["jaclyn"] == "",
+            true = Notify("Главный герой должен быть отправлен на одну из локаций!"),
+            false = If(
+                all_active_locations_assigned(locs, directions),
+                true = [SetVariable("quick_menu", True), Jump(rus_to_eng_locs.get(directions["jaclyn"], "fallback_label"))],
+                false = Notify("Каждая открытая локация должна быть занята агентом!")
+            )
         )
 
 
